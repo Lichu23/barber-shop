@@ -1,22 +1,22 @@
 export const navigationLinks = [
   {
-    href: "#inicio",
+    href: "/#inicio",
     label: "Inicio",
   },
   {
-    href: "#galeria",
+    href: "/#galeria",
     label: "Galería",
   },
   {
-    href: "#servicios",
+    href: "/#servicios",
     label: "Servicios",
   },
   {
-    href: "#reservar",
+    href: "/reservation",
     label: "Reservar",
   },
   {
-    href: "#contacto",
+    href: "/#contacto",
     label: "Contacto",
   },
 ]

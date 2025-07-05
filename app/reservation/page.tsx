@@ -1,4 +1,4 @@
-import { ReservationView } from "./components/ReservationView";
+import { ReservationView } from "./components/View/ReservationView";
 import { ReservationProvider } from "./context/ReservationProvider";
 
 export default function Reservation() {

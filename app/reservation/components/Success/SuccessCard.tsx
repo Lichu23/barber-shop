@@ -1,6 +1,6 @@
 "use client"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useReservation } from "../context/ReservationContext";
+import { useReservation } from "../../context/ReservationContext";
 
 export const SuccessCard = () => {
   const {bookingData} = useReservation()
@@ -11,14 +11,14 @@ export const SuccessCard = () => {
       <CardHeader>
         <CardTitle>Cita Reservada correctamente</CardTitle>
       </CardHeader>
-      <CardContent>
-        <h2>Detalles de tu cita</h2> 
+      <CardContent className="flex flex-col gap-5">
+        <h2 className="font-bold text-xl">Detalles de tu cita:</h2> 
         <p><strong>Servicio:</strong> {bookingData?.service}</p>
         <p><strong>Horario de la cita:</strong>{bookingData?.time} </p>
         <p><strong>Confirmación enviada a:</strong>  {bookingData?.email}</p>
         <p>
-        <strong>Dirección:</strong> 
-        <a href={chikyDireccion} target="_blank">
+        <strong>Dirección: </strong> 
+        <a className="text-blue-400" href={chikyDireccion} target="_blank">
             Carrer d'Elkano, 82 Bjs Sants-Montjuïc, 08004 Barcelona
         </a>
         </p>

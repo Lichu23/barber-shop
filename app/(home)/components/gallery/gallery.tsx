@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { haircuts } from "@/constants/gallery"
-import DesktopCarousel from "@/components/gallery/desktop-carousel"
-import MobileCarousel from "@/components/gallery/mobile-carousel"
+import DesktopCarousel from "@/app/(home)/components/gallery/desktop-carousel"
+import MobileCarousel from "@/app/(home)/components/gallery/mobile-carousel"
 
 export default function Gallery() {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -21,7 +21,7 @@ export default function Gallery() {
   }
 
   return (
-    <section id="galeria" className="py-20 bg-gradient-to-b from-white to-pink-50">
+    <section id="galeria" className="py-20">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-800">Nuestros Trabajos</h2>

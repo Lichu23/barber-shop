@@ -2,32 +2,15 @@
 
 import { saveBooking } from "@/app/reservation/actions";
 import { useReservation } from "@/app/reservation/context/ReservationContext";
-import { formatDate } from "@/app/utils/formatDate";
-import { revalidatePath } from "next/cache";
+import { FormValues } from "@/schema/reservationSchema";
 import { useState } from "react";
 
-type UseBookingFormProps = {
-  fullName: string;
-  phoneNumber: number;
-  email: string;
-  selectService: string;
-  bookingDate: Date | null;
-  appointmentTime: string;
-};
-
-export const useBookingForm = ({
-  fullName,
-  phoneNumber,
-  email,
-  selectService,
-  bookingDate,
-  appointmentTime,
-}: UseBookingFormProps) => {
+export const useBookingForm = () => {
   const { setSuccess, setBookingData } = useReservation();
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
 
-  async function handleSaveBooking(formData: FormData) {
+  async function handleSaveBooking(formData: FormValues) {
     try {
       setLoading(true);
       const result = await saveBooking(formData);
@@ -37,21 +20,15 @@ export const useBookingForm = ({
         setSuccess(false);
         return;
       }
-      setBookingData({
-        fullName,
-        phoneNumber,
-        email,
-        service: selectService,
-        date: formatDate(bookingDate),
-        time: appointmentTime,
-      });
-      setMsg("Usuario creado correctamente")
-      setSuccess(true)
+      setBookingData({ ...formData });
+      setMsg("Usuario creado correctamente");
+      setSuccess(true);
     } catch (error) {
       console.log(`Hubo un error: ${error}`);
       setSuccess(false);
     } finally {
       setLoading(false);
+      setMsg("Ocurrio un error al subir los datos.")
     }
   }
   return { handleSaveBooking, loading, msg, setMsg };

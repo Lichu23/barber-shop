@@ -7,21 +7,18 @@ import {
 } from "@/components/ui/dialog";
 
 import { ReactNode, useState } from "react";
+import { useReservation } from "../../context/ReservationContext";
 
 interface Props {
   children: ReactNode;
-  title: string;
 }
 
-export const SuccessModal = ({title, children }: Props) => {
-  const [open, setOpen] = useState(false);
-
+export const SuccessModal = ({ children }: Props) => {
+  const {success, setSuccess} = useReservation()
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={success} onOpenChange={setSuccess}>
       <DialogContent className="min-w-3xl">
-        <DialogHeader>
-          <DialogTitle className="font-bold text-md">{title}</DialogTitle>
-        </DialogHeader>
+
         {children}
       </DialogContent>
     </Dialog>

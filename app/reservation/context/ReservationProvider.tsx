@@ -5,7 +5,7 @@ import {ReservationContext} from "./ReservationContext"
 
 export interface BookingData  {
   fullName: string;
-  phoneNumber: number;
+  phoneNumber: string;
   email: string;
   service: string;
   date: string;

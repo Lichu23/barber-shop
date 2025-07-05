@@ -19,7 +19,7 @@ export default function PackageCard({ package: pkg }: PackageCardProps) {
       <CardContent className="text-center">
         <p className="text-gray-600 mb-4">{pkg.description}</p>
         <p className={`text-3xl font-bold ${pkg.priceColor} mb-2`}>{pkg.price}</p>
-        <p className="text-sm text-gray-500">{pkg.savings}</p>
+        <p className="text-sm font-bold text-slate-600">{pkg.savings}</p>
       </CardContent>
     </Card>
   )

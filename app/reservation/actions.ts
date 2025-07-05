@@ -2,17 +2,13 @@
 
 import { ActionResult, Booking } from "@/types/booking";
 import { revalidatePath } from "next/cache";
-import { createServerSupabaseClient } from "../utils/supabase/serverRouteHandler";
+import { createServerSupabaseClient } from "../../utils/supabase/serverRouteHandler";
+import { FormValues } from "@/schema/reservationSchema";
 
 export async function saveBooking(
-  formData: FormData
+  data: FormValues
 ): Promise<ActionResult<Booking>> {
-  const fullName = formData.get("fullName") as string;
-  const phoneNumber = formData.get("phoneNumber") as string;
-  const service = formData.get("service") as string;
-  const date = formData.get("date") as string;
-  const time = formData.get("time") as string;
-  const email = formData.get("email") as string;
+  const {fullName,date,email,phoneNumber,service,time} = data
 
   if (!fullName || !phoneNumber || !service || !date || !time || !email) {
     return {
