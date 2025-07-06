@@ -12,7 +12,7 @@ export default function Services() {
         </div>
 
         {/* Servicios principales */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 ">
           {mainServices.map((service, index) => (
             <ServiceCard key={index} service={service} />
           ))}
@@ -30,7 +30,7 @@ export default function Services() {
 
         {/* Paquetes especiales */}
         <div className="mt-16 ">
-          <h3 className="text-2xl font-bold text-center mb-8 text-gray-800">Paquetes Especiales</h3>
+          <h3 className="lg:text-2xl text-xl font-bold text-center mb-8 text-gray-800">Paquetes Especiales</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {specialPackages.map((pkg, index) => (
               <PackageCard key={index} package={pkg} />

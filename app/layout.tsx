@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/header/header";
 import Footer from "@/components/footer/footer";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Chiky Peluqueria",
@@ -19,6 +20,7 @@ export default function RootLayout({
       <body className="bg-gradient-to-b from-white to-pink-50">
         <Header />
         {children}
+        <Toaster richColors/>
         <Footer />
       </body>
     </html>

@@ -2,6 +2,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -14,13 +15,14 @@ interface Props {
 }
 
 export const SuccessModal = ({ children }: Props) => {
-  const {success, setSuccess} = useReservation()
+  const { success, setSuccess } = useReservation();
   return (
     <Dialog open={success} onOpenChange={setSuccess}>
-      <DialogContent className="min-w-3xl">
-
-        {children}
-      </DialogContent>
+      <DialogHeader>
+        <DialogTitle>Cita Reservada correctamente</DialogTitle>
+        <DialogDescription>Detalles de tu cita</DialogDescription>
+      </DialogHeader>
+      <DialogContent className="min-w-3xl">{children}</DialogContent>
     </Dialog>
   );
 };

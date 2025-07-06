@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useReservation } from "../../context/ReservationContext";
 import ReservationForm from "../Form/ReservationForm";
 import { SuccessCard } from "../Success/SuccessCard";
@@ -15,8 +15,8 @@ export const ReservationView = () => {
     );
 
   return (
-    <div className="p-5">
-      <ReservationForm />
+    <div className="w-full lg:min-h-screen lg:flex lg:items-center lg:justify-center">
+        <ReservationForm />
     </div>
   );
 };
