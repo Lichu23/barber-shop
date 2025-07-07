@@ -42,12 +42,12 @@ function HeroMain() {
           <Button asChild size="lg" className="bg-pink-500 text-white text-lg sm:text-xl hover:bg-pink-600 w-full sm:w-auto">
             <Link href="/reservation">Reserva Ya</Link>
           </Button>
-          <Button
+          <Button asChild
             size="lg"
             variant="outline"
             className="text-black text-lg sm:text-xl bg-white border-white hover:bg-gray-100 hover:text-black w-full sm:w-auto"
           >
-            Ver Servicios
+            <Link href="/chiky-services">Ver Servicios</Link>
           </Button>
         </div>
       </div>

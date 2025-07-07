@@ -1,14 +1,18 @@
 import Link from "next/link"
 import { navigationLinks } from "@/constants/navigation"
 
-export default function NavLinks() {
+export default function NavLinks({ vertical = false }) {
   return (
-    <nav className="hidden md:flex space-x-6">
+    <nav className={`${vertical ? "flex flex-col space-y-4" : "hidden md:flex space-x-6"}`}>
       {navigationLinks.map((link) => (
-        <Link key={link.href} href={link.href} className="hover:text-pink-500 transition-colors font-medium">
+        <Link
+          key={link.href}
+          href={link.href}
+          className="hover:text-pink-500 transition-colors font-medium"
+        >
           {link.label}
         </Link>
       ))}
     </nav>
-  )
+  );
 }

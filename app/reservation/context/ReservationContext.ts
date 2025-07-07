@@ -1,12 +1,12 @@
 "use client";
-import { createContext, ReactNode, useContext, useState } from "react";
-import { BookingData } from "./ReservationProvider";
+import { BookingDataWithTotal } from "@/hooks/useBookingForm";
+import { createContext, useContext } from "react";
 
 type ReservationContext = {
   success: boolean;
   setSuccess: (val: boolean) => void;
-  bookingData: BookingData | null;
-  setBookingData: (data: BookingData | null) => void;
+  bookingData: BookingDataWithTotal | null;
+  setBookingData: (data: BookingDataWithTotal | null) => void;
 };
 
 export const ReservationContext = createContext<ReservationContext | undefined>(undefined)

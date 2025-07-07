@@ -1,6 +1,7 @@
 import { Scissors } from "lucide-react";
 import NavLinks from "@/components/header/nav-links";
 import Link from "next/link";
+import HamburgerMenu from "./HamburguerMenu";
 
 export default function Header() {
   return (
@@ -16,8 +17,13 @@ export default function Header() {
               <p className="text-xs text-pink-500">Belleza Femenina</p>
             </div>
           </Link>
-
-          <NavLinks />
+          <div className="hidden md:block">
+            <NavLinks />
+          </div>
+          {/* Mobile Hamburger */}
+          <div className="md:hidden">
+            <HamburgerMenu />
+          </div>
         </div>
       </div>
     </header>

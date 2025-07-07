@@ -2,7 +2,8 @@
 
 import { saveBooking } from "@/app/reservation/actions";
 import { useReservation } from "@/app/reservation/context/ReservationContext";
-import { FormValues } from "@/schema/reservationSchema";
+import { FormValues } from "@/app/reservation/schema/reservationSchema";
+import { calculateTotalPrice } from "@/utils/calculateTotalPrice";
 import { Dispatch, SetStateAction, useState } from "react";
 
 interface BookinResponse {
@@ -17,6 +18,9 @@ type BookingResult = {
   message: string;
 };
 
+export type BookingDataWithTotal = FormValues & { totalPrice: number };
+
+
 export const useBookingForm = (): BookinResponse => {
   const { setSuccess, setBookingData } = useReservation();
   const [loading, setLoading] = useState(false);
@@ -25,14 +29,19 @@ export const useBookingForm = (): BookinResponse => {
   async function handleSaveBooking(formData: FormValues):Promise<BookingResult> {
     try {
       setLoading(true);
-      const result = await saveBooking(formData);
+            const selectedServices = Array.isArray(formData.services)
+        ? formData.services
+        : [formData.services];
+
+      const totalPrice = calculateTotalPrice(selectedServices);
+      const result = await saveBooking({...formData, totalPrice} as BookingDataWithTotal);
 
       if (result?.error) {
         setSuccess(false);
         return { success: false, message: "Error: " + result.error };
 
       }
-      setBookingData({ ...formData });
+      setBookingData({ ...formData, totalPrice });
       setSuccess(true);
 
       const response = await fetch("/api/send-email", {
@@ -42,9 +51,10 @@ export const useBookingForm = (): BookinResponse => {
           to: "lisandroxarenax@gmail.com",
           subject: "¡Reserva confirmada en Chiky!",
           fullName: formData.fullName,
-          service: formData.service,
+          service: formData.services,
           date: formData.date,
           time: formData.time,
+          totalPrice
         }),
       });
 
@@ -57,6 +67,7 @@ export const useBookingForm = (): BookinResponse => {
           "Reserva guardada correctamente y email enviado al correo electronico."
         );
         return { success: true, message: "Reserva guardada correctamente y email enviado al correo electronico." }
+
       }
     } catch (error) {
       console.log(`Hubo un error: ${error}`);

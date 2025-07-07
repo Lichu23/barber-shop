@@ -1,16 +1,16 @@
 "use server";
 
+import { BookingDataWithTotal } from "@/hooks/useBookingForm";
 import { ActionResult, Booking } from "@/types/booking";
 import { revalidatePath } from "next/cache";
 import { createServerSupabaseClient } from "../../utils/supabase/serverRouteHandler";
-import { FormValues } from "@/schema/reservationSchema";
 
 export async function saveBooking(
-  data: FormValues
+  data: BookingDataWithTotal
 ): Promise<ActionResult<Booking>> {
-  const {fullName,date,email,phoneNumber,service,time} = data
+  const {fullName,date,email,phoneNumber,services,time, totalPrice} = data
 
-  if (!fullName || !phoneNumber || !service || !date || !time || !email) {
+  if (!fullName || !phoneNumber || !services || !date || !time || !email || !totalPrice) {
     return {
       error:
         "Missing data to submit the form correctly or userId doesn't exist",
@@ -25,23 +25,21 @@ export async function saveBooking(
         {
           full_name: fullName,
           phone_number: phoneNumber,
-          service,
+          services,
           date,
           appointment_time: time,
           email,
+          total_price: totalPrice
         },
       ])
       .select();
 
     if (error) {
-      // Supabase devuelve un objeto `error` en caso de fallo de la operación DB.
       console.error("Error inserting new member:", error);
       return { error: error.message };
     }
 
     if (!data) {
-      // Si la inserción fue exitosa pero no se devolvieron datos (ej. si no usas .select())
-      // Aunque con .select().single() esto no debería ocurrir en inserciones exitosas.
       return { error: "No data returned after successful insertion." };
     }
     revalidatePath("/reservation");

@@ -5,6 +5,7 @@ export type Booking = {
   service: string
   date: string    // formato 'YYYY-MM-DD'
   time: string    // formato 'HH:mm'
+  total_price:number
   created_at?: string // timestamp generado automáticamente, opcional
 }
 

@@ -2,7 +2,7 @@
 
 import { ALL_TIMES } from "@/app/reservation/constants/times";
 import { createClient } from "@/utils/supabase/createClient";
-import { FormValues } from "@/schema/reservationSchema";
+import { FormValues } from "@/app/reservation/schema/reservationSchema";
 import { useEffect, useState } from "react";
 import { UseFormSetValue } from "react-hook-form";
 

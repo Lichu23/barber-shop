@@ -7,9 +7,9 @@ export const reservationSchema = z.object({
     .min(11, "El número debe tener mínimo 11 números")
     .regex(/^\d+$/, "Solo números"),
   email: z.string().email("Correo Invalido").min(5, "El correo es obligatorio"),
-  service: z.string().nonempty("Selecciona un servicio"),
+  services: z.array(z.string()).min(1, "Selecciona al menos un servicio"),
   date: z.string().nonempty("Selecciona una fecha"),
-  time: z.string().nonempty("Selecciona un horario"),
+  time: z.string().nonempty("Selecciona un horario")
 });
 
 export type FormValues = z.infer<typeof reservationSchema>;

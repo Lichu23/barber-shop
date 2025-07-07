@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { FormValues } from "@/schema/reservationSchema";
+import { FormValues } from "@/app/reservation/schema/reservationSchema";
 import { Control, Controller, FieldErrors } from "react-hook-form";
 
 interface Props {

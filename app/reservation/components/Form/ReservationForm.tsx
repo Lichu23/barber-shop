@@ -1,17 +1,20 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useToast } from "@/components/ui/use-toast";
-import { SERVICE_OPTIONS } from "@/constants/services";
+import { allServiceOptions } from "@/constants/services";
 import { useAvailableTimes } from "@/hooks/useAvailableTimes";
 import { useBookingForm } from "@/hooks/useBookingForm";
-import { FormValues, reservationSchema } from "@/schema/reservationSchema";
+import {
+  FormValues,
+  reservationSchema,
+} from "@/app/reservation/schema/reservationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Heart, Sparkles, Star } from "lucide-react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { InputForm } from "./InputForm";
 import { SelectForm } from "./SelectForm";
 import { toast } from "sonner";
+import { MultiSelectForm } from "./MultiSelect";
 
 export default function ReservationForm() {
   const {
@@ -26,7 +29,7 @@ export default function ReservationForm() {
       fullName: "",
       phoneNumber: "",
       email: "",
-      service: "",
+      services: [],
       date: "",
       time: "",
     },
@@ -34,7 +37,7 @@ export default function ReservationForm() {
 
   const bookingDate = watch("date");
 
-  const { handleSaveBooking, loading, msg } = useBookingForm();
+  const { handleSaveBooking, loading } = useBookingForm();
 
   const saveNewBooking: SubmitHandler<FormValues> = async (data) => {
     const result = await handleSaveBooking(data);
@@ -114,12 +117,12 @@ export default function ReservationForm() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <SelectForm
+          <MultiSelectForm
             error={errors}
-            name="service"
-            label="💅 Servicio"
+            name="services"
+            label="💅 Servicios"
             control={control}
-            options={SERVICE_OPTIONS}
+            options={allServiceOptions}
           />
 
           <InputForm
