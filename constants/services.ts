@@ -11,7 +11,7 @@ import {
   Gem,
   Smile,
   Brush,
-  HandHeart
+  HandHeart,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -45,48 +45,56 @@ export interface ServiceOption {
   price: number;
 }
 
+const href = "/chiky-services";
 
 export const mainServices: MainService[] = [
   {
     icon: Palette,
     title: "Balayage",
-    description: "Técnica francesa de coloración que ilumina tu cabello de forma natural y sofisticada",
+    description:
+      "Técnica francesa de coloración que ilumina tu cabello de forma natural y sofisticada",
     price: "€85",
   },
   {
     icon: Sparkles,
     title: "Coloración Capilar",
-    description: "Transforma tu look con colores vibrantes y técnicas profesionales de última generación",
+    description:
+      "Transforma tu look con colores vibrantes y técnicas profesionales de última generación",
     price: "€65",
   },
   {
     icon: Scissors,
     title: "Estilismo Capilar",
-    description: "Cortes personalizados que realzan tu personalidad y estilo único",
+    description:
+      "Cortes personalizados que realzan tu personalidad y estilo único",
     price: "€45",
   },
   {
     icon: Star,
     title: "Extensiones de Cabello",
-    description: "Cabello más largo y voluminoso al instante con extensiones de máxima calidad",
+    description:
+      "Cabello más largo y voluminoso al instante con extensiones de máxima calidad",
     price: "€120",
   },
   {
     icon: Heart,
     title: "Tratamientos Nutritivos",
-    description: "Mascarillas y tratamientos que devuelven vida y brillo a tu cabello",
+    description:
+      "Mascarillas y tratamientos que devuelven vida y brillo a tu cabello",
     price: "€50",
   },
   {
     icon: HandHeart,
     title: "Masaje Capilar Relajante",
-    description: "Disfruta de un masaje capilar que estimula el cuero cabelludo y promueve el bienestar.",
+    description:
+      "Disfruta de un masaje capilar que estimula el cuero cabelludo y promueve el bienestar.",
     price: "€25",
   },
   {
     icon: Wand2,
     title: "Tratamiento Detox",
-    description: "Elimina toxinas y revitaliza tu cabello con nuestro exclusivo tratamiento detox.",
+    description:
+      "Elimina toxinas y revitaliza tu cabello con nuestro exclusivo tratamiento detox.",
     price: "€35",
   },
 ];
@@ -134,7 +142,7 @@ export const specialPackages: SpecialPackage[] = [
   },
 ];
 
-export const mainServiceOptions:ServiceOption[] = [
+export const mainServiceOptions: ServiceOption[] = [
   {
     value: "Balayage",
     label: "Balayage (€85)",
@@ -239,8 +247,6 @@ export const specialPackageOptions = [
     price: 90,
   },
 ];
-
-
 
 export const allServiceOptions = [
   ...mainServiceOptions,

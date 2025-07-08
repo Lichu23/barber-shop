@@ -21,6 +21,7 @@ import {
 import { useState } from "react"
 import { formatTimeTo12H } from "@/utils/formatTime"
 import { useReservation } from "../../context/ReservationContext"
+import { redirect, useRouter } from "next/navigation"
 
 // Tipos basados en tu schema
 export type BookingDataWithTotal = {
@@ -37,19 +38,23 @@ export type BookingDataWithTotal = {
 
 export default function SuccessCard() {
   const [isServicesOpen, setIsServicesOpen] = useState(false)
+  const router = useRouter()
+  const {resetReservation} = useReservation()
 
   const {bookingData} = useReservation()
 
   const chikyDireccion =
     "https://www.google.com/maps/place/Peluqueria+Latina+Chiky/@41.3741889,2.1573992,17z/data=!3m1!4b1!4m6!3m5!1s0x12a4a265d7ffcf57:0xb70d1351b6080e80!8m2!3d41.3741889!4d2.1599741!16s%2Fg%2F11b7dzd2rc?entry=ttu&g_ep=EgoyMDI1MDYzMC4wIKXMDSoASAFQAw%3D%3D"
 
-  const handleGoHome = () => {
-    // Lógica para ir al inicio
-  }
+  const createNewReservation = () => {
+    resetReservation(); 
+    router.push('/reservation'); 
+  };
+
 
   const handleCancelAppointment = () => {
-    // Lógica para cancelar turno
-  }
+    
+   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-rose-50 to-pink-100 lg:p-2  flex items-center lg:justify-center">
@@ -225,14 +230,14 @@ export default function SuccessCard() {
           {/* Botones - Mobile Optimized */}
           <div className="flex flex-col gap-3 sm:flex-row sm:gap-4 pt-2 sm:pt-4">
             <Button
-              onClick={handleGoHome}
+              onClick={createNewReservation}
               className="w-full flex-1 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold py-4 sm:py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-base sm:text-base"
             >
               <Home className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-              Ir al Inicio
+              Crear nueva cita
             </Button>
             <Button
-              onClick={handleCancelAppointment}
+              onClick={createNewReservation}
               variant="outline"
               className="w-full flex-1 border-2 border-red-300 text-red-600 hover:bg-red-50 font-semibold py-4 sm:py-3 px-6 rounded-xl transition-all duration-300 bg-transparent text-base sm:text-base"
             >

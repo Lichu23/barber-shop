@@ -8,7 +8,7 @@ export const navigationLinks = [
     label: "Galería",
   },
   {
-    href: "/#servicios",
+    href: "/chiky-services",
     label: "Servicios",
   },
   {

@@ -2,7 +2,7 @@
 
 import { Label } from "@/components/ui/label";
 import { Controller, Control, FieldErrors } from "react-hook-form";
-import { FormValues } from "@/app/reservation/schema/reservationSchema";
+import { FormValues } from "@/app/(main)/reservation/schema/reservationSchema";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Check, ChevronsUpDown } from "lucide-react";

@@ -7,7 +7,7 @@ import { useBookingForm } from "@/hooks/useBookingForm";
 import {
   FormValues,
   reservationSchema,
-} from "@/app/reservation/schema/reservationSchema";
+} from "@/app/(main)/reservation/schema/reservationSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Heart, Sparkles, Star } from "lucide-react";
 import { SubmitHandler, useForm } from "react-hook-form";

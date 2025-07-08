@@ -3,7 +3,7 @@
 import { BookingDataWithTotal } from "@/hooks/useBookingForm";
 import { ActionResult, Booking } from "@/types/booking";
 import { revalidatePath } from "next/cache";
-import { createServerSupabaseClient } from "../../utils/supabase/serverRouteHandler";
+import { createServerSupabaseClient } from "../../../utils/supabase/serverRouteHandler";
 
 export async function saveBooking(
   data: BookingDataWithTotal

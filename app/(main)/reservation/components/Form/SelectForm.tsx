@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FormValues } from "@/app/reservation/schema/reservationSchema";
+import { FormValues } from "@/app/(main)/reservation/schema/reservationSchema";
 import { Control, Controller, FieldErrors } from "react-hook-form";
 
   interface Option {

@@ -1,8 +1,8 @@
 "use client";
 
-import { saveBooking } from "@/app/reservation/actions";
-import { useReservation } from "@/app/reservation/context/ReservationContext";
-import { FormValues } from "@/app/reservation/schema/reservationSchema";
+import { saveBooking } from "@/app/(main)/reservation/actions";
+import { useReservation } from "@/app/(main)/reservation/context/ReservationContext";
+import { FormValues } from "@/app/(main)/reservation/schema/reservationSchema";
 import { calculateTotalPrice } from "@/utils/calculateTotalPrice";
 import { Dispatch, SetStateAction, useState } from "react";
 
@@ -33,8 +33,12 @@ export const useBookingForm = (): BookinResponse => {
         ? formData.services
         : [formData.services];
 
+        
       const totalPrice = calculateTotalPrice(selectedServices);
       const result = await saveBooking({...formData, totalPrice} as BookingDataWithTotal);
+      const servicesForEmail = Array.isArray(formData.services)
+        ? formData.services.join(", ") // Si ya es un array, únelo con ', '
+        : formData.services; // Si ya es un string (e.g., de un solo servicio), úsalo tal cual
 
       if (result?.error) {
         setSuccess(false);
@@ -51,7 +55,7 @@ export const useBookingForm = (): BookinResponse => {
           to: "lisandroxarenax@gmail.com",
           subject: "¡Reserva confirmada en Chiky!",
           fullName: formData.fullName,
-          service: formData.services,
+          service: servicesForEmail,
           date: formData.date,
           time: formData.time,
           totalPrice

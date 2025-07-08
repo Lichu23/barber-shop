@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { haircuts } from "@/constants/gallery"
-import DesktopCarousel from "@/app/(home)/components/gallery/desktop-carousel"
-import MobileCarousel from "@/app/(home)/components/gallery/mobile-carousel"
+import DesktopCarousel from "./desktop-carousel"
+import MobileCarousel from "./mobile-carousel"
 
 export default function Gallery() {
   const [currentSlide, setCurrentSlide] = useState(0)

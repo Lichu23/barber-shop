@@ -1,13 +1,20 @@
 "use client";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useReservation } from "../../context/ReservationContext";
 import ReservationForm from "../Form/ReservationForm";
-import { redirect } from "next/navigation";
-import { SuccessView } from "../Success/SuccessModal";
 
 export const ReservationView = () => {
-  const { success } = useReservation();
+const { success } = useReservation(); // Obtén resetReservation
+  const router = useRouter();
 
-  if (success) return <SuccessView/>
+
+  useEffect(() => {
+    if (success) {
+      router.push('/success');
+    }
+  }, [success, router]);
+
 
   return (
     <div className="w-full lg:min-h-screen lg:flex lg:items-center lg:justify-center">

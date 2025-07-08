@@ -7,6 +7,7 @@ type ReservationContext = {
   setSuccess: (val: boolean) => void;
   bookingData: BookingDataWithTotal | null;
   setBookingData: (data: BookingDataWithTotal | null) => void;
+  resetReservation: () => void;
 };
 
 export const ReservationContext = createContext<ReservationContext | undefined>(undefined)

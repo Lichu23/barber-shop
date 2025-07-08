@@ -8,10 +8,19 @@ interface EmailTemplateProps {
 }
 
 export function EmailTemplate({ fullName, service, date, time }: EmailTemplateProps) {
+    const servicesArray = service.split(',').map(s => s.trim());
+
   return (
     <div>
       <h2>¡Hola, {fullName}!</h2>
-      <p>Tu reserva para el servicio <b>{service}</b> fue recibida.</p>
+      <p>Tu reserva para los siguientes servicios fue recibida:</p>
+      <ul>
+        {servicesArray.map((singleService, index) => (
+          <li key={index}>
+            <b>{singleService}</b>
+          </li>
+        ))}
+      </ul>
       <p>
         Fecha: <b>{date}</b><br />
         Hora: <b>{time}</b>

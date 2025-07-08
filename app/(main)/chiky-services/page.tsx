@@ -1,7 +1,8 @@
 import { additionalServices, mainServices, specialPackages } from "@/constants/services";
-import AdditionalServiceCard from "../(home)/components/servicesView/additional-service-card";
-import PackageCard from "../(home)/components/servicesView/package-card";
-import ServiceCard from "../(home)/components/servicesView/service-card";
+import AdditionalServiceCard from "../components/servicesView/AdditionalServiceCard";
+import PackageCard from "../components/servicesView/PackageCard";
+import ServiceCardReservation from "../components/servicesView/ServiceCardReservation";
+
 
 export default function ServicesPage() {
     return (
@@ -18,7 +19,7 @@ export default function ServicesPage() {
           {/* Servicios principales */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {mainServices.map((service, index) => (
-              <ServiceCard key={index} service={service} />
+              <ServiceCardReservation key={index} service={service} />
             ))}
           </div>
 
