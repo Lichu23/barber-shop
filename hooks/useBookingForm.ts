@@ -1,16 +1,17 @@
 "use client";
 
 import { saveBooking } from "@/app/(main)/reservation/actions";
-import { useReservation } from "@/app/(main)/reservation/context/ReservationContext";
+import { useReservation } from "@/context/ReservationContext";
 import { FormValues } from "@/app/(main)/reservation/schema/reservationSchema";
 import { calculateTotalPrice } from "@/utils/calculateTotalPrice";
 import { Dispatch, SetStateAction, useState } from "react";
+import { allServiceOptions, ServiceOption } from "@/constants/services";
 
 interface BookinResponse {
-  handleSaveBooking: (formData: FormValues) => Promise<BookingResult>, 
-  loading: boolean, 
-  msg: string, 
-  setMsg: Dispatch<SetStateAction<string>>
+  handleSaveBooking: (formData: FormValues) => Promise<BookingResult>;
+  loading: boolean;
+  msg: string;
+  setMsg: Dispatch<SetStateAction<string>>;
 }
 
 type BookingResult = {
@@ -18,34 +19,48 @@ type BookingResult = {
   message: string;
 };
 
-export type BookingDataWithTotal = FormValues & { totalPrice: number };
-
+export type BookingDataWithTotal = FormValues & {
+  totalPrice: number;
+  detailedServices: ServiceOption[];
+};
 
 export const useBookingForm = (): BookinResponse => {
   const { setSuccess, setBookingData } = useReservation();
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
 
-  async function handleSaveBooking(formData: FormValues):Promise<BookingResult> {
+  async function handleSaveBooking(
+    formData: FormValues
+  ): Promise<BookingResult> {
     try {
       setLoading(true);
-            const selectedServices = Array.isArray(formData.services)
+      
+      const selectedServicesValues = Array.isArray(formData.services)
         ? formData.services
         : [formData.services];
-
-        
-      const totalPrice = calculateTotalPrice(selectedServices);
-      const result = await saveBooking({...formData, totalPrice} as BookingDataWithTotal);
+      const totalPrice = calculateTotalPrice(selectedServicesValues);
+      
+      const detailedServices: ServiceOption[] = selectedServicesValues
+        .map((serviceValue) =>
+          allServiceOptions.find((o) => o.value === serviceValue)
+        )
+        .filter((service): service is ServiceOption => service !== undefined); // Filter out any undefined results
+      
+        const result = await saveBooking({
+        ...formData,
+        totalPrice,
+      } as BookingDataWithTotal);
+      
       const servicesForEmail = Array.isArray(formData.services)
-        ? formData.services.join(", ") // Si ya es un array, únelo con ', '
-        : formData.services; // Si ya es un string (e.g., de un solo servicio), úsalo tal cual
+        ? formData.services.join(", ")
+        : formData.services;
 
       if (result?.error) {
         setSuccess(false);
         return { success: false, message: "Error: " + result.error };
-
       }
-      setBookingData({ ...formData, totalPrice });
+      
+      setBookingData({ ...formData, totalPrice, detailedServices });
       setSuccess(true);
 
       const response = await fetch("/api/send-email", {
@@ -58,25 +73,36 @@ export const useBookingForm = (): BookinResponse => {
           service: servicesForEmail,
           date: formData.date,
           time: formData.time,
-          totalPrice
+          totalPrice,
         }),
       });
 
       if (!response.ok) {
-        setMsg("¡Ocurrio un error al guardar la reserva y enviar el email de confirmacion!");
-        console.log(result.error)
-        return { success: false, message: "Error: " + result.error }
+        setMsg(
+          "¡Ocurrio un error al guardar la reserva y enviar el email de confirmacion!"
+        );
+        console.log(result.error);
+        return { success: false, message: "Error: " + result.error };
+      
       } else {
         setMsg(
           "Reserva guardada correctamente y email enviado al correo electronico."
         );
-        return { success: true, message: "Reserva guardada correctamente y email enviado al correo electronico." }
-
+        
+        return {
+          success: true,
+          message:
+            "Reserva guardada correctamente y email enviado al correo electronico.",
+        
+          };
       }
     } catch (error) {
       console.log(`Hubo un error: ${error}`);
       setSuccess(false);
-      return { success: false, message: "Ocurrió un error al guardar la reserva o enviar el email." }
+      return {
+        success: false,
+        message: "Ocurrió un error al guardar la reserva o enviar el email.",
+      };
     } finally {
       setLoading(false);
     }

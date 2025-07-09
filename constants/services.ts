@@ -145,37 +145,37 @@ export const specialPackages: SpecialPackage[] = [
 export const mainServiceOptions: ServiceOption[] = [
   {
     value: "Balayage",
-    label: "Balayage (€85)",
+    label: "Balayage",
     price: 85,
   },
   {
     value: "Coloración Capilar",
-    label: "Coloración Capilar (€65)",
+    label: "Coloración Capilar",
     price: 65,
   },
   {
     value: "Estilismo Capilar",
-    label: "Estilismo Capilar (€45)",
+    label: "Estilismo Capilar",
     price: 45,
   },
   {
     value: "Extensiones de Cabello",
-    label: "Extensiones de Cabello (€120)",
+    label: "Extensiones de Cabello",
     price: 120,
   },
   {
     value: "Tratamientos Nutritivos",
-    label: "Tratamientos Nutritivos (€50)",
+    label: "Tratamientos Nutritivos",
     price: 50,
   },
   {
     value: "Masaje Capilar Relajante",
-    label: "Masaje Capilar Relajante (€25)",
+    label: "Masaje Capilar Relajante",
     price: 25,
   },
   {
     value: "Tratamiento Detox",
-    label: "Tratamiento Detox (€35)",
+    label: "Tratamiento Detox",
     price: 35,
   },
 ];
@@ -184,47 +184,47 @@ export const mainServiceOptions: ServiceOption[] = [
 export const additionalServiceOptions = [
   {
     value: "Mechas",
-    label: "Mechas (€55)",
+    label: "Mechas",
     price: 55,
   },
   {
     value: "Pelo Rizado",
-    label: "Pelo Rizado (€40)",
+    label: "Pelo Rizado",
     price: 40,
   },
   {
     value: "Peinados",
-    label: "Peinados (€35)",
+    label: "Peinados",
     price: 35,
   },
   {
     value: "Colocación de Pelucas",
-    label: "Colocación de Pelucas (€25)",
+    label: "Colocación de Pelucas",
     price: 25,
   },
   {
     value: "Tratamiento Capilar",
-    label: "Tratamiento Capilar (€30)",
+    label: "Tratamiento Capilar",
     price: 30,
   },
   {
     value: "Lavado y Peinado",
-    label: "Lavado y Peinado (€20)",
+    label: "Lavado y Peinado",
     price: 20,
   },
   {
     value: "Alisado de Keratina",
-    label: "Alisado de Keratina (€70)",
+    label: "Alisado de Keratina",
     price: 70,
   },
   {
     value: "Recogidos para Eventos",
-    label: "Recogidos para Eventos (€45)",
+    label: "Recogidos para Eventos",
     price: 45,
   },
   {
     value: "Maquillaje Exprés",
-    label: "Maquillaje Exprés (€30)",
+    label: "Maquillaje Exprés",
     price: 30,
   },
 ];
@@ -233,17 +233,17 @@ export const additionalServiceOptions = [
 export const specialPackageOptions = [
   {
     value: "Paquete Completo",
-    label: "Paquete Completo (€135)",
+    label: "Paquete Completo",
     price: 135,
   },
   {
     value: "Paquete Novia",
-    label: "Paquete Novia (€165)",
+    label: "Paquete Novia",
     price: 165,
   },
   {
     value: "Paquete Fiesta",
-    label: "Paquete Fiesta (€90)",
+    label: "Paquete Fiesta",
     price: 90,
   },
 ];

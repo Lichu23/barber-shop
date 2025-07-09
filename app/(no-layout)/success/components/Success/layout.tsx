@@ -1,4 +1,5 @@
 // app/layout.tsx
+import { Toaster } from "sonner";
 import "./globals.css";
 
 export default function RootLayout({
@@ -9,7 +10,10 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body>
-        <main>{children}</main>
+        <main>
+          {children}
+          <Toaster position="top-center" richColors />
+        </main>
       </body>
     </html>
   );

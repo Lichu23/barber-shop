@@ -1,6 +1,6 @@
 import Footer from "@/components/footer/footer";
 import Header from "@/components/header/Header";
-
+import { Toaster } from "@/components/ui/toaster";
 
 export default function MainLayout({
   children,
@@ -9,9 +9,12 @@ export default function MainLayout({
 }) {
   return (
     <>
-      <Header />
-      <main>{children}</main> {/* Aquí se renderizará el contenido de las páginas principales */}
-      <Footer />
+      <main>
+        <Header />
+        {children}
+        <Toaster />
+        <Footer />
+      </main>
     </>
   );
 }

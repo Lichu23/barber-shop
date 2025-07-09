@@ -1,8 +1,8 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useReservation } from "../../context/ReservationContext";
 import ReservationForm from "../Form/ReservationForm";
+import { useReservation } from "@/context/ReservationContext";
 
 export const ReservationView = () => {
 const { success } = useReservation(); // Obtén resetReservation
