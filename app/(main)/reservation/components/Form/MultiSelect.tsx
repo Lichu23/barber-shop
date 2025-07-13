@@ -48,7 +48,7 @@ export const MultiSelectForm = ({
 
   return (
     <div className="flex flex-col">
-      <Label className="font-bold" htmlFor={name}>
+      <Label className="font-bold mb-1" htmlFor={name}>
         {label}
       </Label>
       <Controller

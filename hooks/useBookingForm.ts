@@ -7,7 +7,7 @@ import { calculateTotalPrice } from "@/utils/calculateTotalPrice";
 import { Dispatch, SetStateAction, useState } from "react";
 import { allServiceOptions, ServiceOption } from "@/constants/services";
 
-interface BookinResponse {
+interface BookingResponse {
   handleSaveBooking: (formData: FormValues) => Promise<BookingResult>;
   loading: boolean;
   msg: string;
@@ -22,9 +22,10 @@ type BookingResult = {
 export type BookingDataWithTotal = FormValues & {
   totalPrice: number;
   detailedServices: ServiceOption[];
+  appointmentDateTime: string
 };
 
-export const useBookingForm = (): BookinResponse => {
+export const useBookingForm = (): BookingResponse => {
   const { setSuccess, setBookingData } = useReservation();
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
@@ -34,23 +35,26 @@ export const useBookingForm = (): BookinResponse => {
   ): Promise<BookingResult> {
     try {
       setLoading(true);
-      
+
       const selectedServicesValues = Array.isArray(formData.services)
         ? formData.services
         : [formData.services];
       const totalPrice = calculateTotalPrice(selectedServicesValues);
-      
+
       const detailedServices: ServiceOption[] = selectedServicesValues
         .map((serviceValue) =>
           allServiceOptions.find((o) => o.value === serviceValue)
         )
         .filter((service): service is ServiceOption => service !== undefined); // Filter out any undefined results
-      
-        const result = await saveBooking({
+       
+        const appointmentDateTime = new Date(`${formData.date}T${formData.time}`).toISOString();
+
+      const result = await saveBooking({
         ...formData,
         totalPrice,
+        appointmentDateTime
       } as BookingDataWithTotal);
-      
+
       const servicesForEmail = Array.isArray(formData.services)
         ? formData.services.join(", ")
         : formData.services;
@@ -59,8 +63,8 @@ export const useBookingForm = (): BookinResponse => {
         setSuccess(false);
         return { success: false, message: "Error: " + result.error };
       }
-      
-      setBookingData({ ...formData, totalPrice, detailedServices });
+
+      setBookingData({ ...formData, totalPrice, detailedServices, appointmentDateTime });
       setSuccess(true);
 
       const response = await fetch("/api/send-email", {
@@ -83,18 +87,16 @@ export const useBookingForm = (): BookinResponse => {
         );
         console.log(result.error);
         return { success: false, message: "Error: " + result.error };
-      
       } else {
         setMsg(
           "Reserva guardada correctamente y email enviado al correo electronico."
         );
-        
+
         return {
           success: true,
           message:
             "Reserva guardada correctamente y email enviado al correo electronico.",
-        
-          };
+        };
       }
     } catch (error) {
       console.log(`Hubo un error: ${error}`);

@@ -19,15 +19,14 @@ export const SuccessView = () => {
   };
 
   const handleCancelAppointment = async () => {
-    // Ensure we have booking data before attempting to cancel
-        if (!bookingData) {
+    if (!bookingData) {
       toast.error("Error", {
         description: "No se encontraron datos de la reserva para cancelar.",
       });
       return;
     }
-    
-    setIsCancelling(true); // Start loading state
+
+    setIsCancelling(true);
 
     try {
       const result = await cancelBooking(
@@ -40,7 +39,6 @@ export const SuccessView = () => {
         console.log("¡Reserva cancelada exitosamente!");
         resetReservation(); // This clears bookingData in context
         router.push("/?cancelSuccess=true"); // <--- Add query parameter here!
-        
       } else {
         toast.error("Error", {
           description: result.error || "Fallo al cancelar la reserva.",

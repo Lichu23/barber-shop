@@ -9,7 +9,7 @@ export default function SeeMoreButton() {
       asChild
       className="hover:shadow-lg hover:bg-pink-100 cursor-pointer transition-shadow border-pink-100 bg-white h-full"
     >
-      <CardContent className="p-4">
+      <CardContent className="p-4 border border-gray shadow-sm">
         <Link className="w-full" href="/chiky-services">
           <p className="flex font-bold text-black text-lg items-center">
             <span>

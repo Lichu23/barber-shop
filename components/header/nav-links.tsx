@@ -8,7 +8,7 @@ export default function NavLinks({ vertical = false }) {
         <Link
           key={link.href}
           href={link.href}
-          className="hover:text-pink-500 transition-colors font-medium"
+          className="hover:text-pink-500 fontbold transition-colors font-bold"
         >
           {link.label}
         </Link>

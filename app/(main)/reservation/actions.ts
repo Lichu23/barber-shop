@@ -8,9 +8,9 @@ import { createServerSupabaseClient } from "../../../utils/supabase/serverRouteH
 export async function saveBooking(
   data: BookingDataWithTotal
 ): Promise<ActionResult<Booking>> {
-  const {fullName,date,email,phoneNumber,services,time, totalPrice} = data
+  const {fullName,date,email,phoneNumber,services,time, totalPrice, appointmentDateTime} = data
 
-  if (!fullName || !phoneNumber || !services || !date || !time || !email || !totalPrice) {
+  if (!fullName || !phoneNumber || !services || !date || !time || !email || !totalPrice || !appointmentDateTime) {
     return {
       error:
         "Missing data to submit the form correctly or userId doesn't exist",
@@ -19,7 +19,7 @@ export async function saveBooking(
   const supabase = await createServerSupabaseClient();
 
   try {
-    const { data, error } = await supabase
+    const { data:insertedData, error } = await supabase
       .from("bookings")
       .insert([
         {
@@ -29,7 +29,8 @@ export async function saveBooking(
           date,
           appointment_time: time,
           email,
-          total_price: totalPrice
+          total_price: totalPrice,
+          appointment_datetime: appointmentDateTime
         },
       ])
       .select();
@@ -39,7 +40,7 @@ export async function saveBooking(
       return { error: error.message };
     }
 
-    if (!data) {
+    if (!insertedData || insertedData.length === 0) {
       return { error: "No data returned after successful insertion." };
     }
     revalidatePath("/reservation");

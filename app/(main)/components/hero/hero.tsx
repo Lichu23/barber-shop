@@ -17,7 +17,7 @@ function HeroMain() {
     <div className="relative h-screen flex items-center justify-center">
       <div className="absolute inset-0 bg-black/60 z-10"></div>
       <Image
-        src="/images/hero-fachada-chiky.png"
+        src="/images/hero-fachada-chiky.webp"
         alt="Chiky Peluquería - Fachada del local"
         fill
         className="object-cover"

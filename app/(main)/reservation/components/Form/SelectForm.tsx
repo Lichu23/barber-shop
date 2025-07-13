@@ -35,7 +35,7 @@ import { Control, Controller, FieldErrors } from "react-hook-form";
   }: Props) => {
     return (
       <div className="flex flex-col">
-        <Label className="font-bold" htmlFor={name}>{label}</Label>
+        <Label className="font-bold text-sm mb-1" htmlFor={name}>{label}</Label>
         <Controller
           name={name}
           control={control}

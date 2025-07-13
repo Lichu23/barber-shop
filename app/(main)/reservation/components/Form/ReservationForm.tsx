@@ -40,6 +40,8 @@ export default function ReservationForm() {
   const { handleSaveBooking, loading } = useBookingForm();
 
   const saveNewBooking: SubmitHandler<FormValues> = async (data) => {
+    const controller = new AbortController();
+
     const result = await handleSaveBooking(data);
 
     if (result.success) {
@@ -53,6 +55,9 @@ export default function ReservationForm() {
         duration: 5000,
       });
     }
+      return () => {
+      controller.abort;
+    };
   };
 
   const availableTimes = useAvailableTimes({ bookingDate, setValue });
@@ -81,11 +86,11 @@ export default function ReservationForm() {
             </div>
           </div>
 
-          <CardTitle className="lg:text-4xl text-lg  font-bold text-white mb-3 tracking-wide">
+          <CardTitle className="lg:text-4xl text-xl  font-bold text-white mb-3 tracking-wide">
             Reserva tu Cita de Belleza
           </CardTitle>
 
-          <p className="text-pink-100 lg:text-lg text-sm  font-medium">
+          <p className="text-pink-100 lg:text-lg text-sm  font-semibold">
             ✨ Déjanos realzar tu belleza natural ✨
           </p>
 
@@ -104,7 +109,7 @@ export default function ReservationForm() {
             label="👤 Nombre Completo"
             name="fullName"
             type="text"
-            placeholder="ej: Pedro Rodriguez"
+            placeholder="ej: Maria Rodriguez"
           />
           <InputForm
             control={control}

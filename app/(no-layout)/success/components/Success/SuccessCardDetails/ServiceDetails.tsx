@@ -4,6 +4,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { useReservation } from "@/context/ReservationContext";
+import { formatPriceToEuro } from "@/utils/formatPrice";
 import { ChevronDown, ChevronUp, DollarSign, Scissors } from "lucide-react";
 
 interface ServiceDetailsProps {
@@ -77,7 +78,7 @@ export default function ServiceDetails({
                   </div>
                   <div className="text-right flex items-center gap-2">
                     <span className="text-sm sm:text-base font-semibold text-gray-700">
-                      ${service.price.toFixed(2)}
+                      {formatPriceToEuro(service.price)}
                     </span>
                     <Scissors className="h-4 w-4 text-pink-500 flex-shrink-0" />
                   </div>
@@ -97,9 +98,9 @@ export default function ServiceDetails({
         </div>
         <div className="text-right">
           <p className="text-2xl sm:text-4xl font-bold text-green-600">
-            ${bookingData?.totalPrice.toFixed(2)}
+            {formatPriceToEuro(bookingData?.totalPrice)}
           </p>
-          <p className="text-xs sm:text-sm text-gray-600">Precio final</p>
+          <p className="text-xs sm:text-sm text-green-800">Precio final</p>
         </div>
       </div>
     </div>

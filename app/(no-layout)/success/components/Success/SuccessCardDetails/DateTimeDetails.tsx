@@ -1,8 +1,7 @@
 import { Calendar, Clock } from "lucide-react";
-import { formatTimeTo12H } from "@/utils/formatTime"; // Adjust path if necessary
+import { formatTimeTo12H } from "@/utils/formatTime"; 
 import { useReservation } from "@/context/ReservationContext";
-
-
+import { formatDate } from "@/utils/formatDate";
 
 export default function DateTimeDetails() {
   const {bookingData} = useReservation()
@@ -21,7 +20,7 @@ export default function DateTimeDetails() {
           <Calendar className="h-6 w-6 sm:h-8 sm:w-8 text-blue-500 mx-auto mb-1 sm:mb-2" />
           <p className="text-xs sm:text-sm text-gray-600 mb-1">Fecha</p>
           <p className="text-sm sm:text-xl font-bold text-gray-800 leading-tight">
-            {bookingData?.date}
+            {formatDate(bookingData?.date)}
           </p>
         </div>
         <div className="bg-white/70 p-3 sm:p-4 rounded-lg sm:rounded-xl border border-blue-200 text-center">
