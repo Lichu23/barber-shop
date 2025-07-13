@@ -1,4 +1,3 @@
-// app/api/send-reminders/route.ts
 import { createServerSupabaseClient } from '@/utils/supabase/serverRouteHandler';
 import { NextResponse } from 'next/server';
 
@@ -25,26 +24,26 @@ export async function GET(request: Request) {
   let now = new Date(); 
   now.setMilliseconds(0); 
 
-  // --- RANGO AJUSTADO PARA RECORDATORIOS: Citas entre 45 minutos y 60 minutos en el futuro ---
+  // --- RANGO MODIFICADO: Citas entre 30 minutos y 45 minutos en el futuro ---
+  const thirtyMinutesFromNow = new Date(now.getTime() + 30 * 60 * 1000); // 30 minutos en milisegundos
+  thirtyMinutesFromNow.setMilliseconds(0); 
+  
   const fortyFiveMinutesFromNow = new Date(now.getTime() + 45 * 60 * 1000); // 45 minutos en milisegundos
   fortyFiveMinutesFromNow.setMilliseconds(0); 
-  
-  const oneHourFromNow = new Date(now.getTime() + 60 * 60 * 1000); // 1 hora en milisegundos
-  oneHourFromNow.setMilliseconds(0); 
 
   // --- Mensajes de depuración (eliminar en producción) ---
   console.log(`[DEBUG] Current time (UTC): ${now.toISOString()}`);
-  console.log(`[DEBUG] Query range: FROM ${fortyFiveMinutesFromNow.toISOString()} TO ${oneHourFromNow.toISOString()} (UTC)`);
+  console.log(`[DEBUG] Query range: FROM ${thirtyMinutesFromNow.toISOString()} TO ${fortyFiveMinutesFromNow.toISOString()} (UTC)`); // Rango de depuración actualizado
   // --- Fin mensajes de depuración ---
 
   try {
     const { data: bookings, error } = await supabase
       .from('bookings')
       .select('*')
-      // Buscar citas cuya hora de inicio sea estrictamente después de 45 minutos a partir de ahora
-      .gt('appointment_datetime', fortyFiveMinutesFromNow.toISOString()) 
-      // y menor o igual que 1 hora a partir de ahora
-      .lte('appointment_datetime', oneHourFromNow.toISOString()) 
+      // Buscar citas cuya hora de inicio sea estrictamente después de 30 minutos a partir de ahora
+      .gt('appointment_datetime', thirtyMinutesFromNow.toISOString()) 
+      // y menor o igual que 45 minutos a partir de ahora
+      .lte('appointment_datetime', fortyFiveMinutesFromNow.toISOString()) 
       // Solo citas para las que NO se ha enviado un recordatorio
       .is('reminder_sent_at', null); 
 
