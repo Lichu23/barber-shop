@@ -19,11 +19,14 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useState } from "react";
+import { ServiceOption } from "@/constants/services";
 
 interface Option {
   value: string;
   label: string;
 }
+
+interface Option extends ServiceOption {}
 
 interface Props {
   name: keyof FormValues;
@@ -103,7 +106,7 @@ export const MultiSelectForm = ({
                             : "opacity-0"
                         )}
                       />
-                      {option.label}
+                       <span>{option.label} - {option.price}€</span>
                     </CommandItem>
                   ))}
                 </CommandGroup>

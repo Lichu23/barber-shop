@@ -23,13 +23,21 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+    const isFemaleSalon = true; 
+
   return (
     <html lang="es" className={`${lato.className}`}>
       <ReservationProvider>
         <body>
           <>
-            {children}
-            <Toaster richColors />
+            <Suspense
+              fallback={
+                isFemaleSalon ? <LoadingFemenino /> : <div>Cargando...</div> // Tu fallback original
+              }
+            >
+              {children}
+              <Toaster richColors />
+            </Suspense>
           </>
         </body>
       </ReservationProvider>
