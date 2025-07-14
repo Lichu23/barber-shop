@@ -13,7 +13,7 @@ if (!GOOGLE_CLIENT_EMAIL || !GOOGLE_PRIVATE_KEY || !GOOGLE_CALENDAR_ID) {
 }
 
 // Configura la autenticación JWT para la cuenta de servicio
-const auth = new google.auth.JWT({ // Ahora es un objeto
+const auth = new google.auth.JWT({
   email: GOOGLE_CLIENT_EMAIL,
   key: GOOGLE_PRIVATE_KEY,
   scopes: ['https://www.googleapis.com/auth/calendar'],
@@ -30,11 +30,9 @@ export async function POST(req: Request) {
       description, 
       startDateTime, 
       endDateTime, 
-      // attendees, // Eliminamos esta variable de la desestructuración
       bookingId // Opcional: Para asociar el evento con la reserva en caso de necesitar eliminarlo
     } = await req.json();
 
-    // Validar datos de entrada básicos
     if (!summary || !startDateTime || !endDateTime) {
       return NextResponse.json({ message: 'Faltan detalles esenciales del evento.' }, { status: 400 });
     }
@@ -45,13 +43,12 @@ export async function POST(req: Request) {
       description: description,
       start: {
         dateTime: startDateTime,
-        timeZone: 'Europe/Madrid', // ¡IMPORTANTE! Ajusta a la zona horaria de tus citas
+        timeZone: 'Europe/Madrid', 
       },
       end: {
         dateTime: endDateTime,
-        timeZone: 'Europe/Madrid', // Misma zona horaria que el inicio
+        timeZone: 'Europe/Madrid',
       },
-      // attendees: attendees || [], // CAMBIO AQUÍ: Comentamos o eliminamos la línea de attendees
       reminders: {
         useDefault: false,
         overrides: [
@@ -59,10 +56,8 @@ export async function POST(req: Request) {
           { method: 'popup', minutes: 15 }, // Recordatorio pop-up 15 minutos antes
         ],
       },
-      // Puedes añadir más propiedades aquí, como 'location', 'colorId', etc.
     };
 
-    // Inserta el evento en el calendario de Google
     const response = await calendar.events.insert({
       calendarId: GOOGLE_CALENDAR_ID,
       requestBody: event,

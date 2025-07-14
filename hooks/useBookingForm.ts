@@ -22,7 +22,7 @@ type BookingResult = {
 export type BookingDataWithTotal = FormValues & {
   totalPrice: number;
   detailedServices: ServiceOption[];
-  appointmentDateTime: string
+  appointmentDateTime: string;
 };
 
 export const useBookingForm = (): BookingResponse => {
@@ -46,13 +46,15 @@ export const useBookingForm = (): BookingResponse => {
           allServiceOptions.find((o) => o.value === serviceValue)
         )
         .filter((service): service is ServiceOption => service !== undefined); // Filter out any undefined results
-       
-        const appointmentDateTime = new Date(`${formData.date}T${formData.time}`).toISOString();
+
+      const appointmentDateTime = new Date(
+        `${formData.date}T${formData.time}`
+      ).toISOString();
 
       const result = await saveBooking({
         ...formData,
         totalPrice,
-        appointmentDateTime
+        appointmentDateTime,
       } as BookingDataWithTotal);
 
       const servicesForEmail = Array.isArray(formData.services)
@@ -64,28 +66,34 @@ export const useBookingForm = (): BookingResponse => {
         return { success: false, message: "Error: " + result.error };
       }
 
-      setBookingData({ ...formData, totalPrice, detailedServices, appointmentDateTime });
+      setBookingData({
+        ...formData,
+        totalPrice,
+        detailedServices,
+        appointmentDateTime,
+      });
       setSuccess(true);
 
-      const response = await fetch("/api/send-email", {
+      const emailResponse = await fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          to: "lisandroxarenax@gmail.com",
+          to: "lisandroxarenax@gmail.com", //en produ formData.email
           subject: "¡Reserva confirmada en Chiky!",
           fullName: formData.fullName,
           service: servicesForEmail,
           date: formData.date,
           time: formData.time,
           totalPrice,
+          cancellationToken: result.data?.cancellation_token
         }),
       });
 
-      if (!response.ok) {
+      if (!emailResponse.ok) {
         setMsg(
           "¡Ocurrio un error al guardar la reserva y enviar el email de confirmacion!"
         );
-        console.log(result.error);
+        console.error(result.error);
         return { success: false, message: "Error: " + result.error };
       } else {
         setMsg(
@@ -99,7 +107,7 @@ export const useBookingForm = (): BookingResponse => {
         };
       }
     } catch (error) {
-      console.log(`Hubo un error: ${error}`);
+      console.error(`Hubo un error: ${error}`);
       setSuccess(false);
       return {
         success: false,

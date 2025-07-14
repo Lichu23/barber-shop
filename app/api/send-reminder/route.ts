@@ -24,7 +24,7 @@ export async function GET(request: Request) {
   let now = new Date(); 
   now.setMilliseconds(0); 
 
-  // --- RANGO MODIFICADO: Citas entre 30 minutos y 45 minutos en el futuro ---
+  //Citas entre 30 minutos y 45 minutos.
   const thirtyMinutesFromNow = new Date(now.getTime() + 30 * 60 * 1000); // 30 minutos en milisegundos
   thirtyMinutesFromNow.setMilliseconds(0); 
   

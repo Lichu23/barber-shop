@@ -4,7 +4,7 @@ import { useReservation } from "@/context/ReservationContext";
 import { useState } from "react";
 import SuccessCard from "./SuccessCard";
 import { useRouter } from "next/navigation";
-import { cancelBooking } from "../../action";
+import { cancelBooking } from "../../actions";
 import { toast } from "sonner";
 
 export const SuccessView = () => {

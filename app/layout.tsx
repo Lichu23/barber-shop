@@ -23,20 +23,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const isFemaleSalon = true;
   return (
     <html lang="es" className={`${lato.className}`}>
       <ReservationProvider>
         <body>
           <>
-            <Suspense
-              fallback={
-                isFemaleSalon ? <LoadingFemenino /> : <div>Cargando...</div> // Puedes poner LoadingMasculino aquí si aplica
-              }
-            >
-              {children}
-              <Toaster richColors />
-            </Suspense>
+            {children}
+            <Toaster richColors />
           </>
         </body>
       </ReservationProvider>
