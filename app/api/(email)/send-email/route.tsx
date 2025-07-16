@@ -18,6 +18,7 @@ export interface SendEmailRequest {
   isReminder?: boolean;
   cancellationToken?: string;
   isCancellationConfirmation?: boolean;
+  bookingId?: string;
 }
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -33,6 +34,7 @@ export async function POST(req: Request) {
     isReminder,
     cancellationToken,
     isCancellationConfirmation,
+    bookingId,
   }: SendEmailRequest = await req.json();
 
   try {
@@ -79,6 +81,7 @@ export async function POST(req: Request) {
       emailSubject = subject || "¡Reserva confirmada en Chiky!";
       emailReactComponent = (
         <EmailTemplate
+          bookingId={bookingId}
           fullName={fullName}
           date={date}
           service={service}

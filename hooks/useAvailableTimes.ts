@@ -5,7 +5,7 @@ import { createClient } from "@/utils/supabase/createClient";
 import { FormValues } from "@/app/(main)/reservation/schema/reservationSchema";
 import { useEffect, useState } from "react";
 import { UseFormSetValue } from "react-hook-form";
-import { filterPastTimes } from "@/utils/timeAvailable";
+import { availableTimesFilter } from "@/utils/availableTimes";
 interface Props {
   bookingDate: string | undefined;
   setValue: UseFormSetValue<FormValues>;
@@ -42,8 +42,8 @@ export const useAvailableTimes = ({ bookingDate, setValue }: Props) => {
 
       let freeTimes = ALL_TIMES.filter((time) => !reservedTimes.includes(time));
 
-      freeTimes = filterPastTimes(freeTimes, bookingDate);
-      
+      freeTimes = availableTimesFilter(freeTimes, bookingDate);
+
       setAvailableTimes(freeTimes);
       setValue("time", ""); // reset selección al cambiar fecha
     }

@@ -12,6 +12,7 @@ interface EmailTemplateProps {
   time: string;
   totalPrice: number;
   cancellationToken?: string;
+  bookingId?: string;
 }
 
 export function EmailTemplate({
@@ -21,7 +22,10 @@ export function EmailTemplate({
   time,
   totalPrice,
   cancellationToken,
+  bookingId,
 }: EmailTemplateProps) {
+  const cancellationLink = `${process.env.NEXT_PUBLIC_BASE_URL}/api/cancel-booking?token=${cancellationToken}&id=${bookingId}`;
+
   const servicesArray = Array.isArray(service)
     ? service
     : service.split(",").map((s) => s.trim());
@@ -52,14 +56,10 @@ export function EmailTemplate({
       {cancellationToken && (
         <div>
           <p>
-            Si necesitas cancelar tu cita, puedes hacerlo fácilmente haciendo
-            clic en el siguiente botón:
+            Para cancelar tu cita, haz clic aquí:{" "}
+            <a href={cancellationLink}>Cancelar Cita</a>
           </p>
-          <a
-            href={`${process.env.NEXT_PUBLIC_BASE_URL}/api/cancel-booking?token=${cancellationToken}`}
-          >
-            Cancelar Cita
-          </a>
+
           <p>Este enlace es único para tu reserva.</p>
         </div>
       )}

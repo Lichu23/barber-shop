@@ -1,4 +1,4 @@
-export const filterPastTimes = (times: string[], dateString: string): string[] => {
+export const availableTimesFilter = (times: string[], dateString: string): string[] => {
   const today = new Date();
   const [year, month, day] = dateString.split('-').map(Number);
   const referenceDate = new Date(year, month - 1, day); 

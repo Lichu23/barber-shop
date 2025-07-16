@@ -74,38 +74,11 @@ export const useBookingForm = (): BookingResponse => {
       });
       setSuccess(true);
 
-      const emailResponse = await fetch("/api/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          to: "lisandroxarenax@gmail.com", //en produ formData.email
-          subject: "¡Reserva confirmada en Chiky!",
-          fullName: formData.fullName,
-          service: servicesForEmail,
-          date: formData.date,
-          time: formData.time,
-          totalPrice,
-          cancellationToken: result.data?.cancellation_token
-        }),
-      });
-
-      if (!emailResponse.ok) {
-        setMsg(
-          "¡Ocurrio un error al guardar la reserva y enviar el email de confirmacion!"
-        );
-        console.error(result.error);
-        return { success: false, message: "Error: " + result.error };
-      } else {
-        setMsg(
-          "Reserva guardada correctamente y email enviado al correo electronico."
-        );
-
-        return {
+     return {
           success: true,
           message:
             "Reserva guardada correctamente y email enviado al correo electronico.",
         };
-      }
     } catch (error) {
       console.error(`Hubo un error: ${error}`);
       setSuccess(false);
