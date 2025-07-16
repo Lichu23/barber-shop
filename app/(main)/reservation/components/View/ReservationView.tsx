@@ -17,7 +17,7 @@ const { success } = useReservation(); // Obtén resetReservation
 
 
   return (
-    <div className="w-full lg:min-h-screen lg:flex lg:items-center lg:justify-center">
+    <div className="w-full py-0 lg:py-14 lg:flex lg:items-center lg:justify-center">
       <ReservationForm />
     </div>
   );

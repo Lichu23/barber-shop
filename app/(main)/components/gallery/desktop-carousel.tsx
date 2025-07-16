@@ -32,7 +32,7 @@ export default function DesktopCarousel({ haircuts, currentSlide, onPrevSlide, o
           {/* Mapeamos solo las imágenes visibles */}
           {visibleHaircuts.map((haircut) => (
             <Card key={haircut.id || haircut.name} className="overflow-hidden hover:shadow-lg transition-shadow border-pink-100">
-              <div className="relative aspect-[4/5]">
+              <div className="relative aspect-[5/5]">
                 <Image
                   src={haircut.image || "/placeholder.svg"}
                   alt={haircut.name}

@@ -65,7 +65,7 @@ export default function ReservationForm() {
   return (
     <form
       onSubmit={handleSubmit(saveNewBooking)}
-      className="border   rounded-xl lg:space-y-8 space-y-7  text-sm lg:text  lg:min-w-[1200px] lg:m-2 "
+      className="border  rounded-xl lg:space-y-8 space-y-7  text-sm lg:text  lg:min-w-[1200px] lg:m-2 "
     >
       <div className="bg-gradient-to-r from-pink-400 via-rose-400 to-pink-500 relative overflow-hidden rounded-b-sm lg:rounded-xl">
         <div className="absolute top-4 right-6 opacity-20">
