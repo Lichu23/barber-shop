@@ -93,7 +93,7 @@ export async function POST(req: Request) {
     }
 
     const { data, error } = await resend.emails.send({
-      from: "Chiky Peluqueria <onboarding@resend.dev>",
+      from: "Chiky Peluqueria <noreply@lichu.org>",
       to,
       subject: emailSubject,
       react: emailReactComponent,

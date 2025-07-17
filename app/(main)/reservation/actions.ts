@@ -147,7 +147,7 @@ export async function saveBooking(
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          to: "lisandroxarenax@gmail.com", //en produ formData.email
+          to: email, 
           subject: "¡Reserva confirmada en Chiky!",
           fullName: fullName,
           service: services,

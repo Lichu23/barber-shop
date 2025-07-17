@@ -54,9 +54,7 @@ export async function GET(request: Request) {
     }
 
     console.log(`Found ${bookings.length} bookings for reminders.`);
-    bookings.forEach(booking => {
-      console.log(`[DEBUG] Booking found: ID=${booking.id}, Time=${booking.appointment_datetime}, Reminder Sent=${booking.reminder_sent_at || 'N/A'}`);
-    });
+
 
     for (const booking of bookings as Booking[]) {
       try {
@@ -73,7 +71,7 @@ export async function GET(request: Request) {
             isReminder: true 
           }),
         });
-
+        
         if (!response.ok) {
           const errorText = await response.text();
           console.error(`Failed to send reminder email for booking ${booking.full_name} (${booking.id}): ${errorText}`);
