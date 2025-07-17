@@ -1,7 +1,7 @@
 import { Scissors } from "lucide-react";
-import NavLinks from "@/components/header/nav-links";
 import Link from "next/link";
 import HamburgerMenu from "./HamburguerMenu";
+import NavLinks from "./nav-links";
 
 export default function Header() {
   return (

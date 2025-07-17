@@ -8,7 +8,7 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
-import NavLinks from "@/components/header/nav-links";
+import NavLinks from "./nav-links";
 
 export default function HamburgerMenu() {
   return (
