@@ -67,6 +67,7 @@ interface CreateEventRequest {
 export async function POST(req: Request): Promise<NextResponse> { 
     try {
         const { ownerSecretKey, summary, description, startDateTime, endDateTime }: CreateEventRequest = await req.json();
+        console.log('--- ownerSecretKey recibido en POST /api/google-calendar:', ownerSecretKey); // <-- ¡Añade esta línea!
 
         if (!ownerSecretKey || !summary || !startDateTime || !endDateTime) {
             return NextResponse.json({ message: 'Faltan detalles esenciales del evento o la clave del Owner.' }, { status: 400 });

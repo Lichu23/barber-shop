@@ -2,16 +2,19 @@
 
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import GoogleConnectButton from '@/components/GoogleConnectButton'
 
 export default function SetupCalendarPage() {
   const searchParams = useSearchParams();
   const status = searchParams.get('status'); 
   const details = searchParams.get('details'); 
+  const ownerSecretKey = searchParams.get('key'); // <--- ¡AQUÍ RECUPERAMOS LA CLAVE DE LA URL!
 
   const [message, setMessage] = useState('');
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
+    // ... tu lógica existente para los mensajes basada en 'status'
     if (status === 'google_connected_success') {
       setMessage('¡Conexión con Google Calendar exitosa! Tu calendario principal ha sido vinculado.');
       setIsError(false);
@@ -25,16 +28,15 @@ export default function SetupCalendarPage() {
       setMessage(`Fallo en la conexión: ${decodeURIComponent(details || 'Error al guardar la configuración en la base de datos.').replace('Error: ', '')}. Por favor, contacta al soporte técnico.`);
       setIsError(true);
     } else {
-      // Mensaje predeterminado si no hay 'status' o es desconocido
-      setMessage('Esperando conexión de Google Calendar...');
+      setMessage('Haz clic en el botón para iniciar la conexión con Google Calendar.'); // Mensaje más claro
       setIsError(false);
     }
-  }, [status, details]); // Se re-ejecuta si 'status' o 'details' cambian
+  }, [status, details]);
 
-  // Determina el título, clases CSS y el ícono basado en el estado
+  // ... tu lógica existente para determinar el título, clases CSS e ícono (no necesita cambios aquí)
   let title = 'Estado de Conexión de Google Calendar';
-  let textColorClass = 'text-gray-700'; // Color por defecto
-  let bgColorClass = 'bg-white'; // Fondo por defecto
+  let textColorClass = 'text-gray-700';
+  let bgColorClass = 'bg-white';
   let icon = null;
 
   switch (status) {
@@ -78,8 +80,7 @@ export default function SetupCalendarPage() {
         </svg>
       );
       break;
-    default:
-      // Si no hay 'status' en la URL (primera carga de la página)
+    default: // Caso cuando NO hay 'status' en la URL (primera carga)
       title = 'Conectar Google Calendar';
       textColorClass = 'text-gray-700';
       bgColorClass = 'bg-white';
@@ -98,27 +99,19 @@ export default function SetupCalendarPage() {
         <h1 className="text-3xl font-bold mb-4">{title}</h1>
         <p className="text-lg mb-6">{message}</p>
 
-        {/* Botón para reintentar si hay un error */}
-        {isError && (
-          <button
-            onClick={() => window.location.reload()}
-            className="mt-4 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-          >
-            Reintentar Conexión
-          </button>
+        {(status === null || isError) && ownerSecretKey && ( 
+          <GoogleConnectButton ownerSecretKey={ownerSecretKey} />
         )}
-
-        {/* Mensaje adicional si la conexión es exitosa */}
+        
         {status === 'google_connected_success' && (
           <p className="mt-6 text-gray-600">
             Puedes cerrar esta ventana o ir a la configuración de tu panel de administración.
           </p>
         )}
 
-        {/* Mensaje adicional si no hay status (estado inicial) */}
-        {!status && (
-          <p className="mt-6 text-gray-600">
-            Por favor, asegúrate de haber generado la clave de configuración del propietario y usa la URL proporcionada para conectar tu calendario.
+        {status === null && !ownerSecretKey && (
+          <p className="mt-6 text-red-500">
+            Error: La URL no contiene la clave de configuración del propietario. Asegúrate de usar la URL completa proporcionada.
           </p>
         )}
       </div>

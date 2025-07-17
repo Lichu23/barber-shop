@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
-import { google } from "googleapis";
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
+import { google } from "googleapis";
+import { NextResponse } from "next/server";
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
@@ -9,6 +9,7 @@ const GOOGLE_REDIRECT_URI = process.env.GOOGLE_REDIRECT_URI;
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 const supabase: SupabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+
 
 if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET || !GOOGLE_REDIRECT_URI) {
   console.error(
@@ -60,11 +61,11 @@ export async function GET(req: Request): Promise<NextResponse> {
 
   // Almacena la ownerSecretKey en el 'state' para recuperarla en el callback
   const authUrl: string = oauth2Client.generateAuthUrl({
-  access_type: "offline",
-  scope: ["https://www.googleapis.com/auth/calendar.events"],
-  prompt: "consent", // <-- Asegúrate de que esto esté aquí
-  state: ownerSecretKey,
-});
+    access_type: "offline",
+    scope: ["https://www.googleapis.com/auth/calendar.events"],
+    prompt: "consent", // <-- Asegúrate de que esto esté aquí
+    state: ownerSecretKey,
+  });
 
   return NextResponse.json({ authUrl }, { status: 200 });
 }

@@ -15,10 +15,12 @@ interface Booking {
 }
 
 export async function GET(request: Request) {
-  // --- SEGURIDAD: Protege esta ruta API en producción ---
-  // if (request.headers.get('Authorization') !== `Bearer ${process.env.REMINDER_API_KEY}`) {
-  //   return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
-  // }
+  const expectedApiKey = process.env.REMINDER_API_KEY; // Captura el valor esperado
+
+
+  if (request.headers.get('Authorization') !== `Bearer ${process.env.REMINDER_API_KEY}`) {
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+  }
 
   const supabase = await createServerSupabaseClient();
   let now = new Date(); 
@@ -26,23 +28,17 @@ export async function GET(request: Request) {
 
   //Citas entre 30 minutos y 45 minutos.
   const thirtyMinutesFromNow = new Date(now.getTime() + 30 * 60 * 1000); // 30 minutos en milisegundos
-  thirtyMinutesFromNow.setMilliseconds(0); 
   
   const fortyFiveMinutesFromNow = new Date(now.getTime() + 45 * 60 * 1000); // 45 minutos en milisegundos
-  fortyFiveMinutesFromNow.setMilliseconds(0); 
 
-  // --- Mensajes de depuración (eliminar en producción) ---
-  console.log(`[DEBUG] Current time (UTC): ${now.toISOString()}`);
-  console.log(`[DEBUG] Query range: FROM ${thirtyMinutesFromNow.toISOString()} TO ${fortyFiveMinutesFromNow.toISOString()} (UTC)`); // Rango de depuración actualizado
-  // --- Fin mensajes de depuración ---
 
   try {
     const { data: bookings, error } = await supabase
       .from('bookings')
       .select('*')
-      // Buscar citas cuya hora de inicio sea estrictamente después de 30 minutos a partir de ahora
+      // Buscar citas  después de 30 minutos a partir de ahora
       .gt('appointment_datetime', thirtyMinutesFromNow.toISOString()) 
-      // y menor o igual que 45 minutos a partir de ahora
+      // menor o igual que 45 minutos a partir de ahora
       .lte('appointment_datetime', fortyFiveMinutesFromNow.toISOString()) 
       // Solo citas para las que NO se ha enviado un recordatorio
       .is('reminder_sent_at', null); 
