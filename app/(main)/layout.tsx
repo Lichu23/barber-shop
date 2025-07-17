@@ -1,5 +1,5 @@
 import Footer from "@/components/footer/footer";
-import Header from "@/components/header/Header";
+import Header from "@/components/header-main/Header";
 import { Toaster } from "sonner";
 
 export default function MainLayout({
