@@ -1,11 +1,10 @@
-"use client"
+'use client';
 
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch"
-import { cookieCategories, gdprTexts } from "@/constants/gdpr"
-import type { CookiePreferences } from "@/constants/gdpr"
+import { cookieCategories, CookiePreferences, gdprTexts } from "@/constants/gdpr"
 
 interface CookiePreferencesProps {
   onSave: (preferences: CookiePreferences) => void
@@ -14,23 +13,18 @@ interface CookiePreferencesProps {
 
 export default function CookiePreferencesComponent({ onSave, onBack }: CookiePreferencesProps) {
   const [preferences, setPreferences] = useState<CookiePreferences>(() => {
-    const initial: CookiePreferences = {}
+    const initial: CookiePreferences = {
+      necessary: true, 
+    };
     cookieCategories.forEach((category) => {
-      initial[category.id] = category.required
-    })
-    return initial
-  })
-
-  const handleToggle = (categoryId: string, enabled: boolean) => {
-    setPreferences((prev) => ({
-      ...prev,
-      [categoryId]: enabled,
-    }))
-  }
+      initial[category.id] = category.required; 
+    });
+    return initial;
+  });
 
   const handleSave = () => {
-    onSave(preferences)
-  }
+    onSave(preferences);
+  };
 
   return (
     <div className="space-y-4">
@@ -48,7 +42,14 @@ export default function CookiePreferencesComponent({ onSave, onBack }: CookiePre
               <CardTitle className="text-base text-gray-800">{category.name}</CardTitle>
               <Switch
                 checked={preferences[category.id]}
-                onCheckedChange={(checked) => handleToggle(category.id, checked)}
+                onCheckedChange={(checked) => {
+                  if (!category.required) {
+                    setPreferences((prev) => ({
+                      ...prev,
+                      [category.id]: checked,
+                    }));
+                  }
+                }}
                 disabled={category.required}
                 className="data-[state=checked]:bg-pink-500"
               />
@@ -67,5 +68,5 @@ export default function CookiePreferencesComponent({ onSave, onBack }: CookiePre
         </Button>
       </div>
     </div>
-  )
+  );
 }

@@ -1,10 +1,8 @@
-import "./globals.css";
+import ClientLayoutWrapper from "@/components/(layout)/ClientLayoutWrapper";
 import type { Metadata } from "next"; // O lo que tengas aquí
-import { ReservationProvider } from "../context/ReservationProvider";
-import { Toaster } from "sonner";
 import { Lato } from "next/font/google";
-import { Suspense } from "react";
-import LoadingFemenino from "@/components/ui/LoadingFemenino";
+import { ReservationProvider } from "../context/ReservationProvider";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Chiky Peluqueria",
@@ -17,30 +15,25 @@ const lato = Lato({
   weight: ["100", "300", "400", "700", "900"],
   variable: "--font-lato",
 });
+const GDPR_STORAGE_KEY = "gdpr-consent";
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-    const isFemaleSalon = true; 
+  const isFemaleSalon = true; 
 
   return (
     <html lang="es" className={`${lato.className}`}>
       <ReservationProvider>
         <body>
-          <>
-            <Suspense
-              fallback={
-                isFemaleSalon ? <LoadingFemenino /> : <div>Cargando...</div> // Tu fallback original
-              }
-            >
-              {children}
-              <Toaster richColors />
-            </Suspense>
-          </>
+          <ClientLayoutWrapper isFemaleSalon={isFemaleSalon}>
+            {children}
+          </ClientLayoutWrapper>
         </body>
       </ReservationProvider>
     </html>
   );
+
 }

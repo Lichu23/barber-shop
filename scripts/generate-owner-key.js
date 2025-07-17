@@ -30,7 +30,7 @@ async function generateAndInsertOwnerKey() {
 
     console.log(`¡Clave de Owner generada e insertada exitosamente!`);
     console.log(`Owner Secret Key: ${newOwnerSecretKey}`);
-    console.log(`URL de Configuración para el Owner: http://localhost:3000/setup-calendar?key=${newOwnerSecretKey}`);
+    console.log(`URL de Configuración para el Owner: https://www.lichu.org/setup-calendar?key=${newOwnerSecretKey}`);
     console.log(`\n¡Copia esta URL y envíasela al Owner!`);
     return newOwnerSecretKey;
 

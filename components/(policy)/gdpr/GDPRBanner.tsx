@@ -1,54 +1,54 @@
-"use client"
+'use client';
 
-import { useState, useEffect } from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { X, Shield, ExternalLink } from "lucide-react"
-import { gdprTexts } from "@/constants/gdpr"
-import CookiePreferencesComponent from "./cookie-preferences"
-import type { CookiePreferences } from "@/constants/gdpr"
+import { useState, useEffect } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { X, Shield, ExternalLink } from "lucide-react";
+import { gdprTexts } from "@/constants/gdpr";
+import CookiePreferencesComponent from "./cookie-preferences";
+import type { CookiePreferences } from "@/constants/gdpr";
 
-const GDPR_STORAGE_KEY = "gdpr-consent"
+const GDPR_STORAGE_KEY = "gdpr-consent";
 
 export default function GDPRBanner() {
-  const [isVisible, setIsVisible] = useState(false)
-  const [showPreferences, setShowPreferences] = useState(false)
+  const [isVisible, setIsVisible] = useState(false);
+  const [showPreferences, setShowPreferences] = useState(false);
 
   useEffect(() => {
-    // Check if user has already made a choice
-    const consent = localStorage.getItem(GDPR_STORAGE_KEY)
+    const consent = localStorage.getItem(GDPR_STORAGE_KEY);
     if (!consent) {
-      // Show banner after a short delay
-      const timer = setTimeout(() => setIsVisible(true), 1000)
-      return () => clearTimeout(timer)
+      const timer = setTimeout(() => setIsVisible(true), 1000);
+      return () => clearTimeout(timer);
     }
-  }, [])
+  }, []);
 
-  const handleAcceptAll = () => {
-    const allAccepted: CookiePreferences = {
+  const handleAcceptAll = () => { // Este botón ahora significará "Aceptar solo necesarias"
+    const necessaryAccepted: CookiePreferences = {
       necessary: true,
-      analytics: true,
-      marketing: true,
-    }
-    saveConsent(allAccepted)
-  }
+      // Analíticas y marketing no se incluyen si se eliminaron de las constantes
+    };
+    saveConsent(necessaryAccepted);
+  };
 
-  const handleRejectAll = () => {
+  const handleRejectAll = () => { // Este botón también significará "Aceptar solo necesarias"
+    handleAcceptNecessary(); // Reutiliza la lógica
+  };
+
+  const handleAcceptNecessary = () => { // Función explícita para aceptar solo necesarias
     const onlyNecessary: CookiePreferences = {
       necessary: true,
-      analytics: false,
-      marketing: false,
-    }
-    saveConsent(onlyNecessary)
-  }
+      // Analíticas y marketing en false o no incluidas si se eliminaron
+    };
+    saveConsent(onlyNecessary);
+  };
 
   const handleCustomize = () => {
-    setShowPreferences(true)
-  }
+    setShowPreferences(true);
+  };
 
   const handleSavePreferences = (preferences: CookiePreferences) => {
-    saveConsent(preferences)
-  }
+    saveConsent(preferences);
+  };
 
   const saveConsent = (preferences: CookiePreferences) => {
     localStorage.setItem(
@@ -57,21 +57,29 @@ export default function GDPRBanner() {
         preferences,
         timestamp: new Date().toISOString(),
       }),
-    )
-    setIsVisible(false)
-    setShowPreferences(false)
+    );
+    setIsVisible(false);
+    setShowPreferences(false);
 
-    // Here you would typically initialize your analytics/marketing scripts
-    // based on the user's preferences
-    console.log("GDPR Consent saved:", preferences)
-  }
+    // Dispara el evento 'storage' para notificar al CookieConsentManager
+    const storageEvent = new StorageEvent('storage', {
+      key: GDPR_STORAGE_KEY,
+      newValue: JSON.stringify({ preferences, timestamp: new Date().toISOString() }),
+      oldValue: localStorage.getItem(GDPR_STORAGE_KEY),
+      url: window.location.href,
+      storageArea: localStorage,
+    });
+    window.dispatchEvent(storageEvent);
+
+    console.log("GDPR Consent saved:", preferences);
+  };
 
   const handleClose = () => {
-    // Treat close as reject all
-    handleRejectAll()
-  }
+    // Trata el cierre como "Aceptar solo necesarias"
+    handleAcceptNecessary();
+  };
 
-  if (!isVisible) return null
+  if (!isVisible) return null;
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-end md:items-center justify-center p-4">
@@ -99,15 +107,8 @@ export default function GDPRBanner() {
               <p className="text-gray-600 mb-6 leading-relaxed">{gdprTexts.description}</p>
 
               <div className="flex flex-col sm:flex-row gap-3 mb-4">
-                <Button onClick={handleAcceptAll} className="flex-1 bg-pink-500 hover:bg-pink-600 text-white">
-                  {gdprTexts.acceptAll}
-                </Button>
-                <Button
-                  onClick={handleRejectAll}
-                  variant="outline"
-                  className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-50 bg-transparent"
-                >
-                  {gdprTexts.rejectAll}
+                <Button onClick={handleAcceptNecessary} className="flex-1 bg-pink-500 hover:bg-pink-600 text-white">
+                  {gdprTexts.acceptAll} {/* Ahora significa 'Aceptar necesarias' */}
                 </Button>
                 <Button
                   onClick={handleCustomize}
@@ -135,5 +136,5 @@ export default function GDPRBanner() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

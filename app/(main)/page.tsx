@@ -3,7 +3,6 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
 import Gallery from "./components/gallery/gallery";
-import GDPRBanner from "./components/gdpr/gdpr-banner";
 import Hero from "./components/hero/hero";
 import Services from "./components/servicesView/services";
 import { toast } from "sonner";
@@ -58,7 +57,6 @@ export default function Home() {
       <Hero />
       <Gallery />
       <Services />
-      <GDPRBanner />
       <Suspense fallback={null}> 
         <SearchParamsHandler />
       </Suspense>
