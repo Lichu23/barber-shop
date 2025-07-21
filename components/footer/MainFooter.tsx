@@ -68,6 +68,19 @@ export default function Footer() {
           <p>&copy; 2024 Chiky Peluquería. Todos los derechos reservados.</p>
         </div>
       </div>
+
+      <div className="border-t border-pink-100 mt-12 pt-8 text-center text-gray-500">
+          <div className="flex justify-center items-center space-x-6 mb-4">
+            {/* Asegúrate de que estas rutas coincidan con las páginas que has creado */}
+            <a href="/privacy-policy" className="text-sm hover:text-pink-500 transition-colors">
+              Política de Privacidad
+            </a>
+            <a href="/terms-of-service" className="text-sm hover:text-pink-500 transition-colors">
+              Términos de Servicio
+            </a>
+          </div>
+          <p className="text-xs">&copy; 2024 Chiky Peluquería. Todos los derechos reservados.</p>
+        </div>
     </footer>
   )
 }

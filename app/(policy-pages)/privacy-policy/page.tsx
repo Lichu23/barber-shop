@@ -18,7 +18,7 @@ export default function PrivacyPolicyPage() {
       </p>
       <ul className="list-disc pl-5 mb-4">
         <li>
-          <strong>Nombre/Razón Social:</strong> [Tu Nombre Completo o Razón Social]
+          <strong>Nombre/Razón Social:</strong> Lisandro Arenas
         </li>
         <li>
           <strong>Email de contacto:</strong> lisandroxarenax@gmail.com

@@ -81,7 +81,7 @@ export default function TermsOfServicePage() {
       </h2>
       <p className="mb-4">
         Estos Términos se regirán por las leyes de España. Cualquier disputa se
-        someterá a la jurisdicción de los tribunales de Oviedo, Asturias.
+        someterá a la jurisdicción de los tribunales de Barcelona.
       </p>
 
       <h2 className="text-2xl font-semibold mb-4">9. Contacto</h2>
