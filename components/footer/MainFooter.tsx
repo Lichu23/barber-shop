@@ -64,9 +64,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-pink-100 mt-12 pt-8 text-center text-gray-500">
-          <p>&copy; 2024 Chiky Peluquería. Todos los derechos reservados.</p>
-        </div>
+       
       </div>
 
       <div className="border-t border-pink-100 mt-12 pt-8 text-center text-gray-500">
