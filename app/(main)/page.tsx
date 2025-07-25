@@ -53,7 +53,7 @@ export default function Home() {
     }
   }, [searchParams, router]);
   return (
-    <main className="min-h-screen w-full">
+    <main className="min-h-screen w-full flex flex-col gap-12 lg:gap-28">
       <Hero />
       <Gallery />
       <Services />

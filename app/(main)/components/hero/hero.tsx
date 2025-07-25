@@ -14,7 +14,7 @@ export default function Hero() {
 
 function HeroMain() {
   return (
-    <div className="relative h-screen flex items-center justify-center">
+    <div className="relative h-full py-[132px] lg:h-dvh flex items-center justify-center">
       <div className="absolute inset-0 bg-black/60 z-10"></div>
       <Image
         src="/images/hero-fachada-chiky.webp"

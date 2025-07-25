@@ -32,7 +32,7 @@ export default function DesktopCarousel({ haircuts, currentSlide, onPrevSlide, o
           {/* Mapeamos solo las imágenes visibles */}
           {visibleHaircuts.map((haircut) => (
             <Card key={haircut.id || haircut.name} className="overflow-hidden hover:shadow-lg transition-shadow border-pink-100">
-              <div className="relative aspect-[5/5]">
+              <div className="relative aspect-square">
                 <Image
                   src={haircut.image || "/placeholder.svg"}
                   alt={haircut.name}
@@ -49,8 +49,6 @@ export default function DesktopCarousel({ haircuts, currentSlide, onPrevSlide, o
           ))}
         </div>
 
-        {/* Controles del carrusel */}
-        {/* Los botones no necesitan estar deshabilitados si el loop es infinito */}
         <Button
           variant="outline"
           size="icon"
