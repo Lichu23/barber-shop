@@ -65,7 +65,7 @@ export async function saveBooking(
       .from("bookings")
       .insert({
         full_name: fullName,
-        email: "lisandroxarenax@gmail.com", //email,
+        email: email, //"lisandroxarenax@gmail.com",
         phone_number: phoneNumber,
         services: Array.isArray(services) ? services : [services],
         date: date,

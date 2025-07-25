@@ -37,6 +37,7 @@ export async function POST(req: Request) {
     bookingId,
   }: SendEmailRequest = await req.json();
 
+  
   try {
     if (!to || !fullName) {
       return NextResponse.json(
