@@ -18,7 +18,6 @@ export async function sendConfirmationEmail(emailData: SendEmailData): Promise<{
         console.error("NEXT_PUBLIC_BASE_URL no está configurada.");
         return { success: false, error: "URL base de la aplicación no configurada correctamente." };
     }
-    console.log('Datos enviados a /api/email/send:', emailData); // <-- Añade este log para verificar el payload
     try {
         const response = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/send-email`, {
             method: "POST",

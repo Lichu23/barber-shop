@@ -97,7 +97,7 @@ export async function saveBooking(
       const { eventId, error: googleCalendarError } =
         await createGoogleCalendarEvent({
           summary: `Cita con ${fullName}`,
-          description: `Servicios: ${bookingData.detailedServices?.map((s) => s.label).join(", ") || services}\nTotal: ${totalPrice}€\nTeléfono: ${phoneNumber}\nEmail: ${email}\n\nToken de Cancelación: https://www.lichu.org/api/cancel-booking?token=${cancellationToken}id=${newBooking.id}`,
+          description: `Servicios: ${bookingData.detailedServices?.map((s) => s.label).join(", ") || services}\nTotal: ${totalPrice}€\nTeléfono: ${phoneNumber}\nEmail: ${email}\n\nToken de Cancelación: https://www.lichu.org/api/cancel-booking?token=${cancellationToken}&id=${newBooking.id}`,
           startDateTime: start.toISOString(),
           endDateTime: end.toISOString(),
           ownerSecretKey: ownerSecretKeyForBookings,
