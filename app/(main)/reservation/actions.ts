@@ -3,8 +3,14 @@
 import { BookingDataWithTotal } from "@/hooks/useBookingForm";
 import { ActionResult, Booking } from "@/types/booking";
 import { revalidatePath } from "next/cache";
-import { createServerSupabaseClient } from "../../../utils/supabase/serverRouteHandler";
 import { v4 as uuidv4 } from "uuid"; // Importa uuid para generar tokens
+import {
+  insertBooking,
+  updateBookingGoogleCalendarEventId,
+} from "@/lib/services/bookingService";
+import { createGoogleCalendarEvent } from "@/lib/services/googleCalendarService";
+import { error } from "console";
+import { sendConfirmationEmail } from "@/lib/services/emailService";
 
 export async function saveBooking(
   bookingData: BookingDataWithTotal
@@ -36,11 +42,9 @@ export async function saveBooking(
     };
   }
   const cancellationToken = uuidv4();
-  const supabase = await createServerSupabaseClient();
   const ownerSecretKeyForBookings = process.env.OWNER_SECRET_KEY_FOR_BOOKINGS;
   const NEXT_PUBLIC_BASE_URL = process.env.NEXT_PUBLIC_BASE_URL; // Asegúrate de tener esta variable de entorno
 
-  
   if (!ownerSecretKeyForBookings) {
     console.error(
       "Error: OWNER_SECRET_KEY_FOR_BOOKINGS no está configurada en el servidor."
@@ -50,7 +54,7 @@ export async function saveBooking(
     };
   }
 
-   if (!NEXT_PUBLIC_BASE_URL) {
+  if (!NEXT_PUBLIC_BASE_URL) {
     console.error(
       "Error: NEXT_PUBLIC_BASE_URL no está configurada en el servidor."
     );
@@ -61,29 +65,24 @@ export async function saveBooking(
 
   try {
     // 1. Guardar la reserva en Supabase
-    const { data: insertedData, error: insertError } = await supabase
-      .from("bookings")
-      .insert({
-        full_name: fullName,
-        email: email, //"lisandroxarenax@gmail.com"
-        phone_number: phoneNumber,
-        services: Array.isArray(services) ? services : [services],
-        date: date,
-        appointment_time: time,
-        total_price: totalPrice,
-        appointment_datetime: appointmentDateTime,
-        reminder_sent_at: null,
-        cancellation_token: cancellationToken,
-        google_calendar_event_id: null,
-      })
-      .select(); // Añade .select() para obtener los datos insertados, incluyendo el ID
+    const { data: newBooking, error: insertError } = await insertBooking({
+      full_name: fullName,
+      email: email, //"lisandroxarenax@gmail.com"
+      phone_number: phoneNumber,
+      services: Array.isArray(services) ? services : [services],
+      date: date,
+      appointment_time: time,
+      total_price: totalPrice,
+      appointment_datetime: appointmentDateTime,
+      reminder_sent_at: null,
+      cancellation_token: cancellationToken,
+      google_calendar_event_id: null,
+    });
 
-    if (insertError) {
+    if (insertError || !newBooking) {
       console.error("Error al guardar la reserva en Supabase:", insertError);
-      return { error: insertError.message };
+      return { error: insertError || "Error inesperado al guardar reserva." };
     }
-
-    const newBooking = insertedData[0];
 
     // 2. Crear evento en Google Calendar
     let googleCalendarEventId: string | null = null;
@@ -93,44 +92,37 @@ export async function saveBooking(
       const durationMinutes = 45;
       const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
 
-      const googleCalendarResponse = await fetch(
-        `${NEXT_PUBLIC_BASE_URL}/api/google-calendar`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            summary: `Cita con ${fullName} - ${bookingData.detailedServices?.map((s) => s.label).join(", ") || services}`,
-            description: `Servicios: ${bookingData.detailedServices?.map((s) => s.label).join(", ") || services}\nTotal: ${totalPrice}€\nTeléfono: ${phoneNumber}\nEmail: ${email}\n\nToken de Cancelación: ${cancellationToken}`,
-            startDateTime: start.toISOString(),
-            endDateTime: end.toISOString(),
-            bookingId: newBooking.id, // Pasa el ID de la reserva si lo necesitas en la API de calendario
-            ownerSecretKey: ownerSecretKeyForBookings,
-          }),
-        }
-      );
+      const { eventId, error: googleCalendarError } =
+        await createGoogleCalendarEvent({
+          summary: `Cita con ${fullName} - ${bookingData.detailedServices?.map((s) => s.label).join(", ") || services}`,
+          description: `Servicios: ${bookingData.detailedServices?.map((s) => s.label).join(", ") || services}\nTotal: ${totalPrice}€\nTeléfono: ${phoneNumber}\nEmail: ${email}\n\nToken de Cancelación: ${cancellationToken}`,
+          startDateTime: start.toISOString(),
+          endDateTime: end.toISOString(),
+          ownerSecretKey: ownerSecretKeyForBookings,
+        });
 
-      if (!googleCalendarResponse.ok) {
-        const errorText = await googleCalendarResponse.text();
-        console.error("Error al crear evento de Google Calendar:", errorText);
+      if (!eventId || googleCalendarError) {
+        console.error(
+          "Error al crear evento de Google Calendar:",
+          googleCalendarError
+        );
       } else {
-        const googleCalendarData = await googleCalendarResponse.json();
-         googleCalendarEventId = googleCalendarData.eventId;
-
-        // 3. Actualizar la reserva en Supabase con el ID del evento de Google Calendar
-        if (googleCalendarEventId) {
-          const { error: updateError } = await supabase
-            .from("bookings")
-            .update({ google_calendar_event_id: googleCalendarEventId })
-            .eq("id", newBooking.id);
-
+        googleCalendarEventId = eventId || null;
+        // 5. Actualizar la reserva en Supabase con el ID del evento de Google Calendar
+        if (googleCalendarEventId && newBooking.id) {
+          const { success: updateSuccess, error: updateError } =
+            await updateBookingGoogleCalendarEventId(
+              newBooking.id,
+              googleCalendarEventId
+            );
           if (updateError) {
             console.error(
-              "Error al actualizar la reserva con el ID del evento de Google Calendar:",
+              "Error al actualizar reserva con ID de evento GC:",
               updateError
             );
           } else {
             console.log(
-              `Reserva ${newBooking.id} actualizada con ID de evento de Google Calendar: ${googleCalendarEventId}`
+              `Reserva ${newBooking.id} actualizada con ID de evento GC: ${googleCalendarEventId}`
             );
           }
         }
@@ -143,26 +135,22 @@ export async function saveBooking(
     }
 
     try {
-      const emailResponse = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/send-email`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          to: email, 
+    const servicesForEmail: string = bookingData.detailedServices?.map((s) => s.label).join(", ") || (Array.isArray(services) ? services.join(", ") : services);
+
+      const { success: emailSuccess, error: emailError } =
+        await sendConfirmationEmail({
+          to: email,
           subject: "¡Reserva confirmada en Chiky!",
           fullName: fullName,
-          service: services,
+          service: servicesForEmail,
           date: date,
           time: time,
-          totalPrice:totalPrice,
+          totalPrice: totalPrice,
           bookingId: newBooking.id,
-          cancellationToken: cancellationToken
-        }),
-      });
-
-    if (!emailResponse.ok) {
-        const errorText = await emailResponse.text();
-        console.error("Error al enviar email de confirmación:", errorText);
-
+          cancellationToken: cancellationToken,
+        });
+      if (emailError) {
+        console.error("Error al enviar email de confirmación:", emailError);
       } else {
         console.log("Email de confirmación enviado correctamente.");
       }
@@ -174,7 +162,10 @@ export async function saveBooking(
     }
 
     revalidatePath("/reservation"); // Revalida la ruta si es necesario
-    return { data: newBooking, success: true }; // Devuelve la reserva insertada y éxito
+    return {
+      data: { ...newBooking, google_calendar_event_id: googleCalendarEventId },
+      success: true,
+    };
   } catch (error: any) {
     console.error("Ocurrió un error inesperado en saveBooking:", error.message);
     return {
