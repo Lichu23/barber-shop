@@ -79,6 +79,8 @@ export async function saveBooking(
       google_calendar_event_id: null,
     });
 
+    console.log(`Aca podemos ver el id: ${newBooking?.id}`)
+
     if (insertError || !newBooking) {
       console.error("Error al guardar la reserva en Supabase:", insertError);
       return { error: insertError || "Error inesperado al guardar reserva." };
@@ -95,7 +97,7 @@ export async function saveBooking(
       const { eventId, error: googleCalendarError } =
         await createGoogleCalendarEvent({
           summary: `Cita con ${fullName}`,
-          description: `Servicios: ${bookingData.detailedServices?.map((s) => s.label).join(", ") || services}\nTotal: ${totalPrice}€\nTeléfono: ${phoneNumber}\nEmail: ${email}\n\nToken de Cancelación: https://www.lichu.org/api/cancel-booking?token=${cancellationToken}id=1${newBooking.id}`,
+          description: `Servicios: ${bookingData.detailedServices?.map((s) => s.label).join(", ") || services}\nTotal: ${totalPrice}€\nTeléfono: ${phoneNumber}\nEmail: ${email}\n\nToken de Cancelación: https://www.lichu.org/api/cancel-booking?token=${cancellationToken}id=${newBooking.id}`,
           startDateTime: start.toISOString(),
           endDateTime: end.toISOString(),
           ownerSecretKey: ownerSecretKeyForBookings,
