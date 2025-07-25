@@ -6,25 +6,24 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FormValues } from "@/app/(main)/reservation/schema/reservationSchema";
-import { Control, Controller, FieldErrors } from "react-hook-form";
+import { Control, Controller, FieldErrors, FieldPath, FieldValues } from "react-hook-form";
 
   interface Option {
     value: string;
     label: string;
   }
 
-  interface Props {
-    name: keyof FormValues;
-    control: Control<FormValues>;
+  interface Props<T extends FieldValues> {
+    name: FieldPath<T>;
+    control: Control<T>;
     label: string;
     placeholder?: string;
-    error?: FieldErrors;
+    error?: FieldErrors<T>;
     disabled?: boolean;
     options: Option[];
   }
 
-  export const SelectForm = ({
+  export const SelectForm = <T extends FieldValues>({
     name,
     control,
     label,
@@ -32,10 +31,10 @@ import { Control, Controller, FieldErrors } from "react-hook-form";
     error,
     disabled,
     options,
-  }: Props) => {
+  }: Props<T>) => {
     return (
       <div className="flex flex-col">
-        <Label className="font-bold text-sm mb-1" htmlFor={name}>{label}</Label>
+        <Label className="font-bold text-sm mb-1" htmlFor={name as string}>{label}</Label>
         <Controller
           name={name}
           control={control}

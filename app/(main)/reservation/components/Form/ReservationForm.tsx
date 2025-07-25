@@ -103,7 +103,7 @@ export default function ReservationForm() {
       </div>
       <CardContent className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <InputForm
+          <InputForm<FormValues>
             control={control}
             error={errors}
             label="👤 Nombre Completo"
@@ -111,7 +111,7 @@ export default function ReservationForm() {
             type="text"
             placeholder="ej: Maria Rodriguez"
           />
-          <InputForm
+          <InputForm<FormValues>
             control={control}
             error={errors}
             label="📱 Teléfono"
@@ -122,7 +122,7 @@ export default function ReservationForm() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <MultiSelectForm
+          <MultiSelectForm<FormValues>
             error={errors}
             name="services"
             label="💅 Servicios"
@@ -130,7 +130,7 @@ export default function ReservationForm() {
             options={allServiceOptions}
           />
 
-          <InputForm
+          <InputForm<FormValues>
             control={control}
             error={errors}
             label="📧 Email"
@@ -141,14 +141,14 @@ export default function ReservationForm() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <InputForm
+          <InputForm<FormValues>
             control={control}
             error={errors}
             label="📅 Fecha Preferida"
             name="date"
             type="date"
           />
-          <SelectForm
+          <SelectForm<FormValues>
             name="time"
             control={control}
             label="🕐 Hora Preferida"

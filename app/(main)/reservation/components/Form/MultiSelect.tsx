@@ -1,11 +1,6 @@
 "use client";
 
-import { Label } from "@/components/ui/label";
-import { Controller, Control, FieldErrors } from "react-hook-form";
-import { FormValues } from "@/app/(main)/reservation/schema/reservationSchema";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Check, ChevronsUpDown } from "lucide-react";
 import {
   Command,
   CommandEmpty,
@@ -13,13 +8,17 @@ import {
   CommandInput,
   CommandItem,
 } from "@/components/ui/command";
+import { Label } from "@/components/ui/label";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useState } from "react";
 import { ServiceOption } from "@/constants/services";
+import { cn } from "@/lib/utils";
+import { Check, ChevronsUpDown } from "lucide-react";
+import { useState } from "react";
+import { Control, Controller, FieldErrors, FieldPath, FieldValues } from "react-hook-form";
 
 interface Option {
   value: string;
@@ -28,17 +27,17 @@ interface Option {
 
 interface Option extends ServiceOption {}
 
-interface Props {
-  name: keyof FormValues;
-  control: Control<FormValues>;
+interface Props<T extends FieldValues> {
+  name: FieldPath<T>
+  control: Control<T>;
   label: string;
   placeholder?: string;
-  error?: FieldErrors;
+  error?: FieldErrors<T>;
   disabled?: boolean;
   options: Option[];
 }
 
-export const MultiSelectForm = ({
+export const MultiSelectForm = <T extends FieldValues> ({
   name,
   control,
   label,
@@ -46,12 +45,12 @@ export const MultiSelectForm = ({
   error,
   disabled,
   options,
-}: Props) => {
+}: Props<T>) => {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="flex flex-col">
-      <Label className="font-bold mb-1" htmlFor={name}>
+      <Label className="font-bold mb-1" htmlFor={name as string}>
         {label}
       </Label>
       <Controller

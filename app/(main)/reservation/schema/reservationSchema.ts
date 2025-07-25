@@ -8,7 +8,13 @@ export const reservationSchema = z.object({
     .min(11, "El número debe tener mínimo 11 números")
     .regex(/^\d+$/, "Solo números"),
 
-  email: z.string().email("Correo Invalido").min(5, "El correo es obligatorio"),
+  email: z.coerce
+    .string({
+      invalid_type_error: "El correo debe ser un texto",
+    })
+    .trim()
+    .email("Correo Invalido")
+    .min(5, "El correo es obligatorio"),
 
   services: z.array(z.string()).min(1, "Selecciona al menos un servicio"),
 
@@ -27,7 +33,7 @@ export const reservationSchema = z.object({
         message: "La fecha no puede ser anterior al día de hoy.",
       }
     ),
-    
+
   time: z.string().nonempty("Selecciona un horario"),
 });
 
