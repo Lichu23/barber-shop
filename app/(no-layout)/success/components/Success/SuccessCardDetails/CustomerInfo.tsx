@@ -1,10 +1,8 @@
 import { useReservation } from "@/context/ReservationContext";
 import { Heart } from "lucide-react";
 
-
-
 export default function CustomerInfo() {
-  const {bookingData} = useReservation()
+  const { bookingData } = useReservation();
 
   return (
     <div className="bg-gradient-to-r from-purple-50/50 to-pink-50/50 p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-purple-100">
@@ -20,6 +18,10 @@ export default function CustomerInfo() {
         <p className="text-sm sm:text-base text-gray-700">
           <span className="font-medium">📧 Confirmación enviada a:</span>{" "}
           {bookingData?.email}
+        </p>
+        <p className="text-sm sm:text-base text-gray-700">
+          Si necesitas cancelar tu cita, utiliza el enlace de
+          cancelación incluido en su email: <b>{bookingData?.email}</b>.
         </p>
       </div>
     </div>

@@ -20,7 +20,6 @@ interface BookingConfirmationCardProps {
 
 export default function SuccessCard({
   createNewReservation,
-  handleCancelAppointment,
   isServicesOpen,
   setIsServicesOpen,
   isCancelling
@@ -66,7 +65,6 @@ export default function SuccessCard({
 
         <ActionButtons
           createNewReservation={createNewReservation}
-          handleCancelAppointment={handleCancelAppointment}
           isCancelling={isCancelling}
         />
       </CardContent>
