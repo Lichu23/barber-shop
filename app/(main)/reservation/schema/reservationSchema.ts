@@ -5,8 +5,12 @@ export const reservationSchema = z.object({
 
   phoneNumber: z
     .string()
-    .min(11, "El número debe tener mínimo 11 números")
-    .regex(/^\d+$/, "Solo números"),
+    .transform((val) => val.replace(/\D/g, ""))
+    .refine(
+      (val) => val.length >= 9,
+      "El número debe tener al menos 9 dígitos."
+    )
+    .refine((val) => /^\d+$/.test(val), "Solo números después de limpiar."),
 
   email: z.coerce
     .string({
