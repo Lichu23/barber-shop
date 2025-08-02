@@ -61,18 +61,7 @@ export default async function SuccessPage({
   }
 
   let displayTime = "Hora no disponible";
-  if (booking.appointment_datetime) {
-    try {
-      const appointmentDateObj = new Date(booking.appointment_datetime);
-      // 'HH:mm' para formato de 24 horas (España)
-      displayTime = format(appointmentDateObj, "HH:mm", { locale: es });
-    } catch (e) {
-      console.error("Error formateando la hora:", e);
-    }
-  } else if (booking.time) {
-    // Fallback: si appointment_datetime no está, usamos booking.time si existe
-    displayTime = booking.time;
-  }
+ 
   
   const formattedDate = format(new Date(booking.date), "PPP", { locale: es });
 
@@ -111,7 +100,7 @@ export default async function SuccessPage({
             <strong className="font-semibold">Fecha:</strong> {formattedDate}
           </p>
           <p className="text-gray-800">
-            <strong className="font-semibold">Hora:</strong> {displayTime}
+            <strong className="font-semibold">Hora:</strong> {booking.time}
           </p>
           <p className="text-gray-800">
             <strong className="font-semibold">Precio Total:</strong>{" "}
