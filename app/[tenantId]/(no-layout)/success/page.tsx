@@ -61,19 +61,26 @@ export default async function SuccessPage({
     );
   }
 
-  let displayTime = "Hora no disponible";
+  let formattedStartTime = "No disponible";
+  let formattedEndTime = "No disponible";
+  let formattedDate = "No disponible";
 
-  const timeZone = "Europe/Madrid";
+  if (booking && booking.appointment_datetime) {
+    const timeZone = "Europe/Madrid";
 
-  const start = fromZonedTime(`${booking.date}T${booking.time}`, timeZone);
+    const start = new Date(booking.appointment_datetime);
 
-  const durationMinutes = 45; // O la duración que corresponda
-  const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
+    // 2. Verifica que la fecha sea válida
+    if (!isNaN(start.getTime())) {
+      const durationMinutes = 45;
+      const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
 
-  const formattedStartTime = formatInTimeZone(start, timeZone, "HH:mm"); // -> "19:00"
-  const formattedEndTime = formatInTimeZone(end, timeZone, "HH:mm"); // -> "19:45"
-
-  const formattedDate = format(new Date(booking.date), "PPP", { locale: es });
+      // 3. Formatea la fecha y las horas para la zona horaria de España
+      formattedStartTime = formatInTimeZone(start, timeZone, "HH:mm"); // -> "19:00"
+      formattedEndTime = formatInTimeZone(end, timeZone, "HH:mm"); // -> "19:45"
+      formattedDate = formatInTimeZone(start, timeZone, "PPP", { locale: es });
+    }
+  }
 
   const formattedServices = booking.services
     .map((service) => formatServiceName(service))
