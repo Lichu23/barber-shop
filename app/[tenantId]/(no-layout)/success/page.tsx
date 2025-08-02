@@ -1,8 +1,8 @@
 import { getBookingById } from "@/lib/services/bookingService";
 import { formatServiceName } from "@/utils/formatServiceName";
 import { format } from "date-fns"; // Para formatear la fecha
-import { fromZonedTime } from "date-fns-tz";
 import { es } from "date-fns/locale"; // Para fechas en español
+import { fromZonedTime, formatInTimeZone } from "date-fns-tz";
 
 interface SuccessPageProps {
   params: {
@@ -64,15 +64,14 @@ export default async function SuccessPage({
   let displayTime = "Hora no disponible";
 
   const timeZone = "Europe/Madrid";
-  const localDateTime = fromZonedTime(
-    `${booking.date}T${booking.time}`,
-    timeZone
-  );
-  const appointmentDateTime = localDateTime.toISOString();
 
-  const start = new Date(appointmentDateTime);
-  const durationMinutes = 45;
+  const start = fromZonedTime(`${booking.date}T${booking.time}`, timeZone);
+
+  const durationMinutes = 45; // O la duración que corresponda
   const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
+
+  const formattedStartTime = formatInTimeZone(start, timeZone, "HH:mm"); // -> "19:00"
+  const formattedEndTime = formatInTimeZone(end, timeZone, "HH:mm"); // -> "19:45"
 
   const formattedDate = format(new Date(booking.date), "PPP", { locale: es });
 
@@ -112,7 +111,7 @@ export default async function SuccessPage({
           </p>
           <p className="text-gray-800">
             <strong className="font-semibold">Hora:</strong>{" "}
-            {start.toISOString()} - {end.toISOString()}
+            {formattedStartTime} - {formattedEndTime}
           </p>
           <p className="text-gray-800">
             <strong className="font-semibold">Precio Total:</strong>{" "}
