@@ -1,9 +1,8 @@
-import ClientLayoutWrapper from "@/components/(layout)/ClientLayoutWrapper";
-import type { Metadata } from "next"; // O lo que tengas aquí
+import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import { ReservationProvider } from "../context/ReservationProvider";
-import "./globals.css";
-
+import ClientLayoutWrapper from "@/components/(layout)/ClientLayoutWrapper";
+import "./global.css";
 export const metadata: Metadata = {
   title: "Chiky Peluqueria",
   description: "Sistema de reservas para Chiky Peluqueria",
@@ -22,18 +21,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const isFemaleSalon = true; 
-
   return (
     <html lang="es" className={`${lato.className}`}>
       <ReservationProvider>
-        <body>
-          <ClientLayoutWrapper isFemaleSalon={isFemaleSalon}>
-            {children}
-          </ClientLayoutWrapper>
-        </body>
+        <body>{children}</body>
       </ReservationProvider>
     </html>
   );
-
 }

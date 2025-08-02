@@ -1,5 +1,5 @@
 import { formatDate } from "@/utils/formatDate";
-import { formatTimeTo12H } from "@/utils/formatTime";
+import { formatTimeTo24H } from "@/utils/formatTime";
 
 interface CancellationConfirmationEmailTemplateProps {
   fullName: string;
@@ -14,9 +14,7 @@ export function CancellationConfirmationEmailTemplate({
   date,
   time,
 }: CancellationConfirmationEmailTemplateProps) {
-  const servicesArray =
-    typeof service === "string" ? service.split(",").map((s) => s.trim()) : [];
-
+  console.log(`cancelation email time:${time}`)
   return (
     <div>
       <h1>¡Cita Cancelada Exitosamente!</h1>
@@ -31,13 +29,13 @@ export function CancellationConfirmationEmailTemplate({
 
       <div>
         <p>
-          <strong>Servicio:</strong> <span>{servicesArray.join(", ")}</span>
+          <strong>Servicio:</strong> <span>{service}</span>
         </p>
         <p>
           <strong>Fecha:</strong> <span>{formatDate(date)}</span>
         </p>
         <p>
-          <strong>Hora:</strong> <span>{formatTimeTo12H(time)}</span>
+          Hora: <b>{formatTimeTo24H(time)}</b>
         </p>
       </div>
 

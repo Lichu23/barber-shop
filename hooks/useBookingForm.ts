@@ -1,22 +1,23 @@
 "use client";
 
-import { saveBooking } from "@/app/(main)/reservation/actions";
-import { useReservation } from "@/context/ReservationContext";
-import { FormValues } from "@/app/(main)/reservation/schema/reservationSchema";
-import { calculateTotalPrice } from "@/utils/calculateTotalPrice";
+import { saveBooking } from "@/app/[tenantId]/reservation/actions";
+import { FormValues } from "@/app/[tenantId]/reservation/schema/reservationSchema";
 import { Dispatch, SetStateAction, useState } from "react";
-import { allServiceOptions, ServiceOption } from "@/constants/services";
+import { ServiceOption } from "@/constants/services";
 
 interface BookingResponse {
-  handleSaveBooking: (formData: FormValues) => Promise<BookingResult>;
+  handleSaveBooking: (
+    formData: FormValues,
+    params: { tenantId: string }
+  ) => Promise<BookingResult>;
   loading: boolean;
   msg: string;
   setMsg: Dispatch<SetStateAction<string>>;
 }
 
 type BookingResult = {
-  success: boolean;
-  message: string;
+  success?: boolean;
+  message?: string;
 };
 
 export type BookingDataWithTotal = FormValues & {
@@ -25,67 +26,50 @@ export type BookingDataWithTotal = FormValues & {
   appointmentDateTime: string;
 };
 
-export const useBookingForm = (): BookingResponse => {
-  const { setSuccess, setBookingData } = useReservation();
+export const useBookingForm = (
+  allServices: ServiceOption[]
+): BookingResponse => {
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState("");
 
   async function handleSaveBooking(
-    formData: FormValues
+    formData: FormValues,
+    params: { tenantId: string }
   ): Promise<BookingResult> {
     try {
       setLoading(true);
 
-      const selectedServicesValues = Array.isArray(formData.services)
-        ? formData.services
-        : [formData.services];
-      const totalPrice = calculateTotalPrice(selectedServicesValues);
-
-      const detailedServices: ServiceOption[] = selectedServicesValues
-        .map((serviceValue) =>
-          allServiceOptions.find((o) => o.value === serviceValue)
-        )
-        .filter((service): service is ServiceOption => service !== undefined); // Filter out any undefined results
-
-      const appointmentDateTime = new Date(
-        `${formData.date}T${formData.time}`
-      ).toISOString();
-
-      const result = await saveBooking({
-        ...formData,
-        totalPrice,
-        appointmentDateTime,
-      } as BookingDataWithTotal);
-
-      const servicesForEmail = Array.isArray(formData.services)
-        ? formData.services.join(", ")
-        : formData.services;
-
+      const result = await saveBooking(formData, allServices, params);
       if (result?.error) {
-        setSuccess(false);
         return { success: false, message: "Error: " + result.error };
       }
-
-      setBookingData({
-        ...formData,
-        totalPrice,
-        detailedServices,
-        appointmentDateTime,
-      });
-      setSuccess(true);
-
-     return {
-          success: true,
-          message:
-            "Reserva guardada correctamente y email enviado al correo electronico.",
-        };
-    } catch (error) {
-      console.error(`Hubo un error: ${error}`);
-      setSuccess(false);
       return {
-        success: false,
-        message: "Ocurrió un error al guardar la reserva o enviar el email.",
+        success: true,
+        message:
+          "Reserva completada, pero no se detectó redirección automática. Por favor, verifica.",
       };
+    } catch (error: unknown) {
+      if (error && typeof error === "object" && "message" in error) {
+        const err = error as Error;
+        if (err.message === "NEXT_REDIRECT") {
+          throw error;
+        } else {
+          console.error(
+            `Hubo un error real al guardar la reserva: ${err.message}`
+          );
+          return {
+            success: false,
+            message: `Ocurrió un error: ${err.message}`,
+          };
+        }
+      } else {
+        // Handle cases where the thrown error is not an Error object
+        console.error(`Hubo un error desconocido: ${error}`);
+        return {
+          success: false,
+          message: "Ocurrió un error inesperado al guardar la reserva.",
+        };
+      }
     } finally {
       setLoading(false);
     }

@@ -1,8 +1,8 @@
 "use client";
 
-import { ALL_TIMES } from "@/app/(main)/reservation/constants/times";
+import { ALL_TIMES } from "@/app/[tenantId]/reservation/constants/times";
 import { createClient } from "@/utils/supabase/createClient";
-import { FormValues } from "@/app/(main)/reservation/schema/reservationSchema";
+import { FormValues } from "@/app/[tenantId]/reservation/schema/reservationSchema";
 import { useEffect, useState } from "react";
 import { UseFormSetValue } from "react-hook-form";
 import { availableTimesFilter } from "@/utils/availableTimes";

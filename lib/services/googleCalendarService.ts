@@ -24,7 +24,7 @@ export async function createGoogleCalendarEvent(
   }
   try {
     const response = await fetch(
-      `${NEXT_PUBLIC_BASE_URL}/api/google-calendar`,
+      `${NEXT_PUBLIC_BASE_URL}/api/google-calendar/events`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -74,7 +74,7 @@ export async function deleteGoogleCalendarEvent(
 
   try {
     const response = await fetch(
-      `${NEXT_PUBLIC_BASE_URL}/api/google-calendar`,
+      `${NEXT_PUBLIC_BASE_URL}/api/google-calendar/events`,
       {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },

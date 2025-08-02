@@ -1,15 +1,16 @@
 interface SendEmailData {
     to: string;
-    subject?: string;
+    subject?: string | null;
     fullName: string;
     service: string; 
     date: string;
-    time: string;
+    time: string | undefined;
     totalPrice: number;
     isReminder?: boolean;
-    cancellationToken?: string;
-    bookingId?: string;
+    cancellationToken?: string | null;
+    bookingId?: string | null;
     isCancellationConfirmation?: boolean;
+    tenantId: string
 }
 
 export async function sendConfirmationEmail(emailData: SendEmailData): Promise<{ success: boolean; error?: string }> {
@@ -19,7 +20,7 @@ export async function sendConfirmationEmail(emailData: SendEmailData): Promise<{
         return { success: false, error: "URL base de la aplicación no configurada correctamente." };
     }
     try {
-        const response = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/send-email`, {
+        const response = await fetch(`${NEXT_PUBLIC_BASE_URL}/api/${emailData.tenantId}/email/send`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(emailData),
@@ -27,7 +28,7 @@ export async function sendConfirmationEmail(emailData: SendEmailData): Promise<{
 
         if (!response.ok) {
             const errorText = await response.text();
-            console.error("Respuesta de error de /api/email/send:", errorText); 
+            console.error(` Respuesta de error de /api/${emailData.tenantId}/email/send:`, errorText); 
             return { success: false, error: "Fallo al enviar email de confirmación." };
         }
         return { success: true };

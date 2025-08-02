@@ -1,12 +1,7 @@
 "use client";
-import { BookingDataWithTotal } from "@/hooks/useBookingForm";
 import { createContext, useContext } from "react";
 
 type ReservationContext = {
-  success: boolean;
-  setSuccess: (val: boolean) => void;
-  bookingData: BookingDataWithTotal | null;
-  setBookingData: (data: BookingDataWithTotal | null) => void;
   resetReservation: () => void;
 };
 

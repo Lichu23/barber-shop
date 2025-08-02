@@ -1,6 +1,5 @@
 import { formatDate } from "@/utils/formatDate";
-import { formatTimeTo12H } from "@/utils/formatTime";
-import * as React from "react";
+import { formatTimeTo24H } from "@/utils/formatTime";
 
 interface EmailReminderProps {
   fullName: string;
@@ -39,7 +38,7 @@ export function ReminderEmailTemplate({
           <strong>Fecha:</strong> <span>{formatDate(date)}</span>
         </p>
         <p>
-          <strong>Hora:</strong> <span>{formatTimeTo12H(time)}</span>
+          <strong>Hora:</strong> <span>{formatTimeTo24H(time)}</span>
         </p>
       </div>
 

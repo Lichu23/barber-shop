@@ -1,0 +1,228 @@
+{
+  "tenant_id": "chiky-peluqueria",
+  "salon_name": "Chiky Peluquería",
+  "hero_slogan": "Belleza y Elegancia",
+  "hero_description": "Tu peluquería de confianza en el corazón de la ciudad. Más de 15 años creando looks únicos y cuidando tu belleza natural.",
+  "hero_image_url": "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/hero/hero-chiky.webp",
+  "contact_phone": "691 872 269",
+  "contact_address": "Carrer d'Elkano, 82 Bjs, Sants-Montjuïc, 08004 Barcelona",
+  "opening_hours_summary": "Lunes a Sábado",
+  "opening_hours_detail": "9:00 - 20:00 hrs • Domingo Cerrado",
+  "contact_email_for_users": "info@chikypeluqueria.com",
+  "color_primary": "330 88% 50%",
+  "color_secondary": "300 60% 70%",
+  "color_accent": "40 90% 60%",
+  "color_text_dark": "300 40% 20%",
+  "color_text_light": "330 20% 95%",
+  "gallery_items": [
+    {
+      "name": "Cabello Liso Castaño",
+      "description": "Alisado Perfecto - Cabello largo y sedoso con brillo espejo y acabado profesional.",
+      "image_url": "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/gallery/cabello-cafe-lasio.webp",
+      "order": 1
+    },
+    {
+      "name": "Cabello Rubio Ondulado",
+      "description": "Balayage Dorado - Ondas naturales con técnica de coloración multitonal perfecta.",
+      "image_url": "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/gallery/rubio-ondulado.webp",
+      "order": 2
+    },
+    {
+      "name": "Cabello Largo Oscuro",
+      "description": "Melena Sedosa - Cabello largo con tratamiento alisador y brillo intenso.",
+      "image_url": "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/gallery/cabello-largo-oscuro.webp",
+      "order": 3
+    },
+    {
+      "name": "Pelo Liso Marrón con Reflejos",
+      "description": "Cabello liso y brillante con sutiles reflejos marrones y rojizos para dar profundidad.",
+      "image_url": "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/gallery/pelo-lasio-marron.webp",
+      "order": 4
+    },
+    {
+      "name": "Peinado de Novia Recogido",
+      "description": "Elegante recogido para novias con detalles florales en el cabello, ideal para tu gran día.",
+      "image_url": "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/gallery/peinado-de-novia.webp",
+      "order": 5
+    },
+    {
+      "name": "Cabello Rubio Ondulado (2)",
+      "description": "Otra variante de rubio ondulado, con más volumen y definición.",
+      "image_url": "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/gallery/cabello-largo-oscuro.webp",
+      "order": 6
+    }
+  ],
+  "services": [
+    {
+      "name": "Balayage",
+      "description": "Técnica francesa de coloración que ilumina tu cabello de forma natural y sofisticada.",
+      "price": 85,
+      "value": "balayage",
+      "order": 1,
+      "category": "Servicios Destacados",
+      "icon_name": "Palette"
+    },
+    {
+      "name": "Coloración Capilar",
+      "description": "Transforma tu look con colores vibrantes y técnicas profesionales de última generación.",
+      "price": 65,
+      "value": "coloracion-capilar",
+      "order": 2,
+      "category": "Servicios Destacados",
+      "icon_name": "Sparkles"
+    },
+    {
+      "name": "Estilismo Capilar",
+      "description": "Cortes personalizados que realzan tu personalidad y estilo único.",
+      "price": 45,
+      "value": "estilismo-capilar",
+      "order": 3,
+      "category": "Servicios Destacados",
+      "icon_name": "Scissors"
+    },
+    {
+      "name": "Extensiones de Cabello",
+      "description": "Cabello más largo y voluminoso al instante con extensiones de máxima calidad.",
+      "price": 120,
+      "value": "extensiones-cabello",
+      "order": 4,
+      "category": "Servicios Destacados",
+      "icon_name": "Star"
+    },
+    {
+      "name": "Tratamientos Nutritivos",
+      "description": "Mascarillas y tratamientos que devuelven vida y brillo a tu cabello.",
+      "price": 50,
+      "value": "tratamientos-nutritivos",
+      "order": 5,
+      "category": "Servicios Destacados",
+      "icon_name": "Heart"
+    },
+    {
+      "name": "Masaje Capilar Relajante",
+      "description": "Disfruta de un masaje capilar que estimula el cuero cabelludo y promueve el bienestar.",
+      "price": 25,
+      "value": "masaje-capilar-relajante",
+      "order": 6,
+      "category": "Servicios Destacados",
+      "icon_name": "HandHeart"
+    },
+    {
+      "name": "Tratamiento Detox",
+      "description": "Elimina toxinas y revitaliza tu cabello con nuestro exclusivo tratamiento detox.",
+      "price": 35,
+      "value": "tratamiento-detox",
+      "order": 7,
+      "category": "Servicios Destacados",
+      "icon_name": "Wand2"
+    },
+    {
+      "name": "Mechas",
+      "description": "Técnica de mechas para un efecto natural y luminoso.",
+      "price": 55,
+      "value": "mechas",
+      "order": 1,
+      "category": "Servicios Adicionales",
+      "icon_name": "Gem"
+    },
+    {
+      "name": "Pelo Rizado",
+      "description": "Servicio de definición y cuidado para cabellos rizados.",
+      "price": 40,
+      "value": "pelo-rizado",
+      "order": 2,
+      "category": "Servicios Adicionales",
+      "icon_name": "Smile"
+    },
+    {
+      "name": "Peinados",
+      "description": "Creación de peinados elegantes y modernos para cualquier ocasión.",
+      "price": 35,
+      "value": "peinados",
+      "order": 3,
+      "category": "Servicios Adicionales",
+      "icon_name": "Star"
+    },
+    {
+      "name": "Colocación de Pelucas",
+      "description": "Servicio profesional de colocación y ajuste de pelucas.",
+      "price": 25,
+      "value": "colocacion-pelucas",
+      "order": 4,
+      "category": "Servicios Adicionales",
+      "icon_name": "User"
+    },
+    {
+      "name": "Tratamiento Capilar",
+      "description": "Tratamientos intensivos para la salud y vitalidad de tu cabello.",
+      "price": 30,
+      "value": "tratamiento-capilar",
+      "order": 5,
+      "category": "Servicios Adicionales",
+      "icon_name": "Heart"
+    },
+    {
+      "name": "Lavado y Peinado",
+      "description": "Lavado relajante y peinado profesional para el día a día.",
+      "price": 20,
+      "value": "lavado-peinado",
+      "order": 6,
+      "category": "Servicios Adicionales",
+      "icon_name": "Scissors"
+    },
+    {
+      "name": "Alisado de Keratina",
+      "description": "Tratamiento de alisado permanente con keratina para un cabello liso y brillante.",
+      "price": 70,
+      "value": "alisado-keratina",
+      "order": 7,
+      "category": "Servicios Adicionales",
+      "icon_name": "Flower2"
+    },
+    {
+      "name": "Recogidos para Eventos",
+      "description": "Peinados recogidos creativos y duraderos para eventos especiales.",
+      "price": 45,
+      "value": "recogidos-eventos",
+      "order": 8,
+      "category": "Servicios Adicionales",
+      "icon_name": "Crown"
+    },
+    {
+      "name": "Maquillaje Exprés",
+      "description": "Maquillaje rápido y profesional para realzar tu belleza al instante.",
+      "price": 30,
+      "value": "maquillaje-expres",
+      "order": 9,
+      "category": "Servicios Adicionales",
+      "icon_name": "Brush"
+    },
+    {
+      "name": "Paquete Completo",
+      "description": "Corte + Coloración + Peinado + Tratamiento. El paquete ideal para un cambio de look total.",
+      "price": 135,
+      "value": "paquete-completo",
+      "order": 1,
+      "category": "Paquetes Especiales",
+      "icon_name": "Heart"
+    },
+    {
+      "name": "Paquete Novia",
+      "description": "Servicio completo para novias: peinado y extensiones con prueba previa.",
+      "price": 165,
+      "value": "paquete-novia",
+      "order": 2,
+      "category": "Paquetes Especiales",
+      "icon_name": "Crown"
+    },
+    {
+      "name": "Paquete Fiesta",
+      "description": "Peinado y Maquillaje Exprés. Ideal para eventos y celebraciones.",
+      "price": 90,
+      "value": "paquete-fiesta",
+      "order": 3,
+      "category": "Paquetes Especiales",
+      "icon_name": "Sparkles"
+    }
+  ]
+}

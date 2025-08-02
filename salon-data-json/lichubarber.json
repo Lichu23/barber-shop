@@ -1,0 +1,149 @@
+{
+  "tenant_id": "lichubarber",
+  "salon_name": "Lichu Barber",
+  "hero_slogan": "Estilo Impecable. Presencia Distinguida.",
+  "hero_description": "Tradición y vanguardia en el arte del cuidado masculino. Cortes clásicos, arreglos de barba y los mejores tratamientos.",
+  "hero_image_url": "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/hero/hero-chiky.webp",
+
+  "contact_phone": "680 123 456",
+  "contact_address": "Calle del Barbero, 5, 08001 Barcelona",
+  "opening_hours_summary": "Martes a Sábado",
+  "opening_hours_detail": "10:00 - 21:00 hrs • Lunes y Domingo Cerrado",
+  "contact_email_for_users": "info@fedebarber.com",
+
+  "color_primary": "25 85% 50%",
+  "color_secondary": "20 60% 35%",
+  "color_accent": "35 90% 55%",
+  "color_text_dark": "25 10% 15%",
+  "color_text_light": "30 25% 96%",
+  "gallery_items": [
+    {
+      "name": "Cabello Liso Castaño",
+      "description": "Alisado Perfecto - Cabello largo y sedoso con brillo espejo y acabado profesional.",
+      "image_url": "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/gallery/cabello-cafe-lasio.webp",
+      "order": 1
+    },
+    {
+      "name": "Cabello Rubio Ondulado",
+      "description": "Balayage Dorado - Ondas naturales con técnica de coloración multitonal perfecta.",
+      "image_url": "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/gallery/rubio-ondulado.webp",
+      "order": 2
+    },
+    {
+      "name": "Cabello Largo Oscuro",
+      "description": "Melena Sedosa - Cabello largo con tratamiento alisador y brillo intenso.",
+      "image_url": "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/gallery/cabello-largo-oscuro.webp",
+      "order": 3
+    },
+    {
+      "name": "Pelo Liso Marrón con Reflejos",
+      "description": "Cabello liso y brillante con sutiles reflejos marrones y rojizos para dar profundidad.",
+      "image_url": "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/gallery/pelo-lasio-marron.webp",
+      "order": 4
+    },
+    {
+      "name": "Peinado de Novia Recogido",
+      "description": "Elegante recogido para novias con detalles florales en el cabello, ideal para tu gran día.",
+      "image_url": "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/gallery/peinado-de-novia.webp",
+      "order": 5
+    },
+    {
+      "name": "Cabello Rubio Ondulado (2)",
+      "description": "Otra variante de rubio ondulado, con más volumen y definición.",
+      "image_url": "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/gallery/cabello-largo-oscuro.webp",
+      "order": 6
+    }
+  ],
+  "services": [
+    {
+      "name": "Corte de Caballero",
+      "description": "Corte de cabello personalizado y estilizado, adaptado a cada tipo de cabello y preferencia personal. Incluye lavado y peinado final.",
+      "price": 25,
+      "value": "corte-caballero",
+      "order": 1,
+      "category": "Servicios Destacados",
+      "icon_name": "Scissors"
+    },
+    {
+      "name": "Arreglo de Barba",
+      "description": "Diseño y perfilado profesional de barba y bigote, con productos específicos para su cuidado y un acabado impecable.",
+      "price": 15,
+      "value": "arreglo-barba",
+      "order": 2,
+      "category": "Servicios Destacados",
+      "icon_name": "Sparkles"
+    },
+    {
+      "name": "Afeitado a Navaja",
+      "description": "Una experiencia de afeitado clásico, realizada con navaja, toallas calientes y productos de alta calidad para un acabado suave y sin irritaciones.",
+      "price": 20,
+      "value": "afeitado-navaja",
+      "order": 3,
+      "category": "Servicios Destacados",
+      "icon_name": "Wand2"
+    },
+    {
+      "name": "Masaje Capilar",
+      "description": "Un relajante masaje diseñado para estimular el cuero cabelludo, mejorar la circulación y promover el bienestar general.",
+      "price": 10,
+      "value": "masaje-capilar",
+      "order": 4,
+      "category": "Servicios Destacados",
+      "icon_name": "HandHeart"
+    },
+    {
+      "name": "Limpieza Facial Express",
+      "description": "Rápida limpieza y revitalización del rostro, ideal para un cuidado esencial y un aspecto fresco al instante.",
+      "price": 30,
+      "value": "limpieza-facial-express",
+      "order": 1,
+      "category": "Tratamientos Adicionales",
+      "icon_name": "Gem"
+    },
+    {
+      "name": "Tinte de Barba",
+      "description": "Coloración profesional para barba y bigote, para unificar el tono o cubrir canas con resultados naturales.",
+      "price": 20,
+      "value": "tinte-barba",
+      "order": 2,
+      "category": "Tratamientos Adicionales",
+      "icon_name": "Palette"
+    },
+    {
+      "name": "Diseño de Cejas",
+      "description": "Perfilado y limpieza de cejas masculino para una mirada definida y natural, resaltando los rasgos faciales.",
+      "price": 10,
+      "value": "diseno-cejas",
+      "order": 3,
+      "category": "Tratamientos Adicionales",
+      "icon_name": "Smile"
+    },
+    {
+      "name": "Paquete Total Look",
+      "description": "Corte de cabello + arreglo de barba + tratamiento capilar. El paquete ideal para una transformación completa y un estilo coherente.",
+      "price": 50,
+      "value": "paquete-total-look",
+      "order": 1,
+      "category": "Paquetes Especiales",
+      "icon_name": "Crown"
+    },
+    {
+      "name": "Paquete Día del Novio",
+      "description": "Servicio premium para el gran día: incluye corte, afeitado a navaja, limpieza facial y peinado especial de novio.",
+      "price": 75,
+      "value": "paquete-dia-novio",
+      "order": 2,
+      "category": "Paquetes Especiales",
+      "icon_name": "Star"
+    },
+    {
+      "name": "Paquete Fiesta",
+      "description": "Corte y estilo especial para eventos, ideal para lucir impecable en cualquier celebración.",
+      "price": 40,
+      "value": "paquete-fiesta",
+      "order": 3,
+      "category": "Paquetes Especiales",
+      "icon_name": "Sparkles"
+    }
+  ]
+}
