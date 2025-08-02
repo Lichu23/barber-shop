@@ -1,6 +1,5 @@
 import { getBookingById } from "@/lib/services/bookingService";
 import { formatServiceName } from "@/utils/formatServiceName";
-import { formatTimeTo12H } from "@/utils/formatTime";
 import { format } from "date-fns"; // Para formatear la fecha
 import { es } from "date-fns/locale"; // Para fechas en español
 

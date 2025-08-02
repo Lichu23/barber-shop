@@ -98,10 +98,10 @@ export default function CancelBookingPage() {
 
             {/* Botón para regresar al inicio, o reintentar si es error */}
             {isError && (
-              <Button onClick={handleCancel} className="bg-blue-500 hover:bg-blue-600 text-white">Reintentar</Button>
+              <Button onClick={handleCancel} className="bg-secondary hover:bg-secondary/60 text-white">Reintentar</Button>
             )}
             {!isError && (
-              <Button asChild className="bg-pink-500 hover:bg-pink-600 text-white">
+              <Button asChild className="bg-primary hover:bg-primary/60 text-white">
                 <a href={`/${tenantId}`}>Ir a la página principal del salón</a>
               </Button>
             )}
