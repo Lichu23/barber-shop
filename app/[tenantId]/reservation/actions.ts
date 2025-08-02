@@ -80,7 +80,6 @@ export async function saveBooking(
     return { error: "URL base de la aplicación no configurada correctamente." };
   }
 
-
   try {
     // 1. Guardar la reserva en Supabase
     const { data: newBooking, error: insertError } = await insertBooking({
@@ -106,8 +105,25 @@ export async function saveBooking(
     // 2. Crear evento en Google Calendar
     let googleCalendarEventId: string | null = null;
 
+    const clientTimeZone = "Europe/Madrid"; // Define la zona horaria del cliente/salón
+    const dateInClientTimeZoneString = new Date(
+      `${date}T${time}`
+    ).toLocaleString("en-US", {
+      timeZone: clientTimeZone,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit", // Asegurarse de incluir segundos si el 'time' puede tenerlos
+      hourCycle: "h23", // Formato 24h
+    });
+    const newAppointmentDateTime = new Date(
+      dateInClientTimeZoneString
+    ).toISOString();
+
     try {
-      const start = new Date(appointmentDateTime);
+      const start = new Date(newAppointmentDateTime);
       const durationMinutes = 45;
       const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
       const servicesSummary = detailedServices.map((s) => s.name).join(", ");
