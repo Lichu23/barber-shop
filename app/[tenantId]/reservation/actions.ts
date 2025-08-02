@@ -13,6 +13,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 import { FormValues } from "./schema/reservationSchema";
+import { fromZonedTime } from 'date-fns-tz';
 
 export async function saveBooking(
   formData: FormValues,
@@ -49,7 +50,9 @@ export async function saveBooking(
     )
     .filter((service): service is ServiceOption => service !== undefined);
 
-  const appointmentDateTime = new Date(`${date}T${time}`).toISOString(); // Construye appointmentDateTime
+  const timeZone = 'Europe/Madrid';
+  const localDateTime = fromZonedTime(`${date}T${time}`, timeZone); // <-- SOLO CAMBIA ESTO
+  const appointmentDateTime = localDateTime.toISOString();
 
   const cancellationToken = uuidv4();
   // 2. Obtener la configuración del Owner para este Tenant
