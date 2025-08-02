@@ -49,8 +49,22 @@ export async function saveBooking(
     )
     .filter((service): service is ServiceOption => service !== undefined);
 
-  const appointmentDateTime = new Date(`${date}T${time}`).toISOString(); // Construye appointmentDateTime
-
+ const clientTimeZone = "Europe/Madrid"; // Define la zona horaria del cliente/salón
+    const dateInClientTimeZoneString = new Date(
+      `${date}T${time}`
+    ).toLocaleString("en-US", {
+      timeZone: clientTimeZone,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit", // Asegurarse de incluir segundos si el 'time' puede tenerlos
+      hourCycle: "h23", // Formato 24h
+    });
+    const appointmentDateTime = new Date(
+      dateInClientTimeZoneString
+    ).toISOString();
   const cancellationToken = uuidv4();
   // 2. Obtener la configuración del Owner para este Tenant
   const { data: adminSettings, error: adminSettingsError } =
@@ -105,25 +119,10 @@ export async function saveBooking(
     // 2. Crear evento en Google Calendar
     let googleCalendarEventId: string | null = null;
 
-    const clientTimeZone = "Europe/Madrid"; // Define la zona horaria del cliente/salón
-    const dateInClientTimeZoneString = new Date(
-      `${date}T${time}`
-    ).toLocaleString("en-US", {
-      timeZone: clientTimeZone,
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit", // Asegurarse de incluir segundos si el 'time' puede tenerlos
-      hourCycle: "h23", // Formato 24h
-    });
-    const newAppointmentDateTime = new Date(
-      dateInClientTimeZoneString
-    ).toISOString();
+   
 
     try {
-      const start = new Date(newAppointmentDateTime);
+      const start = new Date(appointmentDateTime);
       const durationMinutes = 45;
       const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
       const servicesSummary = detailedServices.map((s) => s.name).join(", ");
