@@ -41,7 +41,7 @@ export function EmailTemplate({
       <p>
         Fecha: <b>{formatDate(date)}</b>
         <br />
-        Hora: <b>{formatTimeTo24H(time)}</b>
+        Hora: <b>{time}hs</b>
         <br />
         Total a pagar: <b>{formatPriceToEuro(totalPrice)}</b>
       </p>
@@ -67,10 +67,9 @@ export function EmailTemplate({
           asChild
           className="w-full sm:w-auto bg-indigo-500 hover:bg-indigo-600 text-white font-medium px-4 py-2 rounded-lg text-sm sm:text-base"
         >
-          <a href={chikyDireccion} target="_blank" rel="noopener noreferrer">
-            <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
-            Chiky Peluqueria
-          </a>
+          <p>
+            {tenantId}
+          </p>
         </Button>
       </p>
     </div>

@@ -35,7 +35,7 @@ export function CancellationConfirmationEmailTemplate({
           <strong>Fecha:</strong> <span>{formatDate(date)}</span>
         </p>
         <p>
-          Hora: <b>{formatTimeTo24H(time)}</b>
+          Hora: <b>{time}hs</b>
         </p>
       </div>
 

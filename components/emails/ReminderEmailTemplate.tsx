@@ -38,7 +38,7 @@ export function ReminderEmailTemplate({
           <strong>Fecha:</strong> <span>{formatDate(date)}</span>
         </p>
         <p>
-          <strong>Hora:</strong> <span>{formatTimeTo24H(time)}</span>
+          <strong>Hora:</strong> <span>{time}hs</span>
         </p>
       </div>
 

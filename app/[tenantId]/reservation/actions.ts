@@ -49,23 +49,7 @@ export async function saveBooking(
     )
     .filter((service): service is ServiceOption => service !== undefined);
 
-  const localInputDate = new Date(`${date}T${time}`);
-
-  const clientTimeZone = "Europe/Madrid";
-
-  const options: Intl.DateTimeFormatOptions = {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hourCycle: "h23",
-    timeZone: clientTimeZone,
-  };
-  
-  const appointmentDateTimeLocalString = localInputDate.toLocaleString('en-US', options);
-  const appointmentDateTime = new Date(appointmentDateTimeLocalString).toISOString();
+  const appointmentDateTime = new Date(`${date}T${time}`).toISOString(); // Construye appointmentDateTime
 
   const cancellationToken = uuidv4();
   // 2. Obtener la configuración del Owner para este Tenant
@@ -95,6 +79,7 @@ export async function saveBooking(
     console.error("Error: NEXT_PUBLIC_BASE_URL no está configurada.");
     return { error: "URL base de la aplicación no configurada correctamente." };
   }
+
 
   try {
     // 1. Guardar la reserva en Supabase
@@ -193,7 +178,7 @@ export async function saveBooking(
           fullName: fullName,
           service: servicesForEmail,
           date: date,
-          time: appointmentDateTime,
+          time: time,
           totalPrice: totalPrice,
           bookingId: newBooking.id,
           cancellationToken: cancellationToken,
