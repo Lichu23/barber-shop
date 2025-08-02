@@ -49,22 +49,66 @@ export async function saveBooking(
     )
     .filter((service): service is ServiceOption => service !== undefined);
 
- const clientTimeZone = "Europe/Madrid"; // Define la zona horaria del cliente/salón
-    const dateInClientTimeZoneString = new Date(
-      `${date}T${time}`
-    ).toLocaleString("en-US", {
-      timeZone: clientTimeZone,
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit", // Asegurarse de incluir segundos si el 'time' puede tenerlos
-      hourCycle: "h23", // Formato 24h
-    });
-    const appointmentDateTime = new Date(
-      dateInClientTimeZoneString
-    ).toISOString();
+  const clientTimeZone = "Europe/Madrid"; // Define la zona horaria del cliente/salón
+  const tempDateObj = new Date(`${date}T${time}`);
+  const [year, month, day] = date.split("-").map(Number);
+  const [hour, minute, second] = time.split(":").map(Number);
+  const initialUTCDateTime = new Date(`${date}T${time}`);
+
+  const appointmentDateObj = new Date(
+    `${date}T${time}` // La fecha y hora como se ingresó (ej., "2025-08-01T19:00:00")
+  );
+  const madridDate = new Date(appointmentDateObj.toLocaleString('en-US', { timeZone: clientTimeZone }));
+  const madridOffsetMinutes = (madridDate.getTime() - appointmentDateObj.getTime()) / 60000;
+  const localSelectedDate = new Date(year, month - 1, day, hour, minute, second || 0); // Esto crea fecha en TZ local del servidor
+
+    const yearVal = parseInt(date.substring(0,4), 10);
+  const monthVal = parseInt(date.substring(5,7), 10) - 1; // Month is 0-indexed
+  const dayVal = parseInt(date.substring(8,10), 10);
+  const hourVal = parseInt(time.substring(0,2), 10);
+  const minuteVal = parseInt(time.substring(3,5), 10);
+  const secondVal = parseInt(time.substring(6,8) || '0', 10);
+
+    const dt = new Date(Date.UTC(yearVal, monthVal, dayVal, hourVal, minuteVal, secondVal));
+  const dateParts = date.split('-').map(Number);
+  const timeParts = time.split(':').map(Number);
+
+    const selectedLocalTimeOnServer = new Date(
+      dateParts[0], dateParts[1] - 1, dateParts[2],
+      timeParts[0], timeParts[1], timeParts[2] || 0
+  );
+
+    const currentOffsetMinutes = selectedLocalTimeOnServer.getTimezoneOffset(); // Server's offset from UTC
+
+  const targetDate = new Date(
+      selectedLocalTimeOnServer.getFullYear(),
+      selectedLocalTimeOnServer.getMonth(),
+      selectedLocalTimeOnServer.getDate(),
+      selectedLocalTimeOnServer.getHours(),
+      selectedLocalTimeOnServer.getMinutes(),
+      selectedLocalTimeOnServer.getSeconds()
+  );
+
+    const appointmentDateTime = `${date}T${time}:00.000`; // YYYY-MM-DDTHH:mm:ss.SSS
+
+      function getOffsetForTimeZone(date: string, time: string, timeZone: string): string {
+      const dt = new Date(`${date}T${time}`);
+      const offset = new Intl.DateTimeFormat('en-US', {
+          timeZone,
+          timeZoneName: 'longOffset', // Example: GMT+02:00
+      }).format(dt);
+
+      // Extract +HH:MM or -HH:MM
+      const match = offset.match(/(GMT[+-]\d{2}:\d{2})/);
+      if (match && match[1]) {
+        return match[1].replace('GMT', ''); // Returns +02:00
+      }
+      return '+00:00'; // Default to UTC
+  }
+
+  const offsetString = getOffsetForTimeZone(date, time, 'Europe/Madrid');
+  const finalAppointmentDateTimeUTC = new Date(`${appointmentDateTime}${offsetString}`).toISOString();
+
   const cancellationToken = uuidv4();
   // 2. Obtener la configuración del Owner para este Tenant
   const { data: adminSettings, error: adminSettingsError } =
@@ -104,7 +148,7 @@ export async function saveBooking(
       date: date,
       appointment_time: time,
       total_price: totalPrice,
-      appointment_datetime: appointmentDateTime,
+      appointment_datetime: finalAppointmentDateTimeUTC,
       reminder_sent_at: null,
       cancellation_token: cancellationToken,
       google_calendar_event_id: null,
@@ -119,10 +163,8 @@ export async function saveBooking(
     // 2. Crear evento en Google Calendar
     let googleCalendarEventId: string | null = null;
 
-   
-
     try {
-      const start = new Date(appointmentDateTime);
+      const start = new Date(finalAppointmentDateTimeUTC);
       const durationMinutes = 45;
       const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
       const servicesSummary = detailedServices.map((s) => s.name).join(", ");
