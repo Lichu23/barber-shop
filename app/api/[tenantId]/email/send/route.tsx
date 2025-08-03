@@ -20,6 +20,7 @@ export interface SendEmailRequest {
   isCancellationConfirmation?: boolean;
   bookingId?: string;
   tenantId?: string;
+  appointmentDateTime:string
 }
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -37,6 +38,8 @@ export async function POST(req: Request) {
     isCancellationConfirmation,
     bookingId,
     tenantId,
+    appointmentDateTime
+
   }: SendEmailRequest = await req.json();
 
   try {
@@ -104,6 +107,7 @@ export async function POST(req: Request) {
           totalPrice={totalPrice}
           cancellationToken={cancellationToken}
           tenantId={tenantId}
+          appointmentDateTime={appointmentDateTime}
         />
       );
     }

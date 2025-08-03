@@ -13,7 +13,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 import { FormValues } from "./schema/reservationSchema";
-import { fromZonedTime } from 'date-fns-tz';
+import { fromZonedTime } from "date-fns-tz";
 
 export async function saveBooking(
   formData: FormValues,
@@ -50,7 +50,7 @@ export async function saveBooking(
     )
     .filter((service): service is ServiceOption => service !== undefined);
 
-  const timeZone = 'Europe/Madrid';
+  const timeZone = "Europe/Madrid";
   const localDateTime = fromZonedTime(`${date}T${time}`, timeZone); // <-- SOLO CAMBIA ESTO
   const appointmentDateTime = localDateTime.toISOString();
 
@@ -83,7 +83,6 @@ export async function saveBooking(
     return { error: "URL base de la aplicación no configurada correctamente." };
   }
 
-
   try {
     // 1. Guardar la reserva en Supabase
     const { data: newBooking, error: insertError } = await insertBooking({
@@ -109,7 +108,6 @@ export async function saveBooking(
     // 2. Crear evento en Google Calendar
     let googleCalendarEventId: string | null = null;
 
-    
     try {
       const start = new Date(appointmentDateTime);
       const durationMinutes = 45;
@@ -171,6 +169,7 @@ export async function saveBooking(
     }
 
     try {
+
       const servicesForEmail: string =
         detailedServices?.map((s) => s.name).join(", ") ||
         (Array.isArray(services) ? services.join(", ") : services);
@@ -187,6 +186,7 @@ export async function saveBooking(
           bookingId: newBooking.id,
           cancellationToken: cancellationToken,
           tenantId: tenantId,
+          appointmentDateTime: appointmentDateTime,
         });
       if (emailError) {
         console.error("Error al enviar email de confirmación:", emailError);

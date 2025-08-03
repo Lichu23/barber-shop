@@ -1,8 +1,7 @@
 import { getBookingById } from "@/lib/services/bookingService";
 import { formatServiceName } from "@/utils/formatServiceName";
-import { format } from "date-fns"; // Para formatear la fecha
+import { formatInTimeZone } from "date-fns-tz";
 import { es } from "date-fns/locale"; // Para fechas en español
-import { fromZonedTime, formatInTimeZone } from "date-fns-tz";
 
 interface SuccessPageProps {
   params: {
@@ -70,12 +69,10 @@ export default async function SuccessPage({
 
     const start = new Date(booking.appointment_datetime);
 
-    // 2. Verifica que la fecha sea válida
     if (!isNaN(start.getTime())) {
       const durationMinutes = 45;
       const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
 
-      // 3. Formatea la fecha y las horas para la zona horaria de España
       formattedStartTime = formatInTimeZone(start, timeZone, "HH:mm"); // -> "19:00"
       formattedEndTime = formatInTimeZone(end, timeZone, "HH:mm"); // -> "19:45"
       formattedDate = formatInTimeZone(start, timeZone, "PPP", { locale: es });
