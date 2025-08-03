@@ -42,14 +42,14 @@ export default function ServiceCard({ service }: ServiceCardProps) {
     <Card className="hover:shadow-lg transition-shadow border-pink-100 h-full flex flex-col justify-between">
       <CardContent className="p-4 flex flex-col items-center justify-center h-full">
         <div className="flex flex-col items-center justify-center w-full">
-          {IconComponent && ( // Renderiza el icono solo si IconComponent existe
+          {IconComponent && ( 
             <div className="bg-primary/15 p-3 rounded-full mb-4 flex-shrink-0">
               <IconComponent className="h-8 w-8 text-primary" />
             </div>
           )}
           <div className="text-center w-full">
             <h3 className="font-semibold text-lg text-gray-800 mb-2">{service.name}</h3>
-            {service.description && ( // Muestra la descripción si existe
+            {service.description && ( 
               <p className="text-gray-600 text-sm mb-4">{service.description}</p>
             )}
           </div>

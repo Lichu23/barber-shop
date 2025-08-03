@@ -87,8 +87,8 @@ export default function GDPRBanner() {
         <CardContent className="p-6">
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-center gap-3">
-              <div className="bg-pink-100 p-2 rounded-full">
-                <Shield className="h-6 w-6 text-pink-600" />
+              <div className="bg-primary/10 p-2 rounded-full">
+                <Shield className="h-6 w-6 text-primary" />
               </div>
               <h2 className="text-xl font-bold text-gray-800">{gdprTexts.title}</h2>
             </div>
@@ -107,13 +107,13 @@ export default function GDPRBanner() {
               <p className="text-gray-600 mb-6 leading-relaxed">{gdprTexts.description}</p>
 
               <div className="flex flex-col sm:flex-row gap-3 mb-4">
-                <Button onClick={handleAcceptNecessary} className="flex-1 bg-pink-500 hover:bg-pink-600 text-white">
-                  {gdprTexts.acceptAll} {/* Ahora significa 'Aceptar necesarias' */}
+                <Button onClick={handleAcceptNecessary} className="flex-1 bg-primary hover:bg-primary/70 text-white">
+                  {gdprTexts.acceptAll} 
                 </Button>
                 <Button
                   onClick={handleCustomize}
                   variant="outline"
-                  className="flex-1 border-pink-300 text-pink-600 hover:bg-pink-50 bg-transparent"
+                  className="flex-1 border-primary/40 text-primary hover:bg-primary/10 bg-transparent"
                 >
                   {gdprTexts.customize}
                 </Button>

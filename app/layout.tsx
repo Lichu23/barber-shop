@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import { ReservationProvider } from "../context/ReservationProvider";
-import ClientLayoutWrapper from "@/components/(layout)/ClientLayoutWrapper";
 import "./global.css";
 export const metadata: Metadata = {
   title: "Chiky Peluqueria",

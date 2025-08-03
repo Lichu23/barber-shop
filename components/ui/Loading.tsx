@@ -4,13 +4,13 @@
 import { Loader2, Scissors } from "lucide-react"; // Loader2 para el spinner, Scissors para un toque temático
 import React from "react";
 
-interface LoadingFemeninoProps {
+interface LoadingProps {
   text?: string;
   className?: string;
 }
 
-const LoadingFemenino: React.FC<LoadingFemeninoProps> = ({
-  text = "Cargando...",
+const Loading: React.FC<LoadingProps> = ({
+  text = "Cargando Informacion",
   className,
 }) => {
     
@@ -30,4 +30,4 @@ const LoadingFemenino: React.FC<LoadingFemeninoProps> = ({
   );
 };
 
-export default LoadingFemenino;
+export default Loading;
