@@ -11,7 +11,7 @@ interface SendEmailData {
     bookingId?: string | null;
     isCancellationConfirmation?: boolean;
     tenantId: string
-    appointmentDateTime: string
+    appointmentDateTime?: string
 }
 
 export async function sendConfirmationEmail(emailData: SendEmailData): Promise<{ success: boolean; error?: string }> {

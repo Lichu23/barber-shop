@@ -6,6 +6,7 @@ import {
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ReservationForm from "./components/Form/ReservationForm";
+import { ServiceOption } from "@/constants/services";
 
 export async function generateMetadata({
   params,
@@ -30,10 +31,13 @@ export async function generateMetadata({
 
 export default async function ReservationPage({
   params,
+  searchParams,
 }: {
   params: { tenantId: string };
+  searchParams: { services?: string };
 }) {
   const { tenantId } = await params;
+  const selectedServiceValuesString = searchParams.services;
 
   const { data: allServices, error: servicesError } =
     await getTenantServices(tenantId);
@@ -48,11 +52,21 @@ export default async function ReservationPage({
     notFound();
   }
 
+  let preselectedServices: ServiceOption[] = [];
+  if (selectedServiceValuesString) {
+    const selectedValuesArray = selectedServiceValuesString.split(",");
+    preselectedServices = selectedValuesArray
+      .map((value) => allServices.find((service) => service.value === value))
+      .filter((service): service is ServiceOption => service !== undefined);
+  }
 
- 
   return (
     <div className="h-[calc(100dvh-5rem)] w-full py-0 lg:py-14 lg:flex lg:items-center lg:justify-center">
-      <ReservationForm tenantId={tenantId} allServices={allServices}/>
+      <ReservationForm
+        tenantId={tenantId}
+        allServices={allServices}
+        preselectedServices={preselectedServices}
+      />
     </div>
   );
 }

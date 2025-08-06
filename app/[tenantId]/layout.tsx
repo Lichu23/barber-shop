@@ -25,7 +25,7 @@ export default async function TenantLayout({
     { href: `/${tenantId}`, label: "Inicio" },
     // { href: `/${tenantId}/gallery`, label: "Galería" },
     { href: `/${tenantId}/services`, label: "Servicios" }, // Enlace a la página de servicios
-    { href: `/${tenantId}/reservation`, label: "Reservar" }, // Enlace a la página de reserva
+    { href: `/${tenantId}/select-services`, label: "Reservar" }, // Enlace a la página de reserva
   ];
 
   const footerData = {

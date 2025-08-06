@@ -7,6 +7,7 @@ interface EmailReminderProps {
   date: string;
   time: string;
   totalPrice?: number;
+  tenantId:string | undefined
 }
 
 export function ReminderEmailTemplate({
@@ -14,12 +15,10 @@ export function ReminderEmailTemplate({
   service,
   date,
   time,
+  tenantId
 }: EmailReminderProps) {
   const servicesArray =
     typeof service === "string" ? service.split(",").map((s) => s.trim()) : [];
-
-  const chikyDireccion =
-    "https://www.google.com/maps/place/Peluqueria+Latina+Chiky/@41.3741889,2.1573992,17z/data=!3m1!4b1!4m6!3m5!1s0x12a4a265d7ffcf57:0xb70d1351b6080e80!8m2!3d41.3741889!4d2.1599741!16s%2Fg%2F11b7dzd2rc?entry=ttu&g_ep=EgoyMDI1MDYzMC4wIKXMDSoASAFQAw%3D%3D";
 
   return (
     <div>
@@ -51,12 +50,7 @@ export function ReminderEmailTemplate({
         posible.
       </p>
 
-      <p>
-        Nos encontramos en:{" "}
-        <a href={chikyDireccion} target="_blank" rel="noopener noreferrer">
-          Chiky Peluquería (Ver en Google Maps)
-        </a>
-      </p>
+      <p>Nos encontramos en: {tenantId}</p>
 
       <hr />
 

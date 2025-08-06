@@ -66,7 +66,8 @@ export async function GET(request: Request, { params }: { params: { tenantId: st
         totalPrice: booking.total_price, 
         bookingId: booking.id, 
         isReminder: true, 
-        tenantId:tenantId
+        tenantId:tenantId,
+        appointmentDateTime:booking.appointment_datetime
       });
 
       await supabase.from('bookings').update({ reminder_sent_at: new Date().toISOString() }).eq('id', booking.id);

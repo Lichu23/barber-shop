@@ -41,7 +41,7 @@ export default function Footer({
   socialTwitterUrl,
 }: FooterProps) {
   return (
-    <footer className="bg-gray-900 text-white py-12 mt-5">
+    <footer className="bg-gray-900 text-white py-12 mt-36 lg:mt-5">
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
           <Link href={`/${tenantId}`} className="flex items-center gap-2 mb-4">

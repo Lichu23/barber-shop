@@ -19,9 +19,10 @@ import { ServiceOption } from "@/constants/services";
 interface Props {
   tenantId: string;
   allServices: ServiceOption[];
+  preselectedServices: ServiceOption[];
 }
 
-export default function ReservationForm({ tenantId, allServices }: Props) {
+export default function ReservationForm({ tenantId, allServices, preselectedServices }: Props) {
   const {
     control,
     handleSubmit,
@@ -34,7 +35,7 @@ export default function ReservationForm({ tenantId, allServices }: Props) {
       fullName: "",
       phoneNumber: "",
       email: "",
-      services: [],
+      services: preselectedServices.map(service => service.value),
       date: "",
       time: "",
     },
@@ -137,7 +138,7 @@ export default function ReservationForm({ tenantId, allServices }: Props) {
           <MultiSelectForm<FormValues>
             error={errors}
             name="services"
-            label="💅 Servicios"
+            label="✂ Servicios"
             control={control}
             options={multiSelectOptions}
           />

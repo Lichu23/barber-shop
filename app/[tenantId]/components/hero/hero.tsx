@@ -84,7 +84,7 @@ function HeroMain({ tenantId, slogan, description, imageUrl }: HeroMainProps) {
             size="lg"
             className="bg-primary text-white text-lg sm:text-xl hover:bg-primary/90 w-full sm:w-auto"
           >
-            <Link href={`/${tenantId}/reservation`}>Reserva Ya</Link>
+            <Link href={`/${tenantId}/select-services`}>Reserva Ya</Link>
           </Button>
           <Button
             asChild

@@ -30,9 +30,6 @@ export function EmailTemplate({
   console.log(`confirmation email time:${time}`);
   const cancellationLink = `${process.env.NEXT_PUBLIC_BASE_URL}/${tenantId}/cancel?token=${cancellationToken}&id=${bookingId}`;
 
-  const chikyDireccion =
-    "https://www.google.com/maps/place/Peluqueria+Latina+Chiky/@41.3741889,2.1573992,17z/data=!3m1!4b1!4m6!3m5!1s0x12a4a265d7ffcf57:0xb70d1351b6080e80!8m2!3d41.3741889!4d2.1599741!16s%2Fg%2F11b7dzd2rc?entry=ttu&g_ep=EgoyMDI1MDYzMC4wIKXMDSoASAFQAw%3D%3D"; // Placeholder URL
-
   let formattedStartTime = "No disponible";
   let formattedEndTime = "No disponible";
   let formattedDate = "No disponible";
@@ -68,7 +65,6 @@ export function EmailTemplate({
       <ul>
         <li>
           <b>{service}</b>{" "}
-          {/* Asumo que 'service' ya es un string como "Corte, Barba" */}
         </li>
       </ul>
       {cancellationToken && (
