@@ -24,6 +24,10 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
+    if (url.pathname === '/favicon.ico' || url.pathname === '/favicon.png') {
+    return NextResponse.next();
+  }
+
   try {
     const { data: tenantProfile, error } = await supabase
       .from("tenants")
