@@ -45,7 +45,7 @@ async function processImageData(imageUrl: string) {
   }
 }
 
-export default async function Home({
+export default async function HomeTenantPage({
   params,
 }: {
   params: { tenantId: string };
@@ -97,7 +97,7 @@ export default async function Home({
 
       {featuredServices && featuredServices.length > 0 && (
         <div className="flex flex-col gap-2">
-          <Services tenantId={tenantId} services={featuredServices} />
+          <Services services={featuredServices} />
           <SeeMoreButton tenantId={tenantId} />
         </div>
       )}
