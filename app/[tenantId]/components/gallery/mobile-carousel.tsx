@@ -122,7 +122,7 @@ export default function MobileCarousel({ haircuts }: MobileCarouselProps) {
           <div
             key={index}
             className={`h-2 w-2 rounded-full transition-colors ${
-              currentIndex === index ? 'bg-pink-500' : 'bg-pink-200'
+              currentIndex === index ? 'bg-primary' : 'bg-secondary'
             }`}
           />
         ))}
