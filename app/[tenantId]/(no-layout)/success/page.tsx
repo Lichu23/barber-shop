@@ -86,7 +86,6 @@ export default async function SuccessPage({
 
   return (
     <SuccessPageWrapper
-      tenantId={tenantId}
       booking={booking}
       formattedDate={formattedDate}
       formattedEndTime={formattedEndTime}

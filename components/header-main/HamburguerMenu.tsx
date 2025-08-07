@@ -4,12 +4,12 @@
 import {
   Sheet,
   SheetContent,
-  SheetTrigger,
   SheetTitle,
+  SheetTrigger,
 } from "@/components/ui/sheet";
+import { useTenant } from "@/context/TenantProvider";
 import { Menu } from "lucide-react";
 import NavLinks from "./nav-links";
-import { NavigationLink } from "@/constants/navigation";
 
 interface HamburgerMenuProps {
   tenantId:string
@@ -17,12 +17,16 @@ interface HamburgerMenuProps {
 }
 
 export default function HamburgerMenu({ navLinks, tenantId }: HamburgerMenuProps) {
-  const updatedLinks = navLinks.map((link) => ({
+  const { isCustomDomain } = useTenant();
+
+  const basePath = isCustomDomain ? "" : `/${tenantId}`;
+
+  const finalLinks = navLinks.map((link) => ({
     ...link,
-    href: link.href.startsWith(`/${tenantId}`)
-      ? link.href.substring(tenantId.length + 1)
-      : link.href,
+    href: `${basePath}${link.href}`,
   }));
+
+
 
   return (
     <Sheet>
@@ -34,7 +38,7 @@ export default function HamburgerMenu({ navLinks, tenantId }: HamburgerMenuProps
       <SheetContent side="left" className="p-0">
         <SheetTitle>
           <div className="p-6">
-            <NavLinks vertical updatedLinks={updatedLinks} />
+            <NavLinks vertical updatedLinks={finalLinks} />
           </div>
         </SheetTitle>
       </SheetContent>
