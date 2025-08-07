@@ -22,6 +22,7 @@ export interface TenantProfile {
   color_accent: string;
   color_text_dark: string;
   color_text_light: string;
+  custom_domain?:string
 }
 
 export interface AdminSettings {

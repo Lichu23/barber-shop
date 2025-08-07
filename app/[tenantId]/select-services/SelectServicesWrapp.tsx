@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ServiceOption } from "@/constants/services";
+import { useTenant } from "@/context/TenantProvider";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -14,6 +15,7 @@ interface Props {
 
 export default function SelectServicesWrapp({ tenantId }: Props) {
   const router = useRouter();
+  const { isCustomDomain } = useTenant();
 
   const [allServices, setAllServices] = useState<ServiceOption[]>([]);
   const [selectedServices, setSelectedServices] = useState<string[]>([]); // Solo los 'value' de los servicios
@@ -62,9 +64,12 @@ export default function SelectServicesWrapp({ tenantId }: Props) {
     }
     // Redirige a la página de reserva, pasando los servicios seleccionados como query params
     const servicesQuery = selectedServices.join(",");
-    router.push(
-      `/${tenantId}/reservation?services=${encodeURIComponent(servicesQuery)}`
-    );
+    const basePath = isCustomDomain ? "" : `/${tenantId}`;
+    const reservationUrl = `${basePath}/reservation?services=${encodeURIComponent(
+      servicesQuery
+    )}`;
+
+    router.push(reservationUrl);
   };
 
   if (loading) {
@@ -99,7 +104,7 @@ export default function SelectServicesWrapp({ tenantId }: Props) {
   const categoryNames = Object.keys(groupedServices);
 
   return (
-    <div className="container mx-auto p-4 py-16">
+    <div className="container mx-auto lg:p-4 ">
       <Card className="max-w-3xl mx-auto shadow-lg">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-bold text-primary">

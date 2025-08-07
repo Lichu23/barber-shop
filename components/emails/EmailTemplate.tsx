@@ -78,13 +78,7 @@ export function EmailTemplate({
         </div>
       )}
       <p>
-        ¡Te esperamos! en{" "}
-        <Button
-          asChild
-          className="w-full sm:w-auto bg-indigo-500 hover:bg-indigo-600 text-white font-medium px-4 py-2 rounded-lg text-sm sm:text-base"
-        >
-          <p>{tenantId}</p>
-        </Button>
+        ¡Te esperamos en {tenantId}!
       </p>
     </div>
   );

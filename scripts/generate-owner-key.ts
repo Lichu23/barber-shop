@@ -36,6 +36,7 @@ interface SalonDataFromFile {
   contact_email_for_users: string;
   gallery_items: Omit<HaircutType, "id" | "tenant_id" | "created_at">[];
   services: Omit<ServiceOption, "id" | "tenant_id" | "created_at">[];
+  custom_domain?: string;
 }
 
 async function generateAndInsertOwnerKey(
@@ -69,6 +70,7 @@ async function generateAndInsertOwnerKey(
     salon_name,
     gallery_items,
     services,
+    custom_domain,
     ...tenantProfileDetails
   } = salonData;
 
@@ -111,6 +113,7 @@ async function generateAndInsertOwnerKey(
         {
           tenant_id: tenant_id,
           salon_name: salon_name || tenant_id,
+          custom_domain: custom_domain || null,
           ...tenantProfileDetails,
         },
       ])

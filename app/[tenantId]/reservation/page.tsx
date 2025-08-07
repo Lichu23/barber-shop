@@ -8,6 +8,8 @@ import { notFound } from "next/navigation";
 import ReservationForm from "./components/Form/ReservationForm";
 import { ServiceOption } from "@/constants/services";
 
+
+
 export async function generateMetadata({
   params,
 }: {
@@ -29,26 +31,23 @@ export async function generateMetadata({
   };
 }
 
-export default async function ReservationPage({
-  params,
-  searchParams,
-}: {
+interface PageProps {
   params: { tenantId: string };
-  searchParams: { services?: string };
-}) {
-  const { tenantId } = await params;
-  const selectedServiceValuesString = searchParams.services;
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export default async function ReservationPage({ params, searchParams }: PageProps) {
+  const { tenantId } = params; 
+  
+  const selectedServiceValuesString = searchParams.services as string || "";
+
+  console.log(`[PAGE] Parámetros recibidos:`, { params, searchParams });
 
   const { data: allServices, error: servicesError } =
     await getTenantServices(tenantId);
-  const { data: tenantProfile, error: profileError } =
-    await getAdminSettingsByTenantId(tenantId);
 
-  if (servicesError || !allServices || profileError || !tenantProfile) {
-    console.error(
-      `Error al cargar servicios o perfil para tenant ${tenantId}:`,
-      servicesError || profileError
-    );
+  if (servicesError || !allServices) {
+    console.error(`Error al cargar servicios para tenant ${tenantId}:`, servicesError);
     notFound();
   }
 
@@ -63,7 +62,6 @@ export default async function ReservationPage({
   return (
     <div className="h-[calc(100dvh-5rem)] w-full py-0 lg:py-14 lg:flex lg:items-center lg:justify-center">
       <ReservationForm
-        tenantId={tenantId}
         allServices={allServices}
         preselectedServices={preselectedServices}
       />
