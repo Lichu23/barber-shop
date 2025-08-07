@@ -2,23 +2,27 @@ import { NavigationLink } from "@/constants/navigation";
 import Link from "next/link";
 
 interface NavLinksProps {
-  vertical?: boolean; 
-  navLinks: NavigationLink[]; 
+  vertical?: boolean;
+  updatedLinks: { href: string; label: string; }[]
 }
 
-export default function NavLinks({ vertical = false, navLinks }: NavLinksProps) {
-    return (
-    <nav className={`${vertical ? "flex flex-col space-y-4" : "hidden md:flex space-x-6"}`}>
-      {navLinks.map((link) => ( 
+export default function NavLinks({
+  vertical = false,
+  updatedLinks,
+}: NavLinksProps) {
+  return (
+    <nav
+      className={`${vertical ? "flex flex-col space-y-4" : "hidden md:flex space-x-6"}`}
+    >
+      {updatedLinks.map((link) => (
         <Link
           key={link.href}
           href={link.href}
-          className="hover:text-primary fontbold transition-colors font-bold"
+          className="text-gray-600 hover:text-primary font-medium"
         >
           {link.label}
         </Link>
       ))}
     </nav>
   );
-
 }

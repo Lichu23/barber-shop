@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
-import { ReservationProvider } from "../context/ReservationProvider";
 import "./global.css";
 export const metadata: Metadata = {
   title: "Chiky Peluqueria",
@@ -22,9 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={`${lato.className}`}>
-      <ReservationProvider>
         <body>{children}</body>
-      </ReservationProvider>
     </html>
   );
 }

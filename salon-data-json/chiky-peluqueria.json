@@ -3,7 +3,7 @@
   "salon_name": "Chiky Peluquería",
   "hero_slogan": "Belleza y Elegancia",
   "hero_description": "Tu peluquería de confianza en el corazón de la ciudad. Más de 15 años creando looks únicos y cuidando tu belleza natural.",
-  "hero_image_url": "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/hero/hero-chiky.webp",
+  "hero_image_url": "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/hero/hero-chiky-compressed.webp",
   "contact_phone": "691 872 269",
   "contact_address": "Carrer d'Elkano, 82 Bjs, Sants-Montjuïc, 08004 Barcelona",
   "opening_hours_summary": "Lunes a Sábado",
@@ -14,6 +14,8 @@
   "color_accent": "40 90% 60%",
   "color_text_dark": "300 40% 20%",
   "color_text_light": "330 20% 95%",
+  "custom_domain": "chikypeluqueria.test",
+
   "gallery_items": [
     {
       "name": "Cabello Liso Castaño",

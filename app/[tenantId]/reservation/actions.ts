@@ -14,6 +14,8 @@ import { redirect } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 import { FormValues } from "./schema/reservationSchema";
 import { fromZonedTime } from "date-fns-tz";
+import { headers } from "next/headers";
+const PLATFORM_DOMAINS = new Set(["lichu.org", "www.lichu.org", "localhost"]);
 
 export async function saveBooking(
   formData: FormValues,
@@ -169,7 +171,6 @@ export async function saveBooking(
     }
 
     try {
-
       const servicesForEmail: string =
         detailedServices?.map((s) => s.name).join(", ") ||
         (Array.isArray(services) ? services.join(", ") : services);
@@ -199,8 +200,17 @@ export async function saveBooking(
         emailError.message
       );
     }
+
+    const requestHeaders = await headers();
+    const host = requestHeaders.get("host");
+    const normalizedHost = host?.split(":")[0].replace(/^www\./, "") || "";
+    const isCustomDomain = !PLATFORM_DOMAINS.has(normalizedHost);
+
+    const basePath = isCustomDomain ? "" : `/${tenantId}`;
+    const successUrl = `${basePath}/success?bookingId=${newBooking.id}`;
+
     revalidatePath(`/${tenantId}/reservation`);
-    redirect(`/${tenantId}/success?bookingId=${newBooking.id}`);
+    redirect(successUrl);
   } catch (error: any) {
     if (
       error &&

@@ -9,7 +9,7 @@ import Gallery from "./components/gallery/gallery";
 import Hero from "./components/hero/hero";
 import Services from "@/components/Services/Services";
 import SeeMoreButton from "@/components/Services/SeeMoreButton";
-
+import { getPlaiceholder } from "plaiceholder";
 export async function generateMetadata({
   params,
 }: {
@@ -31,6 +31,20 @@ export async function generateMetadata({
   };
 }
 
+async function processImageData(imageUrl: string) {
+  try {
+    const response = await fetch(imageUrl);
+    const buffer = await response.arrayBuffer();
+
+    const { base64 } = await getPlaiceholder(Buffer.from(buffer));
+
+    return base64; // Esta es tu blurDataURL
+  } catch (err) {
+    console.error("Error procesando la imagen para el placeholder:", err);
+    return undefined; // Retorna undefined si falla
+  }
+}
+
 export default async function Home({
   params,
 }: {
@@ -48,6 +62,11 @@ export default async function Home({
   if (!tenantProfile) {
     notFound();
   }
+
+  const imageUrl = tenantProfile.hero_image_url;
+
+  const blurDataURL = await processImageData(imageUrl!);
+
   const featuredServices =
     allServices?.filter(
       (service) => service.category === "Servicios Destacados"
@@ -66,6 +85,7 @@ export default async function Home({
     openingHoursSummary: tenantProfile.opening_hours_summary || "", // <-- Añadir fallback
     openingHoursDetail: tenantProfile.opening_hours_detail || "", // <-- Añadir fallback
     contactEmailForUsers: tenantProfile.contact_email_for_users || "", // <-- Añadir fallback
+    blurDataURL: blurDataURL || ""
   };
 
   return (

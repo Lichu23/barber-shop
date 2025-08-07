@@ -2,6 +2,7 @@ import { getBookingById } from "@/lib/services/bookingService";
 import { formatServiceName } from "@/utils/formatServiceName";
 import { formatInTimeZone } from "date-fns-tz";
 import { es } from "date-fns/locale"; // Para fechas en español
+import SuccessPageWrapper from "./SuccessPageWrapper";
 
 interface SuccessPageProps {
   params: {
@@ -84,56 +85,13 @@ export default async function SuccessPage({
     .join(", ");
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
-      <div className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full text-center">
-        <div className="text-green-500 text-6xl mb-4">✔</div>
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-4">
-          ¡Reserva Confirmada!
-        </h1>
-        <p className="text-lg text-gray-700 mb-6">
-          Tu cita ha sido agendada con éxito. Aquí están los detalles:
-        </p>
-
-        <div className="text-left space-y-3">
-          <p className="text-gray-800">
-            <strong className="font-semibold">Nombre:</strong>{" "}
-            {booking.full_name}
-          </p>
-          <p className="text-gray-800">
-            <strong className="font-semibold">Email:</strong> {booking.email}
-          </p>
-          <p className="text-gray-800">
-            <strong className="font-semibold">Teléfono:</strong>{" "}
-            {booking.phone_number}
-          </p>
-          <p className="text-gray-800">
-            <strong className="font-semibold">Servicios:</strong>{" "}
-            {formattedServices}
-          </p>
-          <p className="text-gray-800">
-            <strong className="font-semibold">Fecha:</strong> {formattedDate}
-          </p>
-          <p className="text-gray-800">
-            <strong className="font-semibold">Hora:</strong>{" "}
-            {formattedStartTime} - {formattedEndTime}
-          </p>
-          <p className="text-gray-800">
-            <strong className="font-semibold">Precio Total:</strong>{" "}
-            {booking.total_price}€
-          </p>
-        </div>
-
-        <p className="text-md text-gray-600 mt-8">
-          Te hemos enviado un email de confirmación con estos detalles.
-        </p>
-
-        <a
-          href={`/${tenantId}`}
-          className="mt-8 inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
-        >
-          Volver al Inicio
-        </a>
-      </div>
-    </div>
+    <SuccessPageWrapper
+      tenantId={tenantId}
+      booking={booking}
+      formattedDate={formattedDate}
+      formattedEndTime={formattedEndTime}
+      formattedServices={formattedServices}
+      formattedStartTime={formattedStartTime}
+    />
   );
 }

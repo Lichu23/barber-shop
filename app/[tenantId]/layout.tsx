@@ -2,8 +2,12 @@ import ClientLayoutWrapper from "@/components/(layout)/ClientLayoutWrapper";
 import Footer from "@/components/footer/MainFooter";
 import Navbar from "@/components/header-main/Header";
 import { NavigationLink } from "@/constants/navigation";
+import { TenantProvider } from "@/context/TenantProvider";
 import { getTenantProfileById } from "@/lib/services/tenantServices";
+import { headers } from "next/headers";
 import { notFound } from "next/navigation";
+
+const PLATFORM_DOMAINS = new Set(['lichu.org', 'www.lichu.org', 'localhost']);
 
 export default async function TenantLayout({
   children,
@@ -12,7 +16,12 @@ export default async function TenantLayout({
   children: React.ReactNode;
   params: { tenantId: string };
 }) {
-  const { tenantId } = await params;
+    const requestHeaders = await headers();
+  const host = requestHeaders.get('host');
+  const normalizedHost = host?.split(':')[0] || '';
+  const isCustomDomain = !PLATFORM_DOMAINS.has(normalizedHost);
+
+  const { tenantId } = await params; 
 
   const { data: tenantProfile, error: profileError } =
     await getTenantProfileById(tenantId);
@@ -21,13 +30,12 @@ export default async function TenantLayout({
     notFound();
   }
 
-  const navLinks: NavigationLink[] = [
-    { href: `/${tenantId}`, label: "Inicio" },
-    // { href: `/${tenantId}/gallery`, label: "Galería" },
-    { href: `/${tenantId}/services`, label: "Servicios" }, // Enlace a la página de servicios
-    { href: `/${tenantId}/select-services`, label: "Reservar" }, // Enlace a la página de reserva
-  ];
 
+   const navLinks: NavigationLink[] = [
+  { href: '/', label: 'Inicio' },
+  { href: '/services', label: 'Servicios' },
+  { href: '/select-services', label: 'Reservar' },
+];
   const footerData = {
     salonName: tenantProfile.salon_name,
     tenantId: tenantId,
@@ -43,7 +51,7 @@ export default async function TenantLayout({
   };
 
   return (
-    <>
+    <TenantProvider value={{tenantId,isCustomDomain}}>
       <Navbar
         salonName={tenantProfile.salon_name}
         tenantId={tenantId}
@@ -53,6 +61,6 @@ export default async function TenantLayout({
         {children}
       </ClientLayoutWrapper>
       <Footer {...footerData} />
-    </>
+    </TenantProvider>
   );
 }

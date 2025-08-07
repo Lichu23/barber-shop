@@ -1,9 +1,14 @@
-export default function TermsOfServicePage() {
+import { getTenantProfileById } from "@/lib/services/tenantServices";
+
+export default async function TermsOfServicePage({ params }: { params: { tenantId: string } }) {
+    const { tenantId } = params;
+    const { data: tenantProfile, error } = await getTenantProfileById(tenantId);
+  
   return (
     <div className="container mx-auto p-8 max-w-3xl">
       <h1 className="text-3xl font-bold mb-6">Términos de Servicio</h1>
       <p className="mb-4">
-        Bienvenido a **Chiky Peluquería**. Al utilizar nuestro servicio de
+        Bienvenido a **{tenantProfile?.salon_name}**. Al utilizar nuestro servicio de
         reservas online, aceptas los siguientes términos y condiciones.
       </p>
 
@@ -11,7 +16,7 @@ export default function TermsOfServicePage() {
       <ul className="list-disc pl-5 mb-4">
         <li>
           <strong>"Servicio":</strong> Se refiere a la plataforma de reservas
-          online proporcionada por Chiky Peluquería.
+          online proporcionada por {tenantProfile?.salon_name}.
         </li>
         <li>
           <strong>"Usuario Final":</strong> La persona que realiza una reserva
@@ -55,7 +60,7 @@ export default function TermsOfServicePage() {
       <h2 className="text-2xl font-semibold mb-4">5. Propiedad Intelectual</h2>
       <p className="mb-4">
         Todo el contenido y los materiales disponibles en el Servicio son
-        propiedad de **Chiky Peluquería** y están protegidos por leyes de
+        propiedad de **{tenantProfile?.salon_name}** y están protegidos por leyes de
         derechos de autor.
       </p>
 
@@ -63,7 +68,7 @@ export default function TermsOfServicePage() {
         6. Limitación de Responsabilidad
       </h2>
       <p className="mb-4">
-        El Servicio se proporciona "tal cual". **Chiky Peluquería** no será
+        El Servicio se proporciona "tal cual". **{tenantProfile?.salon_name}** no será
         responsable de ningún daño directo o indirecto que surja de tu acceso o
         uso del Servicio.
       </p>
@@ -91,7 +96,7 @@ export default function TermsOfServicePage() {
       </p>
 
       <p className="text-sm text-gray-500 mt-8">
-        Última actualización: 17 de julio de 2025
+        Última actualización: 8 de agosto de 2025
       </p>
     </div>
   );

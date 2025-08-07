@@ -1,22 +1,27 @@
 import { getTenantProfileById } from "@/lib/services/tenantServices";
 import { notFound } from "next/navigation";
 
-export default async function PrivacyPolicyPage({ params }: { params: { tenantId: string } }) {
-  
+export default async function PrivacyPolicyPage({
+  params,
+}: {
+  params: { tenantId: string };
+}) {
   const { tenantId } = params;
   const { data: tenantProfile, error } = await getTenantProfileById(tenantId);
-  
-  if (error || !tenantProfile) { notFound(); } // Mostrar 404 si el tenant no existe
+
+  if (error || !tenantProfile) {
+    notFound();
+  } // Mostrar 404 si el tenant no existe
 
   return (
     <div className="container mx-auto p-8 max-w-3xl">
       <h1 className="text-3xl font-bold mb-6">Política de Privacidad</h1>
       <p className="mb-4">
-        En {tenantProfile.salon_name}, valoramos tu privacidad y nos comprometemos a
-        proteger tus datos personales. Esta Política de Privacidad explica cómo
-        recopilamos, usamos y protegemos la información que nos proporcionas, de
-        acuerdo con el Reglamento General de Protección de Datos (RGPD) y la
-        legislación española.
+        En {tenantProfile.salon_name}, valoramos tu privacidad y nos
+        comprometemos a proteger tus datos personales. Esta Política de
+        Privacidad explica cómo recopilamos, usamos y protegemos la información
+        que nos proporcionas, de acuerdo con el Reglamento General de Protección
+        de Datos (RGPD) y la legislación española.
       </p>
 
       <h2 className="text-2xl font-semibold mb-4">
@@ -27,14 +32,18 @@ export default async function PrivacyPolicyPage({ params }: { params: { tenantId
       </p>
       <ul className="list-disc pl-5 mb-4">
         <li>
-          <strong>Nombre/Razón Social:</strong> {tenantProfile.contact_email_for_users}
+          <strong>Nombre/Razón Social:</strong>{" "}
+          {tenantProfile.contact_email_for_users}
         </li>
         <li>
-          <strong>Email de contacto:</strong> {tenantProfile.contact_email_for_users || 'lisandroxarenax@gmail.com'}
+          <strong>Email de contacto:</strong>{" "}
+          {tenantProfile.contact_email_for_users || "lisandroxarenax@gmail.com"}
         </li>
       </ul>
 
-      <h2 className="text-2xl font-semibold mb-4">1. ¿Qué datos recopilamos?</h2>
+      <h2 className="text-2xl font-semibold mb-4">
+        1. ¿Qué datos recopilamos?
+      </h2>
       <p className="mb-4">
         Recopilamos los datos que nos proporcionas directamente al realizar una
         reserva:
@@ -46,7 +55,9 @@ export default async function PrivacyPolicyPage({ params }: { params: { tenantId
         <li>Detalles de la cita (servicio, fecha, hora, precio)</li>
       </ul>
 
-      <h2 className="text-2xl font-semibold mb-4">2. ¿Con qué finalidad usamos tus datos?</h2>
+      <h2 className="text-2xl font-semibold mb-4">
+        2. ¿Con qué finalidad usamos tus datos?
+      </h2>
       <p className="mb-4">
         Usamos tus datos para las siguientes finalidades, basadas en la
         ejecución del servicio que nos solicitas (Art. 6.1.b RGPD):
@@ -58,16 +69,19 @@ export default async function PrivacyPolicyPage({ params }: { params: { tenantId
         </li>
         <li>
           <strong>Comunicaciones del servicio:</strong> Para enviarte
-          confirmaciones, recordatorios y notificaciones de cancelación por email.
+          confirmaciones, recordatorios y notificaciones de cancelación por
+          email.
         </li>
         <li>
-          <strong>Sincronización con el calendario del propietario:</strong> Para
-          añadir y gestionar tu cita en el calendario de Google del
+          <strong>Sincronización con el calendario del propietario:</strong>{" "}
+          Para añadir y gestionar tu cita en el calendario de Google del
           propietario/administrador del salón.
         </li>
       </ul>
 
-      <h2 className="text-2xl font-semibold mb-4">3. ¿Con quién compartimos tus datos?</h2>
+      <h2 className="text-2xl font-semibold mb-4">
+        3. ¿Con quién compartimos tus datos?
+      </h2>
       <p className="mb-4">
         Para prestar el servicio, compartimos datos con los siguientes
         proveedores (Encargados del Tratamiento), que garantizan la protección
@@ -127,7 +141,9 @@ export default async function PrivacyPolicyPage({ params }: { params: { tenantId
         Limitado.
       </p>
 
-      <h2 className="text-2xl font-semibold mb-4">5. Conservación y Seguridad de Datos</h2>
+      <h2 className="text-2xl font-semibold mb-4">
+        5. Conservación y Seguridad de Datos
+      </h2>
       <p className="mb-4">
         Conservaremos tus datos el tiempo necesario para cumplir con la
         finalidad para la que fueron recogidos y con las obligaciones legales.
@@ -145,7 +161,7 @@ export default async function PrivacyPolicyPage({ params }: { params: { tenantId
       </p>
 
       <p className="text-sm text-gray-500 mt-8">
-        Última actualización: 29 de Julio de 2025 (para {tenantProfile.salon_name})
+        Última actualización: 8 de agosto de 2025 
       </p>
     </div>
   );

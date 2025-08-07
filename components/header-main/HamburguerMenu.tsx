@@ -12,10 +12,18 @@ import NavLinks from "./nav-links";
 import { NavigationLink } from "@/constants/navigation";
 
 interface HamburgerMenuProps {
-  navLinks: NavigationLink[]
+  tenantId:string
+  navLinks: { href: string; label: string }[];
 }
 
-export default function HamburgerMenu({ navLinks }: HamburgerMenuProps) { // Acepta navLinks
+export default function HamburgerMenu({ navLinks, tenantId }: HamburgerMenuProps) {
+  const updatedLinks = navLinks.map((link) => ({
+    ...link,
+    href: link.href.startsWith(`/${tenantId}`)
+      ? link.href.substring(tenantId.length + 1)
+      : link.href,
+  }));
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -26,7 +34,7 @@ export default function HamburgerMenu({ navLinks }: HamburgerMenuProps) { // Ace
       <SheetContent side="left" className="p-0">
         <SheetTitle>
           <div className="p-6">
-            <NavLinks vertical navLinks={navLinks} />
+            <NavLinks vertical updatedLinks={updatedLinks} />
           </div>
         </SheetTitle>
       </SheetContent>

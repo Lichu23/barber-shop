@@ -16,6 +16,7 @@
   "color_accent": "30 80% 50%",
   "color_text_dark": "210 5% 10%",
   "color_text_light": "210 10% 95%",
+  "custom_domain": "barberia-leon.test",
   "gallery_items": [
     {
       "name": "Cabello Liso Castaño",

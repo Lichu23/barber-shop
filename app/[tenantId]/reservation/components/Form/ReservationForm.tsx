@@ -15,14 +15,17 @@ import { SelectForm } from "./SelectForm";
 import { toast } from "sonner";
 import { MultiSelectForm } from "./MultiSelect";
 import { ServiceOption } from "@/constants/services";
+import { TenantProvider, useTenant } from "@/context/TenantProvider";
 
 interface Props {
-  tenantId: string;
   allServices: ServiceOption[];
   preselectedServices: ServiceOption[];
 }
 
-export default function ReservationForm({ tenantId, allServices, preselectedServices }: Props) {
+export default function ReservationForm({
+  allServices,
+  preselectedServices,
+}: Props) {
   const {
     control,
     handleSubmit,
@@ -35,15 +38,14 @@ export default function ReservationForm({ tenantId, allServices, preselectedServ
       fullName: "",
       phoneNumber: "",
       email: "",
-      services: preselectedServices.map(service => service.value),
+      services: preselectedServices.map((service) => service.value),
       date: "",
       time: "",
     },
   });
 
-  
   const bookingDate = watch("date");
-
+  const { tenantId } = useTenant();
   const { handleSaveBooking, loading } = useBookingForm(allServices);
 
   const saveNewBooking: SubmitHandler<FormValues> = async (data) => {
@@ -71,8 +73,8 @@ export default function ReservationForm({ tenantId, allServices, preselectedServ
 
   const multiSelectOptions = allServices.map((service) => ({
     value: service.value,
-    label: service.name, 
-    price: service.price, 
+    label: service.name,
+    price: service.price,
   }));
 
   return (

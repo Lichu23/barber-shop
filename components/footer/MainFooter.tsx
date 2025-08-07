@@ -1,16 +1,14 @@
+"use client"
+import { useTenant } from "@/context/TenantProvider";
 import {
-  Scissors,
+  Clock,
+  Facebook,
+  Globe,
+  Instagram,
   MapPin,
   Phone,
-  Mail,
-  Instagram,
-  Facebook,
-  Twitter,
-  Clock,
-  Globe,
-  X,
+  X
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 interface FooterProps {
@@ -40,6 +38,13 @@ export default function Footer({
   socialTiktokUrl,
   socialTwitterUrl,
 }: FooterProps) {
+
+  const {isCustomDomain} = useTenant()
+      const basePath = isCustomDomain ? "" : `/${tenantId}`;
+      const privacyPolicyLink = `${basePath}/privacy-policy`
+      const termsOfServiceLink = `${basePath}/terms-of-service
+`
+
   return (
     <footer className="bg-gray-900 text-white py-12 mt-36 lg:mt-5">
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -91,7 +96,6 @@ export default function Footer({
                 <Globe size={20} />
               </a>
             )}{" "}
-            {/* Usando Globe como placeholder para TikTok */}
           </div>
         </div>
 
@@ -133,7 +137,6 @@ export default function Footer({
           </ul>
         </div>
 
-        {/* Sección 3: Horarios */}
         <div>
           <h3 className="font-semibold text-lg mb-4">Horarios</h3>
           <ul className="space-y-2 text-gray-400">
@@ -148,13 +151,12 @@ export default function Footer({
           </ul>
         </div>
 
-        {/* Sección 4: Enlaces Legales */}
         <div>
           <h3 className="font-semibold text-lg mb-4">Legal</h3>
           <ul className="space-y-2 text-gray-400">
             <li>
               <Link
-                href={`/${tenantId}/privacy-policy`}
+                href={privacyPolicyLink}
                 className="hover:text-white"
               >
                 Política de Privacidad
@@ -162,7 +164,7 @@ export default function Footer({
             </li>
             <li>
               <Link
-                href={`/${tenantId}/terms-of-service`}
+                href={termsOfServiceLink}
                 className="hover:text-white"
               >
                 Términos de Servicio

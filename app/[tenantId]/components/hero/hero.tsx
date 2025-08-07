@@ -1,7 +1,9 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Phone, MapPin, Clock } from "lucide-react";
 import Link from "next/link";
+import { useTenant } from "@/context/TenantProvider";
 
 interface HeroProps {
   tenantId: string;
@@ -14,11 +16,12 @@ interface HeroProps {
   openingHoursSummary: string;
   openingHoursDetail: string;
   contactEmailForUsers: string;
+  blurDataURL: string
 }
 
 export default function Hero({
   tenantId,
-  salonName, // Aunque no se usa aquí directamente, es bueno tenerlo en las props si se necesita.
+  salonName,
   slogan,
   description,
   imageUrl,
@@ -26,6 +29,7 @@ export default function Hero({
   contactAddress,
   openingHoursSummary,
   openingHoursDetail,
+  blurDataURL
 }: HeroProps) {
   return (
     <section id="inicio" className="relative">
@@ -34,6 +38,8 @@ export default function Hero({
         slogan={slogan}
         description={description}
         imageUrl={imageUrl}
+        blurDataURL={blurDataURL}
+        
       />
       <ContactBar
         contactPhone={contactPhone}
@@ -50,9 +56,16 @@ interface HeroMainProps {
   slogan: string;
   description: string;
   imageUrl: string;
+  blurDataURL:string
 }
 
-function HeroMain({ tenantId, slogan, description, imageUrl }: HeroMainProps) {
+function HeroMain({ tenantId, slogan, description, imageUrl, blurDataURL}: HeroMainProps) {
+  const { isCustomDomain } = useTenant();
+
+  const basePath = isCustomDomain ? "" : `/${tenantId}`;
+  const reservationsLink = `${basePath}/select-services`;
+  const servicesLink = `${basePath}/services`;
+
   return (
     <div className="relative h-[calc(100dvh-5rem)] flex items-center justify-center">
       <div className="absolute inset-0 bg-black/60 z-10"></div>
@@ -60,9 +73,10 @@ function HeroMain({ tenantId, slogan, description, imageUrl }: HeroMainProps) {
         src={imageUrl}
         fill
         className="object-cover"
-        priority
         quality={60}
         alt={slogan}
+        placeholder="blur"
+        blurDataURL={blurDataURL}
       />
 
       <div className="relative z-20 text-center text-white px-4 w-full max-w-4xl mx-auto">
@@ -84,7 +98,7 @@ function HeroMain({ tenantId, slogan, description, imageUrl }: HeroMainProps) {
             size="lg"
             className="bg-primary text-white text-lg sm:text-xl hover:bg-primary/90 w-full sm:w-auto"
           >
-            <Link href={`/${tenantId}/select-services`}>Reserva Ya</Link>
+            <Link href={reservationsLink}>Reserva Ya</Link>
           </Button>
           <Button
             asChild
@@ -92,7 +106,7 @@ function HeroMain({ tenantId, slogan, description, imageUrl }: HeroMainProps) {
             variant="outline"
             className="text-secondary-foreground text-lg sm:text-xl bg-white border-white hover:bg-gray-100 hover:text-secondary-foreground w-full sm:w-auto"
           >
-            <Link href={`/${tenantId}/services`}>Ver Servicios</Link>
+            <Link href={servicesLink}>Ver Servicios</Link>
           </Button>
         </div>
       </div>
