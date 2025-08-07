@@ -33,7 +33,7 @@ export default async function ServicesPage({
   params: { tenantId: string };
 }) {
   const { tenantId } = await params;
-
+  console.log(tenantId)
   const { data: allServices, error: servicesError } =
     await getTenantServices(tenantId);
   const { data: tenantProfile, error: profileError } =

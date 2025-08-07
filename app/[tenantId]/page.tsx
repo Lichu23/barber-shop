@@ -58,7 +58,7 @@ export default async function HomeTenantPage({
     await getTenantGalleryItems(tenantId);
   const { data: allServices, error: servicesError } =
     await getTenantServices(tenantId);
-
+  console.log(servicesError)
   if (!tenantProfile) {
     notFound();
   }

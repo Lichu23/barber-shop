@@ -76,7 +76,7 @@ export async function getTenantProfileById(
       .from("tenants")
       .select("*")
       .eq("tenant_id", tenantId)
-      .single<TenantProfile>();
+      .maybeSingle<TenantProfile>();
 
     if (error || !data) {
       console.error(
@@ -182,8 +182,8 @@ export async function getTenantServices(
   tenantId: string
 ): Promise<{ data?: ServiceOption[]; error?: string }> {
   const supabase = await createServerSupabaseClient();
-  await supabase.rpc("set_current_tenant_id", { tenant_id_value: tenantId }); // <-- ¡ESTA LÍNEA ES CRÍTICA!
-
+  // await supabase.rpc("set_current_tenant_id", { tenant_id_value: tenantId }); 
+  console.log(tenantId)
   try {
     const { data, error } = await supabase
       .from("salon_services") // <-- Nombre de tu tabla de servicios
