@@ -2,7 +2,7 @@ import { getTenantServices } from '@/lib/services/tenantServices';
 import { NextResponse } from 'next/server';
 
 export async function GET(request: Request, { params }: { params: { tenantId: string } }): Promise<NextResponse> {
-  const { tenantId } = params;
+  const { tenantId } = await params;
 
   if (!tenantId) {
     return NextResponse.json({ error: 'Tenant ID no proporcionado.' }, { status: 400 });

@@ -1,9 +1,7 @@
 import { ServiceOption } from "@/constants/services";
 import ServiceCard from "./ServiceCard";
-import SeeMoreButton from "./SeeMoreButton";
 interface ServicesProps {
   services: ServiceOption[];
-  tenantId: string
 }
 
 type GroupedServices = { [category: string]: ServiceOption[] };
@@ -21,7 +19,7 @@ const groupServicesByCategory = (
   }, {} as GroupedServices);
 };
 
-export default function Services({ services,tenantId}: ServicesProps) {
+export default function Services({ services}: ServicesProps) {
   if (!services || services.length === 0) {
     return (
       <section id="servicios" className="py-16 text-center text-gray-600">

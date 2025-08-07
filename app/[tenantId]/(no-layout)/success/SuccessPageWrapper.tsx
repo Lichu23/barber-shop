@@ -4,7 +4,6 @@ import { Booking } from '@/types/booking';
 import React from 'react'
 
 interface Props {
-    tenantId: string;
     booking:Booking;
     formattedServices:string;
     formattedDate: string;
