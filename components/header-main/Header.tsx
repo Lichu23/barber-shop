@@ -40,7 +40,7 @@ export default function Navbar({ navLinks, salonName, tenantId }: NavbarProps) {
           </div>
 
           <div className="md:hidden">
-            <HamburgerMenu navLinks={finalLinks} tenantId={tenantId} />
+            <HamburgerMenu navLinks={navLinks} tenantId={tenantId} />
           </div>
         </div>
       </div>

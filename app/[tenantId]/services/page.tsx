@@ -1,8 +1,10 @@
 import {
-  getTenantProfileById
+  getTenantProfileById,
+  getTenantServices,
 } from "@/lib/services/tenantServices";
 import { Metadata } from "next";
 import ServicesComponent from "./ServicesComponent";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata({
   params,
@@ -25,10 +27,25 @@ export async function generateMetadata({
   };
 }
 
-export default function ServicesPage({
+export default async function ServicesPage({
   params,
 }: {
   params: { tenantId: string };
 }) {
-  return <ServicesComponent tenantId={params.tenantId} />;
+  const { tenantId } = await params;
+
+  const { data: allServices, error: servicesError } =
+    await getTenantServices(tenantId);
+  const { data: tenantProfile, error: profileError } =
+    await getTenantProfileById(tenantId);
+
+  if (servicesError || !allServices || profileError || !tenantProfile) {
+    console.error(
+      `Error al cargar servicios o perfil para tenant ${tenantId}:`,
+      servicesError || profileError
+    );
+    notFound();
+  }
+
+  return <ServicesComponent allServices={allServices} tenantProfile={tenantProfile} />;
 }
