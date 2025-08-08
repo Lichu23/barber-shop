@@ -9,28 +9,28 @@ export default function Hero() {
     { icon: Smartphone, title: "100% Responsive" },
   ];
   return (
-    <div className="flex flex-col lg:justify-center items-center mx-auto h-dvh lg:h-dvh bg-blue-300 px-8 text-white">
-      <div className="flex flex-col mt-14 lg:mt-0 gap-5">
-        <h1 className="font-bold text-5xl">
+    <div className="flex flex-col lg:justify-center items-center mx-auto h-dvh px-4  bg-blue-300 text-white">
+      <div className="flex flex-col mt-24 lg:mt-0 gap-5 ">
+        <h1 className="font-bold text-4xl lg:text-6xl">
           Páginas Web con{" "}
           <span className="text-blue-900">Sistema de Reservas</span>
         </h1>
-        <p className="font-semibold text-lg text-white   ">
-          En <span className="font-bold text-blue-900">Lichu.org</span>{" "}
-          transformamos tu negocio con páginas web profesionales que incluyen un
-          sistema de reservas integrado con Google Calendar. Tus clientes
-          reservan, tú te enfocas en brindar el servicio.
+        <p className="font-semibold text-lg text-white lg:text-3xl lg:max-w-[600px]">
+          En <span className="font-bold text-blue-900">Lichu.org</span> creamos
+          tu pagina web personalizada con un sistema de reservas 
+          conectado a tu google calendar.
         </p>
 
-        {features.map((feature) => (
-        <FeatureCards
-          key={feature.title}
-          icon={feature.icon}
-          title={feature.title}
-        />
-      ))}
+        <div className="flex flex-col gap-5 lg:flex-row">
+          {features.map((feature) => (
+            <FeatureCards
+              key={feature.title}
+              icon={feature.icon}
+              title={feature.title}
+            />
+          ))}
+        </div>
       </div>
     </div>
-    
   );
 }

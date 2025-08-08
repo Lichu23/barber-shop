@@ -1,7 +1,68 @@
+export const tenantStepsHome = [
+  {
+    id: "tenant-step-1",
+    step: "Consentimiento de Google Calendar",
+    list: [
+      {
+        step: "1) ",
+        text: "Se te otorga un link unico donde debes dar los permisos de la cuenta de google calendar",
+        id: 13,
+      },
+      {
+        step: "2) ",
+        text: "Una vez dado los permisos ya los clientes pueden reservar una cita",
+        id: 14,
+      },
+    ],
+  },
+  {
+    id: "tenant-step-2",
+    step: "Google Calendar",
+    list: [
+      {
+        step: "1) ",
+        text: "Las reservas se guardan automaticamente en tu google calendar",
+        id: 16,
+      },
+      {
+        step: "2) ",
+        text: "En google calendar se guardara el evento con los datos del cliente y un link para poder cancelar la reserva",
+        id: 17,
+      },
+      {
+        step: "3) ",
+        text: "Una vez el cliente cancela el turno se te elimina el evento de google calendar automaticamente y pasa a estar disponible en la pagina para que otro cliente pueda reservar.",
+        id: 18,
+      },
+    ],
+  },
+  {
+    id: "tenant-step-3",
+    step: "Soporte",
+    list: [
+      {
+        step: "1) ",
+        text: "Soporte disponible los 7 dias de la semana.",
+        id: 54,
+      },
+      {
+        step: "2) ",
+        text: "Soporte prioritario con el plan anual.",
+        id: 55,
+      },
+      {
+        step: "3) ",
+        text: "Soporte incluido en el primer mes gratuito.",
+        id: 56,
+      },
+    ],
+  },
+];
+
 export const clientStepsHome = [
   {
     id: "homes-step-1",
-    step1: "Pagina de Inicio",
+    step: "Pagina de Inicio",
     list: [
       {
         step: "1) ",
@@ -22,7 +83,7 @@ export const clientStepsHome = [
   },
   {
     id: "homes-step-2",
-    step1: "Pagina de Servicios",
+    step: "Pagina de Servicios",
     list: [
       {
         step: "1) ",
@@ -39,7 +100,7 @@ export const clientStepsHome = [
 
   {
     id: "homes-step-3",
-    step1: "Pagina de Reservas",
+    step: "Pagina de Reservas",
     list: [
       {
         step: "1) ",
@@ -60,90 +121,12 @@ export const clientStepsHome = [
   },
 ];
 
-export const tenantStepsHome = [
-  {
-    id: "tenant-step-1",
-    step1: "Consentimiento de Google Calendar",
-    list: [
-      {
-        step: "1) ",
-        text: "Se te otorga un link unico donde debes dar los permisos de la cuenta de google calendar",
-        id: 13,
-      },
-      {
-        step: "2) ",
-        text: "Una vez dado los permisos ya los clientes pueden reservar una cita",
-        id: 14,
-      },
-    ],
-  },
-  {
-    id: "tenant-step-2",
-    step1: "Google Calendar",
-    list: [
-      {
-        step: "1) ",
-        text: "Las reservas se guardan automaticamente en tu google calendar",
-        id: 16,
-      },
-      {
-        step: "2) ",
-        text: "En google calendar se guardara el evento con los datos del cliente y un link para poder cancelar la reserva",
-        id: 17,
-      },
-      {
-        step: "3) ",
-        text: "Una vez el cliente cancela el turno se te elimina el evento de google calendar automaticamente y pasa a estar disponible en la pagina para que otro cliente pueda reservar.",
-        id: 18,
-      },
-    ],
-  },
-];
-
-export const cancelationStepsHome = [
-  {
-    id: "tenant-step-1",
-    step1: "Consentimiento de Google Calendar",
-    list: [
-      {
-        step: "1) ",
-        text: "Se te otorga un link unico donde debes dar los permisos de la cuenta de google calendar",
-        id: 13,
-      },
-      {
-        step: "2) ",
-        text: "Una vez dado los permisos ya los clientes pueden reservar una cita",
-        id: 14,
-      },
-    ],
-  },
-  {
-    id: "tenant-step-2",
-    step1: "Google Calendar",
-    list: [
-      {
-        step: "1) ",
-        text: "Las reservas se guardan automaticamente en tu google calendar",
-        id: 16,
-      },
-      {
-        step: "2) ",
-        text: "En google calendar se guardara el evento con los datos del cliente y un link para poder cancelar la reserva",
-        id: 17,
-      },
-      {
-        step: "3) ",
-        text: "Una vez el cliente cancela el turno se te elimina el evento de google calendar automaticamente y pasa a estar disponible en la pagina para que otro cliente pueda reservar.",
-        id: 18,
-      },
-    ],
-  },
-];
-
 export const creationPageStepsHome = [
   {
     id: "creation-step-1",
-    step1: "Entrega de datos",
+    step: "Entrega de datos",
+    week: "1ra semana",
+
     list: [
       {
         step: "1) ",
@@ -164,7 +147,9 @@ export const creationPageStepsHome = [
   },
   {
     id: "creation-step-2",
-    step1: "Entrega de datos",
+    step: "Comienzo de creacion",
+    week: "2da semana",
+
     list: [
       {
         step: "1) ",
@@ -183,9 +168,11 @@ export const creationPageStepsHome = [
       },
     ],
   },
-   {
+  {
     id: "creation-step-3",
-    step1: "Testing",
+    step: "Testing",
+    week: "3ra semana",
+
     list: [
       {
         step: "1) ",
@@ -204,9 +191,11 @@ export const creationPageStepsHome = [
       },
     ],
   },
-   {
+  {
     id: "creation-step-4",
-    step1: "Entrega del producto",
+    step: "Entrega del producto",
+    week: "4ta semana",
+
     list: [
       {
         step: "1) ",
