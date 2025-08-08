@@ -31,19 +31,21 @@ export default function ClientsSection() {
   ];
   return (
     <div className="flex flex-col lg:justify-center items-center mx-auto h-full lg:h-dvh px-8  gap-8 py-10">
-      <h2 className="text-2xl font-semibold text-blue-900">
+      <h2 className="text-2xl lg:text-4xl font-semibold text-blue-900">
         Nuestros Clientes
       </h2>
-
-      {tenantsSites.map((tenant) => (
-        <ClientCard
-          key={tenant.title}
-          title={tenant.title}
-          description={tenant.description}
-          imageUrl={tenant.imageUrl}
-          rating={tenant.rating}
-        />
-      ))}
+      <p>Gestionamos <span className="text-yellow-400 font-bold">+10 peluquerias</span> en España</p>
+      <div className="flex flex-col gap-5 lg:flex-row">
+        {tenantsSites.map((tenant) => (
+          <ClientCard
+            key={tenant.title}
+            title={tenant.title}
+            description={tenant.description}
+            imageUrl={tenant.imageUrl}
+            rating={tenant.rating}
+          />
+        ))}
+      </div>
     </div>
   );
 }

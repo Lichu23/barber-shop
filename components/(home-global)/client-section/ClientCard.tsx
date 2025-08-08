@@ -16,12 +16,10 @@ export default function ClientCard({
   rating,
 }: Props) {
   return (
-    <div className="bg-blue-300 w-full rounded-xl text-white">
-      <Image
+    <div className="bg-blue-300 w-full rounded-xl lg:w-[350px]  text-white">
+      <img
         alt="hairsalon image"
-        width={350}
-        height={350}
-        className="rounded-t-xl"
+        className="rounded-t-xl w-[340px] h-[200px] lg:w-full"
         src={imageUrl}
       />
       <div className="py-3 px-4">
