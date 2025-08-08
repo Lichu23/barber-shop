@@ -9,8 +9,8 @@ export default function Hero() {
     { icon: Smartphone, title: "100% Responsive" },
   ];
   return (
-    <div className="flex flex-col lg:justify-center items-center mx-auto h-dvh px-4  bg-blue-300 text-white">
-      <div className="flex flex-col mt-24 lg:mt-0 gap-5 ">
+    <div className="flex flex-col justify-center lg:justify-center items-center mx-auto h-dvh px-4  bg-blue-300 text-white">
+      <div className="flex flex-col  gap-5 lg:gap-8 ">
         <h1 className="font-bold text-4xl lg:text-6xl">
           Páginas Web con{" "}
           <span className="text-blue-900">Sistema de Reservas</span>
