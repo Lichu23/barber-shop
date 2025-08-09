@@ -30,11 +30,11 @@ export default function ClientsSection() {
     },
   ];
   return (
-    <div className="flex flex-col lg:justify-center items-center mx-auto h-full lg:h-dvh px-8  gap-8 py-10">
+    <div className="flex flex-col lg:justify-center items-center mx-auto h-full lg:h-dvh px-8  gap-8 py-10 bg-gradient-to-b from-sky-100 to-white">
       <h2 className="text-2xl lg:text-4xl font-semibold text-blue-900">
         Nuestros Clientes
       </h2>
-      <p>Gestionamos <span className="text-yellow-400 font-bold">+10 peluquerias</span> en España</p>
+      <p className="text-blue-900">Gestionamos las reservas de <span className="font-bold">+5</span> peluquerias</p>
       <div className="flex flex-col gap-5 lg:flex-row">
         {tenantsSites.map((tenant) => (
           <ClientCard
