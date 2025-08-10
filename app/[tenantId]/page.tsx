@@ -97,8 +97,7 @@ export default async function HomeTenantPage({
 
       {featuredServices && featuredServices.length > 0 && (
         <div className="flex flex-col gap-2">
-          <Services services={featuredServices} />
-          <SeeMoreButton tenantId={tenantId} />
+          <Services showSeeMoreButton={true} services={featuredServices} tenantId={tenantId} />
         </div>
       )}
     </main>

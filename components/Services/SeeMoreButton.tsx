@@ -4,9 +4,10 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { NavigationLink } from "@/constants/navigation";
 import { useTenant } from "@/context/TenantProvider";
+import { LucideArrowRight } from "lucide-react";
 
 interface SeeMoreButtonProps {
-  tenantId: string;
+  tenantId?: string;
 }
 
 export default function SeeMoreButton({ tenantId }: SeeMoreButtonProps) {
@@ -20,14 +21,15 @@ export default function SeeMoreButton({ tenantId }: SeeMoreButtonProps) {
   const servicesUrl = `${basePath}/services`;
 
   return (
-    <div className="flex justify-center mt-8">
+    <div className="flex items-center justify-center lg:pr-10">
       <Button
         asChild
         size="lg"
-        className="bg-primary hover:bg-primary/85 text-white text-lg"
+        className="text-primary text-lg lg:text-xl "
       >
-        <Link href={servicesUrl}>Ver todos los Servicios</Link>
+        <Link href={servicesUrl}>Ver todos</Link>
       </Button>
+      <LucideArrowRight className="text-primary"/>
     </div>
   );
 }

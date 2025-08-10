@@ -7,7 +7,10 @@ import {
 } from "@/lib/services/bookingService";
 import { sendConfirmationEmail } from "@/lib/services/emailService";
 import { createGoogleCalendarEvent } from "@/lib/services/googleCalendarService";
-import { getAdminSettingsByTenantId } from "@/lib/services/tenantServices";
+import {
+  getAdminSettingsByTenantId,
+  getTenantProfileById,
+} from "@/lib/services/tenantServices";
 import { ActionResult, Booking } from "@/types/booking";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -169,6 +172,18 @@ export async function saveBooking(
         calendarError.message
       );
     }
+    const { data: tenantData, error: tenantDataError } =
+      await getTenantProfileById(tenantId);
+
+    if (tenantDataError || !tenantData) {
+      console.error(
+        `Error: Falta de tenantId ${tenantId} u ocurrio un error inesperado al obtener la data.`,
+        tenantDataError
+      );
+      return {
+        error: `ocurrio un error inesperado al obtener la data. (ID: ${tenantId}).`,
+      };
+    }
 
     try {
       const servicesForEmail: string =
@@ -178,7 +193,7 @@ export async function saveBooking(
       const { success: emailSuccess, error: emailError } =
         await sendConfirmationEmail({
           to: email,
-          subject: "¡Reserva confirmada en Chiky!",
+          subject: `¡Reserva confirmada en ${tenantData?.salon_name}!`,
           fullName: fullName,
           service: servicesForEmail,
           date: date,
