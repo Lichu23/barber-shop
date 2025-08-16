@@ -38,10 +38,10 @@ interface PageProps {
 
 export default async function ReservationPage({ params, searchParams }: PageProps) {
   const { tenantId } = await params; 
-  
-  const selectedServiceValuesString = searchParams.services as string || "";
+  const searchParamsAwait = await searchParams
+  const selectedServiceValuesString = searchParamsAwait.services as string || "";
 
-  console.log(`[PAGE] Parámetros recibidos:`, { params, searchParams });
+  // console.log(`[PAGE] Parámetros recibidos:`, { params, searchParams });
 
   const { data: allServices, error: servicesError } =
     await getTenantServices(tenantId);

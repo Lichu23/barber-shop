@@ -15,7 +15,30 @@
   "color_text_dark": "300 40% 20%",
   "color_text_light": "330 20% 95%",
   "custom_domain": "chikypeluqueria.test",
-
+  "available_times": {
+    "monday": [
+      ["09:30", "13:30"],
+      ["16:00", "20:00"]
+    ],
+    "tuesday": [
+      ["09:30", "13:30"],
+      ["16:00", "20:00"]
+    ],
+    "wednesday": [
+      ["09:30", "13:30"],
+      ["16:00", "20:00"]
+    ],
+    "thursday": [
+      ["09:30", "13:30"],
+      ["16:00", "20:00"]
+    ],
+    "friday": [
+      ["09:30", "13:30"],
+      ["16:00", "20:00"]
+    ],
+    "saturday": [["09:30", "14:00"]],
+    "sunday": []
+  },
   "gallery_items": [
     {
       "name": "Cabello Liso Castaño",

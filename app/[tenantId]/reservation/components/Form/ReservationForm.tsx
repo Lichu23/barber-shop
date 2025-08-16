@@ -1,21 +1,22 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useAvailableTimes } from "@/hooks/useAvailableTimes";
-import { useBookingForm } from "@/hooks/useBookingForm";
 import {
   FormValues,
   reservationSchema,
 } from "@/app/[tenantId]/reservation/schema/reservationSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Heart, Sparkles, Star } from "lucide-react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { InputForm } from "./InputForm";
-import { SelectForm } from "./SelectForm";
-import { toast } from "sonner";
-import { MultiSelectForm } from "./MultiSelect";
+import { Button } from "@/components/ui/button";
+import { CardContent } from "@/components/ui/card";
 import { ServiceOption } from "@/constants/services";
-import { TenantProvider, useTenant } from "@/context/TenantProvider";
+import { useTenant } from "@/context/TenantProvider";
+import { useAvailableTimes } from "@/hooks/useAvailableTimes";
+import { useBookingForm } from "@/hooks/useBookingForm";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Heart, Sparkles } from "lucide-react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
+import HeaderForm from "./HeaderForm";
+import { InputForm } from "./InputForm";
+import { MultiSelectForm } from "./MultiSelect";
+import { SelectForm } from "./SelectForm";
 
 interface Props {
   allServices: ServiceOption[];
@@ -69,7 +70,7 @@ export default function ReservationForm({
     };
   };
 
-  const availableTimes = useAvailableTimes({ bookingDate, setValue });
+  const availableTimes = useAvailableTimes({ bookingDate, setValue,tenantId });
 
   const multiSelectOptions = allServices.map((service) => ({
     value: service.value,
@@ -82,40 +83,7 @@ export default function ReservationForm({
       onSubmit={handleSubmit(saveNewBooking)}
       className="border  rounded-xl  space-y-7  text-sm lg:text  lg:min-w-[1200px]"
     >
-      <div className="bg-gradient-to-r from-primary/70 via-primary/86 to-primary relative overflow-hidden rounded-b-sm lg:rounded-xl">
-        <div className="absolute top-4 right-6 opacity-20">
-          <Heart className="h-16 w-16 text-white transform rotate-12" />
-        </div>
-        <div className="absolute bottom-4 left-6 opacity-20">
-          <Sparkles className="h-12 w-12 text-white" />
-        </div>
-        <div className="absolute top-8 left-1/4 opacity-15">
-          <Star className="h-8 w-8 text-white" />
-        </div>
-
-        <CardHeader className="relative z-10 text-center lg:py-4 py-2">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="flex gap-1">
-              <Sparkles className="h-6 w-6 text-pink-200 animate-pulse" />
-              <Sparkles className="h-4 w-4 text-pink-100 animate-pulse delay-100" />
-            </div>
-          </div>
-
-          <CardTitle className="lg:text-4xl text-xl  font-bold text-white mb-3 tracking-wide">
-            Reserva tu Cita de Belleza
-          </CardTitle>
-
-          <p className="text-pink-100 lg:text-lg text-sm  font-semibold">
-            ✨ Déjanos realzar tu belleza natural ✨
-          </p>
-
-          <div className="flex items-center justify-center gap-2 mt-4">
-            <div className="h-1 w-12 bg-white/40 rounded-full"></div>
-            <Heart className="h-4 w-4 text-primary" />
-            <div className="h-1 w-12 bg-white/40 rounded-full"></div>
-          </div>
-        </CardHeader>
-      </div>
+      <HeaderForm/>
       <CardContent className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <InputForm<FormValues>

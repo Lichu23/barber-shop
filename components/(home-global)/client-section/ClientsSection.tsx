@@ -30,7 +30,7 @@ export default function ClientsSection() {
     },
   ];
   return (
-    <div className="flex flex-col lg:justify-center items-center mx-auto h-full lg:h-dvh px-8  gap-8 py-10 bg-gradient-to-b from-sky-100 to-white">
+    <div className="flex flex-col lg:justify-center items-center mx-auto h-full lg:h-dvh px-8  gap-8 py-10  bg-gradient-to-b from-sky-300 via-sky-100 to-sky-50">
       <h2 className="text-2xl lg:text-4xl font-semibold text-blue-900">
         Nuestros Clientes
       </h2>

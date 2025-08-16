@@ -22,7 +22,10 @@ export interface TenantProfile {
   color_accent: string;
   color_text_dark: string;
   color_text_light: string;
-  custom_domain?:string
+  custom_domain?: string;
+  subscription_status?: string;
+  user_id?: string;
+  stripe_customer_id?: string;
 }
 
 export interface AdminSettings {
@@ -182,15 +185,14 @@ export async function getTenantServices(
   tenantId: string
 ): Promise<{ data?: ServiceOption[]; error?: string }> {
   const supabase = await createServerSupabaseClient();
-  // await supabase.rpc("set_current_tenant_id", { tenant_id_value: tenantId }); 
-  console.log(tenantId)
+  // await supabase.rpc("set_current_tenant_id", { tenant_id_value: tenantId });
+  console.log(tenantId);
   try {
     const { data, error } = await supabase
       .from("salon_services") // <-- Nombre de tu tabla de servicios
       .select("*") // Selecciona todas las columnas relevantes
       .eq("tenant_id", tenantId) // <-- ¡FILTRAR POR TENANT_ID!
       .order("order", { ascending: true }); // Opcional: ordenar si tienes una columna 'order'
-
 
     if (error) {
       console.error(

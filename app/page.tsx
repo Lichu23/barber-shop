@@ -1,8 +1,7 @@
 import ClientsSection from "@/components/(home-global)/client-section/ClientsSection";
 import Hero from "@/components/(home-global)/hero-global/Hero";
 import HowItWorks from "@/components/(home-global)/how-it-works/HowItWorks";
-import PricingCard from "@/components/(home-global)/pricing-card/PricingCard";
-import React from "react";
+import Pricing from "@/components/(home-global)/pricing-card/Pricing";
 
 export default function LichuOrgPage() {
   return (
@@ -10,7 +9,7 @@ export default function LichuOrgPage() {
       <Hero />
       <HowItWorks />
       <ClientsSection />
-      <PricingCard/>
+      <Pricing/>
     </div>
   );
 }

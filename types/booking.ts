@@ -39,6 +39,9 @@ export interface TenantProfileDB { // 'DB' suffix para indicar que viene directa
   social_facebook_url: string | null; // text, nullable
   social_tiktok_url: string | null; // text, nullable
   social_twitter_url: string | null; // text, nullable
+  subscription_status?: string
+  user_id?: string
+  stripe_customer_id?: string
 }
 
 // Interfaz para la tabla 'admin_settings'

@@ -1,30 +1,25 @@
+import { NextResponse, NextRequest } from "next/server";
+import { clerkMiddleware } from "@clerk/nextjs/server";
 import { createClient } from "@supabase/supabase-js";
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: { persistSession: false },
-});
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-const PLATFORM_DOMAINS = new Set(['lichu.org', 'www.lichu.org', 'localhost']);
+const PLATFORM_DOMAINS = new Set(["lichu.org", "www.lichu.org", "localhost"]);
 
-export async function middleware(req: NextRequest) {
-  const url = req.nextUrl;
-  let host = req.headers.get('host');
+async function multitenantMiddleware(request: NextRequest) {
+  const host = request.headers.get("host");
+  if (!host) return NextResponse.next();
 
-  if (!host) {
-    return NextResponse.next();
-  }
+  const normalizedHost = host.split(":")[0].replace(/^www\./, "");
+  if (PLATFORM_DOMAINS.has(normalizedHost)) return NextResponse.next();
 
-  const normalizedHost = host.split(':')[0].replace(/^www\./, '');
-
-  if (PLATFORM_DOMAINS.has(normalizedHost)) {
-    return NextResponse.next();
-  }
-
-    if (url.pathname === '/favicon.ico' || url.pathname === '/favicon.png') {
+  if (
+    request.nextUrl.pathname.startsWith("/_next/") ||
+    request.nextUrl.pathname.startsWith("/favicon.ico") ||
+    request.nextUrl.pathname.startsWith("/api/") // opcional, si tienes api que no quieres reescribir
+  ) {
     return NextResponse.next();
   }
 
@@ -36,25 +31,43 @@ export async function middleware(req: NextRequest) {
       .single();
 
     if (error || !tenantProfile) {
-      return NextResponse.redirect(new URL('https://lichu.org/domain-not-found'));
+      return NextResponse.redirect(
+        new URL("https://lichu.org/domain-not-found")
+      );
     }
-    
-    const urlToRewrite = req.nextUrl.clone();
-    
+
+    const urlToRewrite = request.nextUrl.clone();
     urlToRewrite.pathname = `/${tenantProfile.tenant_id}${urlToRewrite.pathname}`;
 
-    console.log(`[MIDDLEWARE] URL REESCRITA a: ${urlToRewrite.href}`);
-    
     return NextResponse.rewrite(urlToRewrite);
-
-  } catch (e) {
-    console.error("Error catastrófico en el middleware:", e);
-    return NextResponse.redirect(new URL('https://lichu.org/error'));
+  } catch {
+    return NextResponse.redirect(new URL("https://lichu.org/error"));
   }
 }
 
+// Clerk maneja la autenticación
+export default clerkMiddleware(async (auth, request) => {
+  // 1️⃣ Ejecutar Multitenant primero
+  const multiRes = await multitenantMiddleware(request);
+  if (multiRes && multiRes !== NextResponse.next()) {
+    return multiRes; // Si devuelve redirección o rewrite, cortar flujo aquí
+  }
+
+  // 2️⃣ Proteger dashboard y subrutas
+  if (request.nextUrl.pathname.startsWith("/dashboard")) {
+    await auth.protect(); // Redirige a /sign-in si no está logueado
+  }
+  if (request.nextUrl.pathname.startsWith("/onboarding")) {
+    await auth.protect(); // Redirige a /sign-in si no está logueado
+  }
+  return NextResponse.next();
+});
+
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.png$|.*\\.jpg$|.*\\.jpeg$|.*\\.gif$|.*\\.webp$|.*\\.svg$|.*\\.mp4$|.*\\.webm$|.*\\.ogg$|.*\\.mp3$|.*\\.wav$|.*\\.flac$|.*\\.aac$|.*\\.pdf$).*)',
+    "/",
+    "/dashboard/:path*",
+    "/onboarding",
+    "/((?!sign-in|sign-up).*)", // excluye sign-in y sign-up
   ],
 };

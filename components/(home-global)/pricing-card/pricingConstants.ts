@@ -1,74 +1,31 @@
-export const pricingAnnual = [
-  {
-    id: "annual-plan",
-    title: "Plan Anual",
-    price: "€30/mes",
-    buttonText: "Obtener Anual",
-    description: [
-      {
-        text: "Coste único de creación: €100.",
-        id: 16,
-      },
-      {
-        text: "Web personalizada con reservas.",
-        id: 17,
-      },
-        {
-        text: "Primeros 2 meses gratis.",
-        id: 300,
-      },
-      {
-        text: "Soporte diario con prioridad.",
-        id: 18,
-      },
-      {
-        text: "50% de descuento por compromiso anual.",
-        id: 40,
-      },
-      {
-        text: "Actualizaciones y mejoras prioritarias.",
-        id: 55,
-      },
-      {
-        text: "Dominio incluido",
-        id: 56,
-      },
-      {
-        text: "20% de comisión por clientes referidos.",
-        id: 5859,
-      },
-    ],
-  },
-];
-
 export const pricingMonthly = [
   {
-    id: "basic-plan",
-    title: "Plan Mensual",
+    id: "monthly",
+    title: "Plan Básico",
     price: "€60/mes",
-    buttonText: "Obtener Mensual",
-
+    buttonText: "Comenzar Gratis",
     description: [
-      {
-        text: "Coste único de creación: €100.",
-        id: 13,
-      },
-      { text: "Web personalizada con reservas.",
-        id: 14,
-      },
-      {
-        text: "Primer mes gratis.",
-        id: 300,
-      },
-      {
-        text: "Soporte 5 días a la semana.",
-        id: 3000,
-      },
-      { text: "Pago flexible, cancela en cualquier momento.", id: 17 },
-      {
-        text: "10% de comisión por clientes referidos.",
-        id: 250,
-      },
+      { id: 1, text: "Página web personalizada" },
+      { id: 2, text: "Sistema de reservas 24/7" },
+      { id: 3, text: "Integración Google Calendar" },
+      { id: 4, text: "Soporte por email" },
     ],
   },
-];
+]
+
+export const pricingAnnual = [
+  {
+    id: "annual",
+    title: "Plan Anual",
+    price: "€30/año",
+    buttonText: "Ahorra 6 Meses",
+    popular: true,
+    description: [
+      { id: 1, text: "Todo del plan básico" },
+      { id: 2, text: "Soporte prioritario 24/7" },
+      { id: 3, text: "Análisis y reportes avanzados" },
+      { id: 4, text: "Personalización premium" },
+      { id: 5, text: "2 meses gratis incluidos" },
+    ],
+  },
+]
