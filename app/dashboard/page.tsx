@@ -18,7 +18,7 @@ export default async function DashboardPage() {
   console.log('probando commit')
   const supabase = createServerSupabaseClient();
   const { data, error } = await supabase
-    .from("bookings")
+    .from("bookings") 
     .select("*")
     .eq("tenant_id", user.tenant_id);
 
