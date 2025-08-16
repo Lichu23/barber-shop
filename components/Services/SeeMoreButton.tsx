@@ -21,15 +21,15 @@ export default function SeeMoreButton({ tenantId }: SeeMoreButtonProps) {
   const servicesUrl = `${basePath}/services`;
 
   return (
-    <div className="flex items-center justify-center lg:pr-10">
+    <div className="flex items-center justify-center  lg:pr-10">
       <Button
         asChild
         size="lg"
-        className="text-primary text-lg lg:text-xl "
+        className="text-primary  text-lg lg:text-xl "
       >
         <Link href={servicesUrl}>Ver todos</Link>
       </Button>
-      <LucideArrowRight className="text-primary"/>
+      <LucideArrowRight className="text-primary "/>
     </div>
   );
 }
