@@ -17,8 +17,8 @@ export default async function SuccessPage({
   params,
   searchParams,
 }: SuccessPageProps) {
-  const { tenantId } = params;
-  const { bookingId } = searchParams;
+  const { tenantId } = await params;
+  const { bookingId } = await searchParams;
 
   if (!bookingId) {
     return (

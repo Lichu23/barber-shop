@@ -22,11 +22,14 @@ export default async function TenantLayout({
   const isCustomDomain = !PLATFORM_DOMAINS.has(normalizedHost);
 
   const { tenantId } = await params; 
+  
 
   const { data: tenantProfile, error: profileError } =
     await getTenantProfileById(tenantId);
 
   if (profileError || !tenantProfile) {
+      console.log(`[Profile Error] : ${profileError}`);
+
     notFound();
   }
 

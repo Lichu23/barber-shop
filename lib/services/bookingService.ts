@@ -172,3 +172,22 @@ export async function getBookingsForReminders(
     };
   }
 }
+
+export async function getBookingsByTenantId(tenantId: string): Promise<{ data?: Booking[]; error?: string }> {
+  const supabase = await createServerSupabaseClient();
+  await supabase.rpc('set_current_tenant_id', { tenant_id_value: tenantId });
+
+  try {
+    const { data: bookings, error: fetchError } = await supabase
+      .from('bookings')
+      .select('*')
+      .eq('tenant_id', tenantId);
+
+    if (fetchError) {
+      return { error: fetchError.message };
+    }
+    return { data: bookings ?? [] };
+  } catch (err: any) {
+    return { error: err.message || 'Error inesperado al buscar reservas por tenant.' };
+  }
+}
