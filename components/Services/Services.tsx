@@ -1,7 +1,10 @@
 import { ServiceOption } from "@/constants/services";
 import ServiceCard from "./ServiceCard";
+import SeeMoreButton from "./SeeMoreButton";
 interface ServicesProps {
   services: ServiceOption[];
+  tenantId?: string;
+  showSeeMoreButton?: boolean
 }
 
 type GroupedServices = { [category: string]: ServiceOption[] };
@@ -19,7 +22,7 @@ const groupServicesByCategory = (
   }, {} as GroupedServices);
 };
 
-export default function Services({ services}: ServicesProps) {
+export default function Services({ services, tenantId,showSeeMoreButton }: ServicesProps) {
   if (!services || services.length === 0) {
     return (
       <section id="servicios" className="py-16 text-center text-gray-600">
@@ -32,15 +35,16 @@ export default function Services({ services}: ServicesProps) {
   const categoryNames = Object.keys(groupedServices);
 
   return (
-    <section id="servicios">
+    <section className="mt-10 lg:mt-0" id="servicios">
       <div className="container mx-auto px-4">
-        
         {categoryNames.map((categoryName) => (
           <div key={categoryName} className="mb-16 last:mb-0">
-            {" "}
             <h3 className="text-3xl font-bold mb-8 text-primary/70 text-center">
               {categoryName}
             </h3>
+            <div className="flex justify-end lg:mb-5">
+              {showSeeMoreButton && <SeeMoreButton tenantId={tenantId} />}
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {groupedServices[categoryName].map((service, index) => (
                 <ServiceCard key={service.id || index} service={service} />

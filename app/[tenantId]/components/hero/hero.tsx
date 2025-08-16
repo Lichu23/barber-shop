@@ -96,15 +96,14 @@ function HeroMain({ tenantId, slogan, description, imageUrl, blurDataURL}: HeroM
           <Button
             asChild
             size="lg"
-            className="bg-primary text-white text-lg sm:text-xl hover:bg-primary/90 w-full sm:w-auto"
+            className="bg-primary hover:bg-gradient-to-r hover:from-primary hover:to-secondary text-white text-lg sm:text-xl  w-full sm:w-auto"
           >
             <Link href={reservationsLink}>Reserva Ya</Link>
           </Button>
           <Button
             asChild
             size="lg"
-            variant="outline"
-            className="text-secondary-foreground text-lg sm:text-xl bg-white border-white hover:bg-gray-100 hover:text-secondary-foreground w-full sm:w-auto"
+            className="bg-white text-black hover:bg-gradient-to-r hover:from-gray-200 hover:to-gray-300 hover:text-gray-700  text-lg sm:text-xl  w-full sm:w-auto"
           >
             <Link href={servicesLink}>Ver Servicios</Link>
           </Button>

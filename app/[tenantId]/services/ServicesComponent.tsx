@@ -21,7 +21,7 @@ const ServicesComponent = ({ allServices, tenantProfile }: Props) => {
             </p>
           )}
         </div>
-        <Services services={allServices} />
+        <Services showSeeMoreButton={false} services={allServices} />
       </div>
     </div>
   );

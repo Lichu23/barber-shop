@@ -37,7 +37,7 @@ interface PageProps {
 }
 
 export default async function ReservationPage({ params, searchParams }: PageProps) {
-  const { tenantId } = params; 
+  const { tenantId } = await params; 
   
   const selectedServiceValuesString = searchParams.services as string || "";
 
