@@ -15,10 +15,10 @@ export default async function DashboardPage() {
   if (!user) redirect("/sign-up");
 
   if (!user.onboarding_data) redirect("/onboarding");
-  console.log('probando commit')
+
   const supabase = createServerSupabaseClient();
   const { data, error } = await supabase
-    .from("bookings") 
+    .from("bookings")
     .select("*")
     .eq("tenant_id", user.tenant_id);
 
@@ -28,12 +28,12 @@ export default async function DashboardPage() {
   const monthlySummary = bookings ? groupBookingsByMonth(bookings) : [];
 
   return (
-    <div className="w-full h-dvh px-4 lg:px-20 flex flex-col items-center">
+    <div className="w-full h-dvh  flex flex-col items-center">
       <h1 className="text-center font-bold text-2xl lg:text-5xl mt-20 mb-6 lg:mb-10">
-        Bienvenido {user?.name || "usuario"}
+        Bienvenido {user.name || "usuario"}
       </h1>
 
-      <div className="flex flex-col lg:flex-row justify-center gap-5 lg:gap-20 w-full">
+      <div className="flex flex-col lg:flex-row lg:gap-32">
         <AccountData user={user} />
         <MonthlySummary monthlySummary={monthlySummary} />
       </div>

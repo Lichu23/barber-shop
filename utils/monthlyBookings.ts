@@ -3,14 +3,14 @@
 import { Booking } from "@/types/booking";
 
 
-export type MonthlySummary = {
+export type MonthlySummaryType = {
   month: string;
   bookingsCount: number;
   totalEarnings: number;
 };
 
-export function groupBookingsByMonth(bookings: Booking[]): MonthlySummary[] {
-  const map = new Map<string, MonthlySummary>();
+export function groupBookingsByMonth(bookings: Booking[]): MonthlySummaryType[] {
+  const map = new Map<string, MonthlySummaryType>();
 
   bookings.forEach(({ date, total_price }) => {
     const d = new Date(date);

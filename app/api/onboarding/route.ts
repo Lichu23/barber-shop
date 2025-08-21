@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
         .from('tenants_onboarding')
         .update({
           onboarding_data: parse.data,
-          status: 'Prueba Gratuita',
+          subscription_status: 'Gratuita',
         })
         .eq('clerk_user_id', userId);
       saveError = error;
@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
         .insert({
           clerk_user_id: userId,
           onboarding_data: parse.data,
-          status: 'pending',
+          subscription_status: 'Gratuita',
         });
       saveError = error;
     }

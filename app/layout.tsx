@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Lato } from 'next/font/google';
 
 import "./global.css"
+import { Toaster } from 'sonner';
 
 
 const lato = Lato({
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es" className={lato.className}>
       <body>
+        <Toaster richColors/>
         <ClerkProvider>{children}</ClerkProvider>
       </body>
     </html>
