@@ -32,6 +32,9 @@ export interface User {
   name?: string;
   status?: string;
   onboarding_data?: OnboardingData;
+  stripe_subscription_id: string | null;
+  paid_until: Date ; 
+  subscription_status: string | null;
 }
 
 const supabase = createServerSupabaseClient();
@@ -46,5 +49,5 @@ export async function getUserByClerkId(
     .maybeSingle();
 
   if (error) throw error;
-  return data;
+  return data
 }

@@ -119,11 +119,12 @@ export async function saveBooking(
       const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
       const servicesSummary = detailedServices.map((s) => s.name).join(", ");
       const servicesDescription = servicesSummary;
+      const cancellationLink = `${process.env.NEXT_PUBLIC_BASE_URL}/${tenantId}/cancel?token=${cancellationToken}&id=${newBooking.id}`;
 
       const { eventId, error: googleCalendarError } =
         await createGoogleCalendarEvent({
           summary: `Cita con ${fullName}`,
-          description: `Servicios: ${servicesDescription}\nTotal: ${totalPrice}€\nTeléfono: ${phoneNumber}\nEmail: ${email}\n\nToken de Cancelación: ${cancellationToken}\nID de Reserva: ${newBooking.id}\nTenant ID: ${tenantId}`,
+          description: `Servicios: ${servicesDescription}\nTotal: ${totalPrice}€\nTeléfono: ${phoneNumber}\nEmail: ${email}\n\nToken de Cancelación: ${cancellationLink}`,
           startDateTime: start.toISOString(),
           endDateTime: end.toISOString(),
           ownerSecretKey: ownerSecretKeyForBookings,

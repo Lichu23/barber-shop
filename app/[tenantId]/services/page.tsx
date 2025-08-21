@@ -11,7 +11,7 @@ export async function generateMetadata({
 }: {
   params: { tenantId: string };
 }): Promise<Metadata> {
-  const { tenantId } = await params;
+  const { tenantId } = params;
   const { data: tenantProfile } = await getTenantProfileById(tenantId);
 
   if (!tenantProfile) {
@@ -32,12 +32,15 @@ export default async function ServicesPage({
 }: {
   params: { tenantId: string };
 }) {
-  const { tenantId } = await params;
-  console.log(tenantId)
-  const { data: allServices, error: servicesError } =
-    await getTenantServices(tenantId);
-  const { data: tenantProfile, error: profileError } =
-    await getTenantProfileById(tenantId);
+  const { tenantId } = params;
+
+  const [servicesRes, profileRes] = await Promise.all([
+    getTenantServices(tenantId),
+    getTenantProfileById(tenantId),
+  ]);
+
+  const { data: allServices, error: servicesError } = servicesRes;
+  const { data: tenantProfile, error: profileError } = profileRes;
 
   if (servicesError || !allServices || profileError || !tenantProfile) {
     console.error(
@@ -47,5 +50,17 @@ export default async function ServicesPage({
     notFound();
   }
 
-  return <ServicesComponent allServices={allServices} tenantProfile={tenantProfile} />;
+  if (servicesError) {
+    console.error(
+      `Error cargando servicios para tenant ${tenantId}:`,
+      servicesError
+    );
+  }
+
+  return (
+    <ServicesComponent
+      allServices={allServices}
+      tenantProfile={tenantProfile}
+    />
+  );
 }

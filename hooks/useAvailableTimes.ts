@@ -18,12 +18,12 @@ export const useAvailableTimes = ({
   tenantId,
 }: Props) => {
   const [availableTimes, setAvailableTimes] = useState<string[]>([]);
-  
+
   useEffect(() => {
     const controller = new AbortController();
 
     async function fetchReservedTimes() {
-      if (!bookingDate) {
+      if (!bookingDate || !tenantId) {
         setAvailableTimes([]);
         setValue("time", "");
         return;
@@ -35,8 +35,16 @@ export const useAvailableTimes = ({
         .eq("tenant_id", tenantId)
         .single();
 
-      if (tenantError || !tenant?.available_times) {
-        console.error("Error fetching tenant available times:", tenantError?.message);
+      if (tenantError) {
+        console.error(
+          `Supabase error buscando tenantId=${tenantId}:`,
+          tenantError.message
+        );
+        return;
+      }
+
+      if (!tenant?.available_times) {
+        console.error(`Error fetching tenant available times:${tenant?.available_times}`);
         setAvailableTimes([]);
         return;
       }
@@ -58,7 +66,15 @@ export const useAvailableTimes = ({
       // Obtener día de la semana (0=domingo, 1=lunes,...)
       const dateObj = parseISO(bookingDate);
       const dayNumber = getDay(dateObj);
-      const dayNames = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"];
+      const dayNames = [
+        "sunday",
+        "monday",
+        "tuesday",
+        "wednesday",
+        "thursday",
+        "friday",
+        "saturday",
+      ];
       const dayKey = dayNames[dayNumber];
 
       const dayRanges = availableTimesJson[dayKey] || [];
@@ -69,7 +85,7 @@ export const useAvailableTimes = ({
         let [hour, minute] = start.split(":").map(Number);
         const [endHour, endMinute] = end.split(":").map(Number);
         while (hour < endHour || (hour === endHour && minute < endMinute)) {
-          const slot = `${hour.toString().padStart(2,"0")}:${minute.toString().padStart(2,"0")}`;
+          const slot = `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`;
           tenantSlots.push(slot);
           minute += 30; // intervalos de 30 minutos
           if (minute >= 60) {
@@ -91,9 +107,12 @@ export const useAvailableTimes = ({
         return;
       }
 
-      const reservedTimes = bookings?.map(b => b.appointment_time.slice(0,5)) ?? [];
+      const reservedTimes =
+        bookings?.map((b) => b.appointment_time.slice(0, 5)) ?? [];
 
-      let freeTimes = tenantSlots.filter(time => !reservedTimes.includes(time));
+      let freeTimes = tenantSlots.filter(
+        (time) => !reservedTimes.includes(time)
+      );
       freeTimes = availableTimesFilter(freeTimes, bookingDate);
 
       setAvailableTimes(freeTimes);
@@ -103,7 +122,6 @@ export const useAvailableTimes = ({
     fetchReservedTimes();
     return () => controller.abort();
   }, [bookingDate]);
-
 
   return availableTimes;
 };
