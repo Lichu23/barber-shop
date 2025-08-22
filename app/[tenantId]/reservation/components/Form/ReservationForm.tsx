@@ -81,7 +81,7 @@ export default function ReservationForm({
   return (
     <form
       onSubmit={handleSubmit(saveNewBooking)}
-      className="border  rounded-xl  space-y-7  text-sm lg:text  lg:min-w-[1200px]"
+      className="border  rounded-xl  space-y-7  text-sm lg:text  lg:min-w-[1200px] opacity-0 translate-y-4 animate-fade-in"
     >
       <HeaderForm/>
       <CardContent className="space-y-6">
@@ -152,7 +152,7 @@ export default function ReservationForm({
         </div>
 
         <Button
-          className="bg-gradient-to-r from-primary/70 via-primary/86 to-primary hover:from-primary/30 hover:via-primary/40 hover:to-primary/45 text-white text-lg lg:text-xl font-bold py-4 px-8 w-full rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] border-0"
+          className="bg-gradient-to-r from-primary/70 via-primary/86 to-primary hover:opacity-70 text-white text-lg lg:text-xl font-bold py-4 px-8 w-full rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] border-0"
           type="submit"
           disabled={loading}
         >

@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <div className="flex flex-col justify-center lg:justify-center items-center mx-auto h-dvh px-4  bg-gradient-to-b from-sky-50 via-white to-sky-100 ">
+    <div className="flex flex-col justify-center lg:justify-center items-center mx-auto h-dvh px-4  bg-gradient-to-b from-sky-50 via-white to-sky-100 opacity-0 translate-y-4 animate-fade-in">
       <div className="flex flex-col  gap-8 lg:gap-14 lg:max-w-4xl">
         <h1 className="font-bold text-4xl lg:text-6xl bg-gradient-to-r from-sky-600 via-sky-300 to-sky-700 bg-clip-text text-transparent">
           Páginas Web con Reservas 24hs

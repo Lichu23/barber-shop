@@ -60,10 +60,11 @@ export default function AccountData({ user }: Props) {
       setLoadingPay(false);
     }
   };
+
   return (
-    <div className="w-full h-full">
-      <div className="flex flex-col gap-5 mb-5">
-        <h2 className="text-xl lg:text-3xl font-bold">
+    <div className="mb-5 w-full lg:border lg:p-4 lg:w-fit p-4 bg-white rounded-xl lg:shadow-lg lg:h-96 ">
+      <div className="flex flex-col justify-center  gap-4 lg:gap-5">
+        <h2 className="text-xl lg:text-3xl font-bold lg:mt-2">
           Informacion de la cuenta
         </h2>
         <p className="text-base lg:text-xl font-bold">
@@ -87,28 +88,28 @@ export default function AccountData({ user }: Props) {
               "No hay ningun pago aun"}
           </span>
         </p>
-      </div>
-      <div className="flex gap-2 mb-5">
-        <SignOutButton>
-          <Button className="rounded-xl bg-black w-fit hover:bg-gray-800 text-sm lg:text-base">
-            Cerrar Sesion
-          </Button>
-        </SignOutButton>
-        <Button
-          disabled={loadingCancel}
-          onClick={handleCancel}
-          className="rounded-xl bg-red-600 w-fit hover:bg-red-900 text-sm lg:text-base"
-        >
-          {loadingCancel ? "Cancelando plan..." : "Cancelar Plan"}
-        </Button>
 
-        <Button
-          disabled={loadingPay}
-          onClick={handlePay}
-          className="bg-blue-600 text-white px-4 py-2 rounded-xl text-sm lg:text-base"
-        >
-          {loadingPay ? "Creando pago…" : "Pagar Plan"}
-        </Button>
+        <div className="flex flex-col  gap-2">
+          <Button
+            disabled={loadingPay}
+            onClick={handlePay}
+            className="bg-blue-600 hover:opacity-70 text-white  rounded-xl text-sm lg:text-base"
+          >
+            {loadingPay ? "Creando pago…" : "Pagar Plan"}
+          </Button>
+          <SignOutButton>
+            <Button className="rounded-xl bg-black w-full hover:hover:opacity-70 text-sm lg:text-base">
+              Cerrar Sesion
+            </Button>
+          </SignOutButton>
+          <Button
+            disabled={loadingCancel}
+            onClick={handleCancel}
+            className="rounded-xl bg-red-600 w-full hover:opacity-70 text-sm lg:text-base"
+          >
+            {loadingCancel ? "Cancelando plan..." : "Cancelar Plan"}
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -89,7 +89,7 @@ export default async function HomeTenantPage({
   };
 
   return (
-    <main className="w-full flex flex-col gap-12 lg:gap-28">
+    <main className="w-full flex flex-col gap-12 lg:gap-28 opacity-0 translate-y-4 animate-fade-in">
       <Hero {...heroData} />
       {galleryItems && galleryItems.length > 0 && (
         <Gallery haircuts={galleryItems} />

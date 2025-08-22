@@ -104,7 +104,7 @@ export default function SelectServicesWrapp({ tenantId }: Props) {
   const categoryNames = Object.keys(groupedServices);
 
   return (
-    <div className="container mx-auto lg:p-4 ">
+    <div className="container mx-auto lg:p-4 opacity-0 translate-y-4 animate-fade-in">
       <Card className="max-w-3xl mx-auto shadow-lg">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-bold text-primary">
@@ -117,7 +117,7 @@ export default function SelectServicesWrapp({ tenantId }: Props) {
         <CardContent className="space-y-6">
           {categoryNames.map((categoryName) => (
             <div key={categoryName} className="mb-8">
-              <h3 className="text-2xl font-semibold text-text-dark mb-4">
+              <h3 className="lg:text-2xl font-semibold text-xl mb-4">
                 {categoryName}
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -132,11 +132,11 @@ export default function SelectServicesWrapp({ tenantId }: Props) {
                       onCheckedChange={(checked: boolean) =>
                         handleServiceToggle(service.value, checked)
                       }
-                      className="data-[state=checked]:bg-primary border-primary"
+                      className="data-[state=checked]:bg-primary border-primary "
                     />
                     <label
                       htmlFor={service.value}
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      className="text-sm lg:text-base font-base "
                     >
                       {service.name} - {service.price}€
                     </label>
@@ -149,7 +149,7 @@ export default function SelectServicesWrapp({ tenantId }: Props) {
           <Button
             onClick={handleContinueToForm}
             disabled={selectedServices.length === 0}
-            className="w-full bg-primary hover:bg-primary/90 font-bold py-3 text-sm lg:text-lg"
+            className="w-full bg-primary hover:hover:opacity-70 font-bold py-3 text-sm lg:text-lg"
           >
             Continuar a la Reserva ({selectedServices.length} servicios)
           </Button>
