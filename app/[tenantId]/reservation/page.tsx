@@ -60,7 +60,7 @@ export default async function ReservationPage({ params, searchParams }: PageProp
   }
 
   return (
-    <div className="h-[calc(100dvh-5rem)] w-full py-0 lg:py-14 lg:flex lg:items-center lg:justify-center">
+    <div className="h-[calc(100dvh-5rem)]  w-full py-0 lg:py-14 lg:flex lg:items-center lg:justify-center">
       <ReservationForm
         allServices={allServices}
         preselectedServices={preselectedServices}

@@ -25,7 +25,7 @@ const groupServicesByCategory = (
 export default function Services({ services, tenantId,showSeeMoreButton }: ServicesProps) {
   if (!services || services.length === 0) {
     return (
-      <section id="servicios" className="py-16 text-center text-gray-600">
+      <section id="servicios" className="py-16 text-center  text-gray-600">
         <p>No hay servicios destacados para mostrar en este momento.</p>
       </section>
     );

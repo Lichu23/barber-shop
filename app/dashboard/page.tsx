@@ -6,6 +6,7 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import AccountData from "./components/AccountData";
 import MonthlySummary from "./components/MonthlySummary";
+import { EarningsChart } from "./components/EarningsChart";
 
 export default async function DashboardPage() {
   const { userId } = await auth();
@@ -26,16 +27,31 @@ export default async function DashboardPage() {
 
   const bookings: Booking[] | null = data;
   const monthlySummary = bookings ? groupBookingsByMonth(bookings) : [];
+  const chartData = monthlySummary.map((m) => ({
+    month: m.month,
+    earnings: m.totalEarnings,
+  }));
 
   return (
-    <div className="w-full h-dvh  flex flex-col items-center">
-      <h1 className="text-center font-bold text-2xl lg:text-5xl mt-20 mb-6 lg:mb-10">
-        Bienvenido {user.name || "usuario"}
-      </h1>
+    <div className="w-full h-full flex justify-center bg-slate-100 p-2">
+      <div className="opacity-0 translate-y-4 animate-fade-in lg:w-[53%]">
+        <h1 className="text-center font-bold text-2xl lg:text-5xl mt-10 lg:mt-20 mb-6 lg:mb-10">
+          Bienvenido,{" "}
+          <span className="text-sky-700">
+            {user.name || user.email || "usuario"}
+          </span>
+        </h1>
 
-      <div className="flex flex-col lg:flex-row lg:gap-32">
-        <AccountData user={user} />
-        <MonthlySummary monthlySummary={monthlySummary} />
+        <div className="lg:flex lg:justify-center lg:items-center lg: gap-10">
+          <AccountData user={user} />
+          <MonthlySummary
+            monthlySummary={monthlySummary}
+            bookings={bookings || []}
+          />
+        </div>
+        <div className="flex justify-center items-center">
+          <EarningsChart data={chartData} />
+        </div>
       </div>
     </div>
   );

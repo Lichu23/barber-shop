@@ -4,15 +4,17 @@ export type Booking = {
   phone_number: string;
   services: string[];
   email:string;
-  date: string; // formato 'YYYY-MM-DD'
-  time: string; // formato 'HH:mm'
+  date: string; 
+  time: string;
+  appointment_time: string
   total_price: number;
   appointment_datetime?: string;
-  reminder_sent_at?: string | null; // Añadido: para el estado del recordatorio
-  google_calendar_event_id?: string | null; // Añadido: para el ID del evento de Google Calendar
-  cancellation_token?: string | null; // Añadido: para el token de cancelación
+  reminder_sent_at?: string | null; 
+  google_calendar_event_id?: string | null; 
+  cancellation_token?: string | null; 
   created_at?: string;
   tenant_id:string
+  
 };
 
 export interface ActionResult<T> {

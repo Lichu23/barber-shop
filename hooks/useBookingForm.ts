@@ -20,11 +20,7 @@ type BookingResult = {
   message?: string;
 };
 
-export type BookingDataWithTotal = FormValues & {
-  totalPrice: number;
-  detailedServices: ServiceOption[];
-  appointmentDateTime: string;
-};
+
 
 export const useBookingForm = (
   allServices: ServiceOption[]
