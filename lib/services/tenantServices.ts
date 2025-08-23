@@ -24,8 +24,8 @@ export interface TenantProfile {
   color_text_light: string;
   custom_domain?: string;
   subscription_status?: string;
-  user_id?: string;
   stripe_customer_id?: string;
+  maps_ubication?: string;
 }
 
 export interface AdminSettings {
@@ -186,13 +186,13 @@ export async function getTenantServices(
 ): Promise<{ data?: ServiceOption[]; error?: string }> {
   const supabase = await createServerSupabaseClient();
   await supabase.rpc("set_current_tenant_id", { tenant_id_value: tenantId });
-  console.log(tenantId);
+  // console.log(tenantId);
   try {
     const { data, error } = await supabase
       .from("salon_services") // <-- Nombre de tu tabla de servicios
       .select("*") // Selecciona todas las columnas relevantes
       .eq("tenant_id", tenantId) // <-- ¡FILTRAR POR TENANT_ID!
-      .order("order", { ascending: true }) // Opcional: ordenar si tienes una columna 'order'
+      .order("order", { ascending: true }); // Opcional: ordenar si tienes una columna 'order'
 
     if (error) {
       console.error(
@@ -202,9 +202,9 @@ export async function getTenantServices(
       return { error: error.message };
     }
 
-    console.log(
-      `getTenantServices: tenantId=${tenantId}, servicios encontrados=${data?.length ?? 0}`
-    );
+    // console.log(
+    //   `getTenantServices: tenantId=${tenantId}, servicios encontrados=${data?.length ?? 0}`
+    // );
 
     return { data: (data ?? []) as ServiceOption[] };
   } catch (err: any) {

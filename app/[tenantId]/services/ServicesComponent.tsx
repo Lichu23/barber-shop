@@ -1,4 +1,4 @@
-import Services from "@/components/Services/Services";
+import Services from "@/components/services-components/Services";
 import { ServiceOption } from "@/constants/services";
 import { TenantProfile } from "@/lib/services/tenantServices";
 

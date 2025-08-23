@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Calendar, Eye, Globe, Play } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 import Link from "next/link";
 
 export default function Hero() {

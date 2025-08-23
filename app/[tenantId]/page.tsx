@@ -5,11 +5,11 @@ import {
 } from "@/lib/services/tenantServices";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getPlaiceholder } from "plaiceholder";
 import Gallery from "./components/gallery/gallery";
 import Hero from "./components/hero/hero";
-import Services from "@/components/Services/Services";
-import SeeMoreButton from "@/components/Services/SeeMoreButton";
-import { getPlaiceholder } from "plaiceholder";
+import Services from "@/components/services-components/Services";
+import VisitUs from "@/components/visit-us-component/VisitUs";
 export async function generateMetadata({
   params,
 }: {
@@ -58,7 +58,11 @@ export default async function HomeTenantPage({
     await getTenantGalleryItems(tenantId);
   const { data: allServices, error: servicesError } =
     await getTenantServices(tenantId);
-  console.log(servicesError)
+
+  console.log(servicesError);
+  console.log(profileError);
+  console.log(galleryError);
+
   if (!tenantProfile) {
     notFound();
   }
@@ -85,7 +89,7 @@ export default async function HomeTenantPage({
     openingHoursSummary: tenantProfile.opening_hours_summary || "", // <-- Añadir fallback
     openingHoursDetail: tenantProfile.opening_hours_detail || "", // <-- Añadir fallback
     contactEmailForUsers: tenantProfile.contact_email_for_users || "", // <-- Añadir fallback
-    blurDataURL: blurDataURL || ""
+    blurDataURL: blurDataURL || "",
   };
 
   return (
@@ -97,9 +101,15 @@ export default async function HomeTenantPage({
 
       {featuredServices && featuredServices.length > 0 && (
         <div className="flex flex-col gap-2">
-          <Services showSeeMoreButton={true} services={featuredServices} tenantId={tenantId} />
+          <Services
+            showSeeMoreButton={true}
+            services={featuredServices}
+            tenantId={tenantId}
+          />
         </div>
       )}
+
+      <VisitUs mapsUbication={tenantProfile.maps_ubication} contactPhone={heroData.contactPhone}  contactAddress={heroData.contactAddress} contactEmailForUsers={heroData.contactEmailForUsers}/>
     </main>
   );
 }
