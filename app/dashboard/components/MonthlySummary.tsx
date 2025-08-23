@@ -40,7 +40,7 @@ export default function MonthlySummary({ monthlySummary, bookings }: Props) {
               return (
                 <div
                   key={month}
-                  className="border hover:border-black border-black lg:p-2 p-2 rounded-xl cursor-pointer shadow-xl"
+                  className="border hover:border-black border-gray-200 lg:p-2 p-2 rounded-xl cursor-pointer shadow-md"
                   onClick={() => monthKey && setSelectedMonthKey(monthKey)}
                 >
                   <h3 className="text-base lg:text-xl font-bold">
@@ -61,6 +61,7 @@ export default function MonthlySummary({ monthlySummary, bookings }: Props) {
           </div>
         )}
       </div>
+      
       {selectedMonthKey && (
         <div
           className={`${isClosing ? "opacity-0" : "opacity-100 bg-black/50"} fixed inset-0 flex items-center justify-center bg-black/50 z-50 transition-opacity duration-300 `}
