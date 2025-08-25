@@ -26,6 +26,7 @@ export interface TenantProfile {
   subscription_status?: string;
   stripe_customer_id?: string;
   maps_ubication?: string;
+  timezone?:string
 }
 
 export interface AdminSettings {

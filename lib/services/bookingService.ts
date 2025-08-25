@@ -14,29 +14,38 @@ interface BookingToInsert {
   google_calendar_event_id?: string | null; // Puede ser nulo al inicio
   reminder_sent_at?: string | null; // Puede ser nulo al inicio
   tenant_id: string;
+  timezone: string;
 }
 
-export async function getBookingById(bookingId: string, tenantId: string): Promise<{ data?: Booking; error?: string }> {
-    const supabase = await createServerSupabaseClient();
-    await supabase.rpc('set_current_tenant_id', { tenant_id_value: tenantId });
+export async function getBookingById(
+  bookingId: string,
+  tenantId: string
+): Promise<{ data?: Booking; error?: string }> {
+  const supabase = await createServerSupabaseClient();
+  await supabase.rpc("set_current_tenant_id", { tenant_id_value: tenantId });
 
-    try {
-        const { data: booking, error: fetchError } = await supabase
-            .from('bookings')
-            .select('*')
-            .eq('id', bookingId)
-            .eq('tenant_id', tenantId)
-            .single<Booking>();
+  try {
+    const { data: booking, error: fetchError } = await supabase
+      .from("bookings")
+      .select("*")
+      .eq("id", bookingId)
+      .eq("tenant_id", tenantId)
+      .single<Booking>();
 
-        if (fetchError || !booking) {
-            return { error: fetchError?.message || `Reserva con ID ${bookingId} para tenant ${tenantId} no encontrada.` };
-        }
-        return { data: booking };
-    } catch (err: any) {
-        return { error: err.message || 'Error inesperado al buscar reserva por ID.' };
+    if (fetchError || !booking) {
+      return {
+        error:
+          fetchError?.message ||
+          `Reserva con ID ${bookingId} para tenant ${tenantId} no encontrada.`,
+      };
     }
+    return { data: booking };
+  } catch (err: any) {
+    return {
+      error: err.message || "Error inesperado al buscar reserva por ID.",
+    };
+  }
 }
-
 
 export async function insertBooking(
   bookingData: BookingToInsert
@@ -124,7 +133,7 @@ export async function deleteBookingById(
   tenantId: string
 ): Promise<{ success: boolean; error?: string }> {
   const supabase = await createServerSupabaseClient();
-      await supabase.rpc('set_current_tenant_id', { tenant_id_value: tenantId }); // <-- ¡AÑADIDO!
+  await supabase.rpc("set_current_tenant_id", { tenant_id_value: tenantId }); // <-- ¡AÑADIDO!
 
   try {
     const { error: deleteError } = await supabase
@@ -173,21 +182,25 @@ export async function getBookingsForReminders(
   }
 }
 
-export async function getBookingsByTenantId(tenantId: string): Promise<{ data?: Booking[]; error?: string }> {
+export async function getBookingsByTenantId(
+  tenantId: string
+): Promise<{ data?: Booking[]; error?: string }> {
   const supabase = await createServerSupabaseClient();
-  await supabase.rpc('set_current_tenant_id', { tenant_id_value: tenantId });
+  await supabase.rpc("set_current_tenant_id", { tenant_id_value: tenantId });
 
   try {
     const { data: bookings, error: fetchError } = await supabase
-      .from('bookings')
-      .select('*')
-      .eq('tenant_id', tenantId);
+      .from("bookings")
+      .select("*")
+      .eq("tenant_id", tenantId);
 
     if (fetchError) {
       return { error: fetchError.message };
     }
     return { data: bookings ?? [] };
   } catch (err: any) {
-    return { error: err.message || 'Error inesperado al buscar reservas por tenant.' };
+    return {
+      error: err.message || "Error inesperado al buscar reservas por tenant.",
+    };
   }
 }
