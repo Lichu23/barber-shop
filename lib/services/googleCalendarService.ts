@@ -4,6 +4,7 @@ interface CreateGoogleCalendarEventRequest {
   description?: string;
   startDateTime: string;
   endDateTime: string;
+  timezone:string
 }
 
 interface CreateGoogleCalendarEventResponse {

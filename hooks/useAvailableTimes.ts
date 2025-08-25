@@ -1,10 +1,12 @@
 "use client";
 
 import { FormValues } from "@/app/[tenantId]/reservation/schema/reservationSchema";
+import { getTenantProfileById } from "@/lib/services/tenantServices";
 import { availableTimesFilter } from "@/utils/availableTimes";
-import { supabaseClient } from "@/utils/supabase/createClientServer";
+import { supabaseBrowserClient } from "@/utils/supabase/createClientServer";
 import { getDay, parseISO } from "date-fns";
 import { useEffect, useState } from "react";
+
 import { UseFormSetValue } from "react-hook-form";
 interface Props {
   bookingDate: string | undefined;
@@ -29,9 +31,10 @@ export const useAvailableTimes = ({
         return;
       }
 
-      const { data: tenant, error: tenantError } = await supabaseClient
+      const supabase = supabaseBrowserClient();
+      const { data: tenant, error: tenantError } = await supabase
         .from("tenants")
-        .select("available_times")
+        .select("available_times, timezone")
         .eq("tenant_id", tenantId)
         .single();
 
@@ -44,7 +47,9 @@ export const useAvailableTimes = ({
       }
 
       if (!tenant?.available_times) {
-        console.error(`Error fetching tenant available times:${tenant?.available_times}`);
+        console.error(
+          `Error fetching tenant available times:${tenant?.available_times}`
+        );
         setAvailableTimes([]);
         return;
       }
@@ -95,7 +100,9 @@ export const useAvailableTimes = ({
         }
       });
 
-      const { data: bookings, error: bookingsError } = await supabaseClient
+   
+
+      const { data: bookings, error: bookingsError } = await supabase
         .from("bookings")
         .select("appointment_time")
         .eq("tenant_id", tenantId)
@@ -113,7 +120,12 @@ export const useAvailableTimes = ({
       let freeTimes = tenantSlots.filter(
         (time) => !reservedTimes.includes(time)
       );
-      freeTimes = availableTimesFilter(freeTimes, bookingDate);
+
+      freeTimes = availableTimesFilter(
+        freeTimes,
+        bookingDate,
+        tenant?.timezone!
+      );
 
       setAvailableTimes(freeTimes);
       setValue("time", "");

@@ -55,8 +55,16 @@ export async function saveBooking(
     )
     .filter((service): service is ServiceOption => service !== undefined);
 
-  const timeZone = "Europe/Madrid";
-  const localDateTime = fromZonedTime(`${date}T${time}`, timeZone); // <-- SOLO CAMBIA ESTO
+  const { data: tenantData, error: tenantDataError } =
+    await getTenantProfileById(tenantId);
+  if (tenantDataError || !tenantData) {
+    return { error: "No se pudo obtener el perfil del tenant." };
+  }
+
+  const tenantTimezone =
+    tenantData.timezone || "America/Argentina/Buenos_Aires";
+
+  const localDateTime = fromZonedTime(`${date}T${time}`, tenantTimezone);
   const appointmentDateTime = localDateTime.toISOString();
 
   const cancellationToken = uuidv4();
@@ -103,6 +111,7 @@ export async function saveBooking(
       cancellation_token: cancellationToken,
       google_calendar_event_id: null,
       tenant_id: tenantId,
+      timezone:tenantTimezone
     });
 
     if (insertError || !newBooking) {
@@ -127,6 +136,7 @@ export async function saveBooking(
           description: `Servicios: ${servicesDescription}\nTotal: ${totalPrice}€\nTeléfono: ${phoneNumber}\nEmail: ${email}\n\nToken de Cancelación: ${cancellationLink}`,
           startDateTime: start.toISOString(),
           endDateTime: end.toISOString(),
+          timezone: tenantTimezone,
           ownerSecretKey: ownerSecretKeyForBookings,
         });
 
