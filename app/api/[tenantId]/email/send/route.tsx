@@ -55,7 +55,7 @@ export async function POST(req: Request) {
 
     if (
       !isCancellationConfirmation &&
-      (!service || !date || !time || totalPrice === undefined)
+      (!service || !date || !startTime || !endTime || totalPrice === undefined)
     ) {
       return NextResponse.json(
         { message: "Missing required email data for confirmation/reminder" },
