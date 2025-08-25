@@ -21,6 +21,8 @@ export interface SendEmailRequest {
   bookingId?: string;
   tenantId?: string;
   appointmentDateTime: string;
+  startTime?: string;
+  endTime?: string;
 }
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -39,6 +41,8 @@ export async function POST(req: Request) {
     bookingId,
     tenantId,
     appointmentDateTime,
+    endTime,
+    startTime,
   }: SendEmailRequest = await req.json();
 
   try {
@@ -96,14 +100,15 @@ export async function POST(req: Request) {
           { status: 500 }
         );
       }
-
+      
       emailReactComponent = (
         <EmailTemplate
           bookingId={bookingId}
           fullName={fullName}
           date={date}
           service={service}
-          time={time}
+          startTime={startTime}
+          endTime={endTime}
           totalPrice={totalPrice}
           cancellationToken={cancellationToken}
           tenantId={tenantId}

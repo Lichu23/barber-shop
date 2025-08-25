@@ -16,8 +16,9 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { v4 as uuidv4 } from "uuid";
 import { FormValues } from "./schema/reservationSchema";
-import { fromZonedTime } from "date-fns-tz";
+import { formatInTimeZone, fromZonedTime } from "date-fns-tz";
 import { headers } from "next/headers";
+import { es } from "date-fns/locale";
 const PLATFORM_DOMAINS = new Set(["lichu.org", "www.lichu.org", "localhost"]);
 
 export async function saveBooking(
@@ -111,7 +112,7 @@ export async function saveBooking(
       cancellation_token: cancellationToken,
       google_calendar_event_id: null,
       tenant_id: tenantId,
-      timezone:tenantTimezone
+      timezone: tenantTimezone,
     });
 
     if (insertError || !newBooking) {
@@ -197,6 +198,20 @@ export async function saveBooking(
     }
 
     try {
+      const start = new Date(appointmentDateTime);
+      const durationMinutes = 45;
+      const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
+
+      const formattedStartTime = formatInTimeZone(
+        start,
+        tenantTimezone,
+        "HH:mm"
+      );
+      const formattedEndTime = formatInTimeZone(end, tenantTimezone, "HH:mm");
+      const formattedDate = formatInTimeZone(start, tenantTimezone, "PPP", {
+        locale: es,
+      });
+
       const servicesForEmail: string =
         detailedServices?.map((s) => s.name).join(", ") ||
         (Array.isArray(services) ? services.join(", ") : services);
@@ -207,8 +222,9 @@ export async function saveBooking(
           subject: `¡Reserva confirmada en ${tenantData?.salon_name}!`,
           fullName: fullName,
           service: servicesForEmail,
-          date: date,
-          time: time,
+          date: formattedDate,
+          startTime: formattedStartTime,
+          endTime: formattedEndTime,
           totalPrice: totalPrice,
           bookingId: newBooking.id,
           cancellationToken: cancellationToken,
