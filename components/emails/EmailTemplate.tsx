@@ -30,6 +30,8 @@ export function EmailTemplate({
 }: EmailTemplateProps) {
   console.log(`confirmation email time:${startTime} to ${endTime}`);
   const cancellationLink = `${process.env.NEXT_PUBLIC_BASE_URL}/${tenantId}/cancel?token=${cancellationToken}&id=${bookingId}`;
+  console.log(date)
+  console.log(formatDate(date))
   return (
     <div>
       <h2>¡Hola, {fullName}!</h2>
@@ -37,7 +39,7 @@ export function EmailTemplate({
         <b>Tu reserva fue confirmada!</b>
       </p>
       <p>
-        Fecha: <b>{formatDate(date)}</b>
+        Fecha: <b>{date}</b>
         <br />
         Hora:{" "}
         <b>
