@@ -5,16 +5,18 @@ interface CancellationConfirmationEmailTemplateProps {
   fullName: string;
   service: string | string[];
   date: string;
-  time: string;
+  startTime: string | undefined;
 }
 
-export function CancellationConfirmationEmailTemplate({
+export function   CancellationConfirmationEmailTemplate({
   fullName,
   service,
   date,
-  time,
+  startTime,
 }: CancellationConfirmationEmailTemplateProps) {
-  console.log(`cancelation email time:${time}`)
+  // console.log(`cancelation email time:${startTime}`)
+  
+  
   return (
     <div>
       <h1>¡Cita Cancelada Exitosamente!</h1>
@@ -35,7 +37,7 @@ export function CancellationConfirmationEmailTemplate({
           <strong>Fecha:</strong> <span>{formatDate(date)}</span>
         </p>
         <p>
-          Hora: <b>{time}hs</b>
+          Hora: <b>{startTime}hs</b>
         </p>
       </div>
 

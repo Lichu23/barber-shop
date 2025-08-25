@@ -1,3 +1,7 @@
+import { formatInTimeZone } from "date-fns-tz";
+import { es } from "date-fns/locale";
+import { getTenantProfileById } from "./tenantServices";
+
 interface SendEmailData {
   to: string;
   subject?: string | null;
@@ -67,9 +71,29 @@ export async function sendReminderEmail(
 export async function sendCancellationEmail(
   emailData: SendEmailData
 ): Promise<{ success: boolean; error?: string }> {
-  // Reutilizamos sendConfirmationEmail, solo ajustamos el isCancellationConfirmation
+//   console.log( emailData);
+
+  const { data: tenantProfile, error: tenantError } =
+    await getTenantProfileById(emailData.tenantId);
+
+  if (tenantError || !tenantProfile) {
+    console.log(
+      `Ocurrio un error al obtener el tennant profile ${tenantError}, ${tenantProfile}`
+    );
+  }
+
+  let startTime = emailData.startTime;
+
+  if (!startTime && emailData.appointmentDateTime) {
+    const start = new Date(emailData.appointmentDateTime);
+    startTime = formatInTimeZone(start, tenantProfile?.timezone!, "HH:mm", {
+      locale: es,
+    });
+  }
+
   return sendConfirmationEmail({
     ...emailData,
+    startTime,
     isCancellationConfirmation: true,
   });
 }
