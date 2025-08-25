@@ -8,7 +8,8 @@ interface EmailTemplateProps {
   fullName: string;
   service: string;
   date: string;
-  time: string;
+  startTime: string | undefined;
+  endTime: string | undefined;
   totalPrice: number;
   cancellationToken?: string;
   bookingId?: string;
@@ -20,34 +21,17 @@ export function EmailTemplate({
   fullName,
   service,
   date,
-  time,
+  startTime,
+  endTime,
   totalPrice,
   cancellationToken,
   bookingId,
   tenantId,
   appointmentDateTime,
 }: EmailTemplateProps) {
-  console.log(`confirmation email time:${time}`);
+  console.log(`confirmation email time:${startTime} to ${endTime}`);
   const cancellationLink = `${process.env.NEXT_PUBLIC_BASE_URL}/${tenantId}/cancel?token=${cancellationToken}&id=${bookingId}`;
 
-  let formattedStartTime = "No disponible";
-  let formattedEndTime = "No disponible";
-  let formattedDate = "No disponible";
-
-  if (appointmentDateTime) {
-    const timeZone = "Europe/Madrid";
-
-    const start = new Date(appointmentDateTime);
-
-    if (!isNaN(start.getTime())) {
-      const durationMinutes = 45;
-      const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
-
-      formattedStartTime = formatInTimeZone(start, timeZone, "HH:mm"); // -> "19:00"
-      formattedEndTime = formatInTimeZone(end, timeZone, "HH:mm"); // -> "19:45"
-      formattedDate = formatInTimeZone(start, timeZone, "PPP", { locale: es });
-    }
-  }
   return (
     <div>
       <h2>¡Hola, {fullName}!</h2>
@@ -57,7 +41,10 @@ export function EmailTemplate({
       <p>
         Fecha: <b>{formatDate(date)}</b>
         <br />
-        Hora: <b>{formattedStartTime}hs - {formattedEndTime}hs</b>
+        Hora:{" "}
+        <b>
+          {startTime}hs - {endTime}hs
+        </b>
         <br />
         Total a pagar: <b>{formatPriceToEuro(totalPrice)}</b>
       </p>
@@ -77,9 +64,7 @@ export function EmailTemplate({
           <p>Este enlace es único para tu reserva.</p>
         </div>
       )}
-      <p>
-        ¡Te esperamos en {tenantId}!
-      </p>
+      <p>¡Te esperamos en {tenantId}!</p>
     </div>
   );
 }
