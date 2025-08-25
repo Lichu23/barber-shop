@@ -106,7 +106,7 @@ export async function POST(
         to: bookingToCancel.email,
         fullName: bookingToCancel.full_name,
         date: bookingToCancel.date,
-        time: bookingToCancel.appointment_datetime,
+        appointmentDateTime: bookingToCancel.appointment_datetime,
         service: servicesForEmail,
         bookingId: bookingToCancel.id,
         cancellationToken: bookingToCancel.cancellation_token,

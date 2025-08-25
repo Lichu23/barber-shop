@@ -9,11 +9,9 @@ export interface SendEmailRequest {
   to: string;
   subject?: string;
   message?: string;
-
   fullName: string;
   service: string;
   date: string;
-  time: string;
   totalPrice: number;
   isReminder?: boolean;
   cancellationToken?: string;
@@ -32,7 +30,6 @@ export async function POST(req: Request) {
     fullName,
     service,
     date,
-    time,
     subject,
     totalPrice,
     isReminder,
@@ -73,17 +70,17 @@ export async function POST(req: Request) {
           fullName={fullName}
           service={service}
           date={date}
-          time={time}
+          startTime={startTime}
         />
       );
     } else if (isReminder) {
-      emailSubject = `Recordatorio: Tu cita en Chiky - ${date} a las ${time}`;
+      emailSubject = `Recordatorio: Tu cita en Chiky - ${date} a las ${startTime}`;
       emailReactComponent = (
         <ReminderEmailTemplate
           fullName={fullName}
           service={service}
           date={date}
-          time={time}
+          startTime={startTime}
           totalPrice={totalPrice}
           tenantId={tenantId}
         />
@@ -100,7 +97,7 @@ export async function POST(req: Request) {
           { status: 500 }
         );
       }
-      
+
       emailReactComponent = (
         <EmailTemplate
           bookingId={bookingId}

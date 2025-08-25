@@ -5,7 +5,7 @@ interface EmailReminderProps {
   fullName: string;
   service: string;
   date: string;
-  time: string;
+  startTime: string | undefined;
   totalPrice?: number;
   tenantId:string | undefined
 }
@@ -14,7 +14,7 @@ export function ReminderEmailTemplate({
   fullName,
   service,
   date,
-  time,
+  startTime,
   tenantId
 }: EmailReminderProps) {
   const servicesArray =
@@ -37,7 +37,7 @@ export function ReminderEmailTemplate({
           <strong>Fecha:</strong> <span>{formatDate(date)}</span>
         </p>
         <p>
-          <strong>Hora:</strong> <span>{time}hs</span>
+          <strong>Hora:</strong> <span>{startTime}hs</span>
         </p>
       </div>
 

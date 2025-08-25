@@ -27,11 +27,9 @@ export function EmailTemplate({
   cancellationToken,
   bookingId,
   tenantId,
-  appointmentDateTime,
 }: EmailTemplateProps) {
   console.log(`confirmation email time:${startTime} to ${endTime}`);
   const cancellationLink = `${process.env.NEXT_PUBLIC_BASE_URL}/${tenantId}/cancel?token=${cancellationToken}&id=${bookingId}`;
-
   return (
     <div>
       <h2>¡Hola, {fullName}!</h2>
