@@ -1,4 +1,3 @@
-import ClientLayoutWrapper from "@/components/(layout)/ClientLayoutWrapper";
 import Footer from "@/components/footer/MainFooter";
 import Navbar from "@/components/header-main/Header";
 import { NavigationLink } from "@/constants/navigation";
@@ -60,9 +59,7 @@ export default async function TenantLayout({
         tenantId={tenantId}
         navLinks={navLinks}
       />{" "}
-      <ClientLayoutWrapper tenantProfile={tenantProfile}>
         {children}
-      </ClientLayoutWrapper>
       <Footer {...footerData} />
     </TenantProvider>
   );
