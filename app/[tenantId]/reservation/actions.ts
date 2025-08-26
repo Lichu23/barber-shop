@@ -134,7 +134,7 @@ export async function saveBooking(
       const { eventId, error: googleCalendarError } =
         await createGoogleCalendarEvent({
           summary: `Cita con ${fullName}`,
-          description: `Servicios: ${servicesDescription}\nTotal: ${totalPrice}€\nTeléfono: ${phoneNumber}\nEmail: ${email}\n\nToken de Cancelación: ${cancellationLink}`,
+          description: `Servicios: ${servicesDescription}\nTotal: ${totalPrice}€\nTeléfono: ${phoneNumber}\nEmail: ${email}\n\nLink de Cancelación: ${cancellationLink}`,
           startDateTime: start.toISOString(),
           endDateTime: end.toISOString(),
           timezone: tenantTimezone,

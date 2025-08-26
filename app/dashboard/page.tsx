@@ -32,13 +32,15 @@ export default async function DashboardPage() {
     earnings: m.totalEarnings,
   }));
 
+  console.log(`User ID: ${userId}`);
+
   return (
     <div className="w-full h-full flex justify-center bg-slate-100 p-2">
       <div className="opacity-0 translate-y-4 animate-fade-in lg:w-[53%]">
         <h1 className="text-center font-bold text-2xl lg:text-5xl mt-10 lg:mt-20 mb-6 lg:mb-10">
           Bienvenido,{" "}
           <span className="text-sky-700">
-            {user.name || user.email || "usuario"}
+            {user.email || user.name || "usuario"}
           </span>
         </h1>
 
