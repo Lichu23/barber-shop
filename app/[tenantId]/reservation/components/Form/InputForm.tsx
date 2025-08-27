@@ -41,6 +41,7 @@ export const InputForm = <T extends FieldValues>({
             id={name}
             type={type}
             placeholder={placeholder}
+            autoComplete="on"
             {...field}
             className={`${
               error ? "border border-red-500" : ""

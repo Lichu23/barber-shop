@@ -34,7 +34,7 @@ export default function HamburgerMenu({ navLinks, tenantId }: HamburgerMenuProps
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <button className="md:hidden p-2">
-          <Menu className="h-7 w-7 text-primary" />
+          <Menu className="text-primary" />
         </button>
       </SheetTrigger>
       <SheetContent side="left" className="p-0">

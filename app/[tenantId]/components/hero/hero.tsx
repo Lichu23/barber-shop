@@ -67,7 +67,7 @@ function HeroMain({ tenantId, slogan, description, imageUrl, blurDataURL}: HeroM
   const servicesLink = `${basePath}/services`;
 
   return (
-    <div className="relative h-[calc(100dvh-5rem)] flex items-center justify-center">
+    <div className="relative h-[calc(100dvh-3.5rem)] flex items-center justify-center">
       <div className="absolute inset-0 bg-black/60 z-10"></div>
       <Image
         src={imageUrl}
