@@ -3,12 +3,14 @@ import Link from "next/link";
 
 interface NavLinksProps {
   vertical?: boolean;
-  updatedLinks: { href: string; label: string; }[]
+  updatedLinks: { href: string; label: string }[];
+  onLinkClick?: () => void;
 }
 
 export default function NavLinks({
   vertical = false,
   updatedLinks,
+  onLinkClick,
 }: NavLinksProps) {
   return (
     <nav
@@ -19,6 +21,7 @@ export default function NavLinks({
           key={link.href}
           href={link.href}
           className="text-gray-600 hover:text-primary font-medium"
+          onClick={onLinkClick}
         >
           {link.label}
         </Link>
