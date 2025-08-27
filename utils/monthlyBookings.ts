@@ -1,5 +1,3 @@
-// utils/monthlyBookings.ts
-
 import { Booking } from "@/types/booking";
 
 
