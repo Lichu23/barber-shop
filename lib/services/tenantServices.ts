@@ -186,7 +186,6 @@ export async function getTenantServices(
   tenantId: string
 ): Promise<{ data?: ServiceOption[]; error?: string }> {
   const supabase = await createServerSupabaseClient();
-  await supabase.rpc("set_current_tenant_id", { tenant_id_value: tenantId });
   // console.log(tenantId);
   try {
     const { data, error } = await supabase
