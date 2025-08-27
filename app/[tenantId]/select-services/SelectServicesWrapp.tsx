@@ -126,7 +126,8 @@ export default function SelectServicesWrapp({ tenantId }: Props) {
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {groupedServices[categoryName].map((service) => (
-                  <div
+                  <label
+                    htmlFor={service.value}
                     key={service.value}
                     className="flex items-center space-x-2 p-3 border rounded-md cursor-pointer hover:bg-gray-50"
                   >
@@ -138,13 +139,10 @@ export default function SelectServicesWrapp({ tenantId }: Props) {
                       }
                       className="data-[state=checked]:bg-primary border-primary "
                     />
-                    <label
-                      htmlFor={service.value}
-                      className="text-sm lg:text-base font-base "
-                    >
+                    <span className="text-sm lg:text-base font-base ">
                       {service.name} - {service.price}$
-                    </label>
-                  </div>
+                    </span>
+                  </label>
                 ))}
               </div>
             </div>
@@ -155,7 +153,7 @@ export default function SelectServicesWrapp({ tenantId }: Props) {
             disabled={selectedServices.length === 0 || isRedirecting}
             className="w-full bg-primary hover:hover:opacity-70 font-bold py-3 text-sm lg:text-lg"
           >
-              Continuar a la Reserva ({selectedServices.length} servicios)
+            Continuar a la Reserva ({selectedServices.length} servicios)
           </Button>
         </CardContent>
       </Card>
