@@ -1,10 +1,5 @@
 "use client";
-import {
-  Card,
-  CardFooter,
-  CardHeader,
-  CardTitle
-} from "@/components/ui/card";
+import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
@@ -26,8 +21,12 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function EarningsChart({ data }: EarningsChartProps) {
-  const currentMonth = data[data.length - 1];
-  const prevMonth = data[data.length - 2];
+  const sortedData = [...data].sort(
+    (a, b) => new Date(a.month).getTime() - new Date(b.month).getTime()
+  );
+
+  const currentMonth = sortedData[sortedData.length - 1];
+  const prevMonth = sortedData[sortedData.length - 2];
 
   let trendText = "Sin datos suficientes";
   let trendIcon = null;
@@ -61,7 +60,7 @@ export function EarningsChart({ data }: EarningsChartProps) {
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={(value) => value.slice(0, 3)} 
+              tickFormatter={(value) => value.slice(0, 3)}
             />
             <YAxis
               tickLine={false}
