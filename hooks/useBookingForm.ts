@@ -59,7 +59,6 @@ export const useBookingForm = (
           };
         }
       } else {
-        // Handle cases where the thrown error is not an Error object
         console.error(`Hubo un error desconocido: ${error}`);
         return {
           success: false,

@@ -35,7 +35,7 @@ export default function Services({ services, tenantId,showSeeMoreButton }: Servi
   const categoryNames = Object.keys(groupedServices);
 
   return (
-    <section className="mt-10 h-full " id="servicios">
+    <section>
       <div className="container mx-auto px-4">
         {categoryNames.map((categoryName) => (
           <div key={categoryName} className="mb-16 last:mb-0">

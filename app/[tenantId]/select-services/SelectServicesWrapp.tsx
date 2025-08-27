@@ -21,6 +21,7 @@ export default function SelectServicesWrapp({ tenantId }: Props) {
   const [selectedServices, setSelectedServices] = useState<string[]>([]); // Solo los 'value' de los servicios
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   useEffect(() => {
     async function fetchServices() {
@@ -35,7 +36,7 @@ export default function SelectServicesWrapp({ tenantId }: Props) {
           throw new Error(errorData.error || "Error al cargar los servicios.");
         }
         const data = await response.json();
-        setAllServices(data.services || []); // Asume que la API devuelve { services: [...] }
+        setAllServices(data.services || []);
       } catch (err: any) {
         console.error("Error fetching services for selection:", err);
         setError(err.message || "No se pudieron cargar los servicios.");
@@ -62,7 +63,10 @@ export default function SelectServicesWrapp({ tenantId }: Props) {
       setError("Por favor, selecciona al menos un servicio para continuar.");
       return;
     }
-    // Redirige a la página de reserva, pasando los servicios seleccionados como query params
+
+    if (isRedirecting) return; // Evita clicks múltiples
+    setIsRedirecting(true);
+
     const servicesQuery = selectedServices.join(",");
     const basePath = isCustomDomain ? "" : `/${tenantId}`;
     const reservationUrl = `${basePath}/reservation?services=${encodeURIComponent(
@@ -148,10 +152,10 @@ export default function SelectServicesWrapp({ tenantId }: Props) {
           {error && <p className="text-red-600 mt-4 text-center">{error}</p>}
           <Button
             onClick={handleContinueToForm}
-            disabled={selectedServices.length === 0}
+            disabled={selectedServices.length === 0 || isRedirecting}
             className="w-full bg-primary hover:hover:opacity-70 font-bold py-3 text-sm lg:text-lg"
           >
-            Continuar a la Reserva ({selectedServices.length} servicios)
+              Continuar a la Reserva ({selectedServices.length} servicios)
           </Button>
         </CardContent>
       </Card>

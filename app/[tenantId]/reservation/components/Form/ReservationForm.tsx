@@ -10,13 +10,14 @@ import { useTenant } from "@/context/TenantProvider";
 import { useAvailableTimes } from "@/hooks/useAvailableTimes";
 import { useBookingForm } from "@/hooks/useBookingForm";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Heart, Sparkles } from "lucide-react";
+import { Ellipsis, Heart, Loader2, Scissors, Sparkles } from "lucide-react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import HeaderForm from "./HeaderForm";
 import { InputForm } from "./InputForm";
 import { MultiSelectForm } from "./MultiSelect";
 import { SelectForm } from "./SelectForm";
+import { useState } from "react";
 
 interface Props {
   allServices: ServiceOption[];
@@ -33,6 +34,7 @@ export default function ReservationForm({
     formState: { errors },
     setValue,
     watch,
+    reset,
   } = useForm<FormValues>({
     resolver: zodResolver(reservationSchema),
     defaultValues: {
@@ -47,8 +49,8 @@ export default function ReservationForm({
 
   const bookingDate = watch("date");
   const { tenantId } = useTenant();
-  const { handleSaveBooking, loading } = useBookingForm(allServices);
-
+  const { handleSaveBooking } = useBookingForm(allServices);
+  const [loading, setLoading] = useState(true);
   const saveNewBooking: SubmitHandler<FormValues> = async (data) => {
     const controller = new AbortController();
 
@@ -59,6 +61,8 @@ export default function ReservationForm({
         description: result.message,
         duration: 5000,
       });
+
+      reset();
     } else {
       toast.error("Error", {
         description: result.message,
@@ -70,7 +74,7 @@ export default function ReservationForm({
     };
   };
 
-  const availableTimes = useAvailableTimes({ bookingDate, setValue,tenantId });
+  const availableTimes = useAvailableTimes({ bookingDate, setValue, tenantId });
 
   const multiSelectOptions = allServices.map((service) => ({
     value: service.value,
@@ -83,7 +87,7 @@ export default function ReservationForm({
       onSubmit={handleSubmit(saveNewBooking)}
       className="border  rounded-xl  space-y-7  text-sm lg:text  lg:min-w-[1200px] opacity-0 translate-y-4 animate-fade-in"
     >
-      <HeaderForm/>
+      <HeaderForm />
       <CardContent className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <InputForm<FormValues>
@@ -93,6 +97,7 @@ export default function ReservationForm({
             name="fullName"
             type="text"
             placeholder="ej: Maria Rodriguez"
+            disabled={loading}
           />
           <InputForm<FormValues>
             control={control}
@@ -101,6 +106,7 @@ export default function ReservationForm({
             name="phoneNumber"
             type="tel"
             placeholder="ej: 3416833699"
+            disabled={loading}
           />
         </div>
 
@@ -120,6 +126,7 @@ export default function ReservationForm({
             name="email"
             type="text"
             placeholder="ej: correo@gmail.com"
+            disabled={loading}
           />
         </div>
 
@@ -130,6 +137,7 @@ export default function ReservationForm({
             label="📅 Fecha Preferida"
             name="date"
             type="date"
+            disabled={loading}
           />
           <SelectForm<FormValues>
             name="time"
@@ -158,16 +166,14 @@ export default function ReservationForm({
         >
           {loading ? (
             <div className="flex items-center justify-center gap-3">
-              <div className="w-6 h-6 border-3 border-white/30 border-t-white rounded-full animate-spin"></div>
-              <span>✨ Reservando tu cita...</span>
+              <span className="flex items-center animate-spin">
+                <Scissors className="w-6 h-6 ease-linear" />
+              </span>
             </div>
           ) : (
             <div className="flex items-center justify-center gap-3">
               <Heart className="h-6 w-6" />
-              <span className="text-sm lg:text-lg">
-                {" "}
-                Reservar mi Cita de Belleza
-              </span>
+              <span className="text-sm lg:text-lg">Reservar mi Cita</span>
               <Sparkles className="h-5 w-5" />
             </div>
           )}

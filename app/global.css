@@ -27,17 +27,18 @@
 
 @layer base {
   :root {
-    --primary: 210 90% 40%; /* Azul oscuro */
-    --primary-foreground: 0 0% 100%; /* Blanco */
+    --primary: 210 90% 40%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 20% 70%; /* Gris azulado claro */
-    --secondary-foreground: 0 0% 15%; /* Negro */
+    --secondary: 210 20% 70%;
+    --secondary-foreground: 0 0% 15%;
 
     --accent: transparent;
-    --accent-foreground: 0 0% 100%; /* Blanco */
+    --accent-foreground: 0 0% 100%;
 
-    --foreground: 0 0% 15%; /* Texto oscuro principal */
-    --background: 0 0% 100%; /* Fondo principal */
+    --foreground: 0 0% 15%;
+    --background: 0 0% 100%;
+
 
     --foreground: 0 0% 15%;
     --background: 0 0% 100%;
