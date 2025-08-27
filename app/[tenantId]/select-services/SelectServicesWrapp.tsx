@@ -142,7 +142,7 @@ export default function SelectServicesWrapp({ tenantId }: Props) {
                       htmlFor={service.value}
                       className="text-sm lg:text-base font-base "
                     >
-                      {service.name} - {service.price}€
+                      {service.name} - {service.price}$
                     </label>
                   </div>
                 ))}

@@ -8,6 +8,7 @@ interface Props {
 }
 
 const ServicesComponent = ({ allServices, tenantProfile }: Props) => {
+  
   return (
     <div className="py-16 opacity-0 translate-y-4 animate-fade-in">
       <div className="container mx-auto px-4">

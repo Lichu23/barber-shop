@@ -52,7 +52,7 @@ export default function MonthlySummary({ monthlySummary, bookings }: Props) {
                   <p className="text-base lg:text-xl font-bold">
                     Ganancias:{" "}
                     <span className="font-normal">
-                      {totalEarnings.toFixed(2)} €
+                      {totalEarnings.toFixed(2)} $
                     </span>
                   </p>
                 </div>
@@ -105,7 +105,7 @@ export default function MonthlySummary({ monthlySummary, bookings }: Props) {
                         : null}
                     </span>
                     <span className="text-green-600 font-semibold">
-                      💶 {booking.total_price.toFixed(2)} €
+                      💶 {booking.total_price.toFixed(2)} $
                     </span>
                   </li>
                 ))}

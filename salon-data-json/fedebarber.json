@@ -1,26 +1,59 @@
 {
   "tenant_id": "fedebarber",
-  "salon_name": "Fede Barber",
-  "hero_slogan": "Estilo Impecable. Presencia Distinguida.",
-  "hero_description": "Tradición y vanguardia en el arte del cuidado masculino. Cortes clásicos, arreglos de barba y los mejores tratamientos.",
-  "hero_image_url": "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/hero/hero-chiky.webp",
+  "salon_name": "FedeBarber",
+  "timezone": "America/Argentina/Buenos_Aires",
+  
+  "hero_slogan": "Estilo Impecable",
+  "hero_description": "Cortes clásicos, arreglos de barba y los mejores tratamientos.",
+  "hero_image_url": "hthttps://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/hero/corte-fede.webp",
+  
 
-  "contact_phone": "680 123 456",
-  "contact_address": "Calle del Barbero, 5, 08001 Barcelona",
+  "contact_phone": "+549 3412 63 0580",
+  "contact_address": "Guatemala #514  Esquina Urquiza, Rosario",
   "opening_hours_summary": "Martes a Sábado",
-  "opening_hours_detail": "10:00 - 21:00 hrs • Lunes y Domingo Cerrado",
-  "contact_email_for_users": "info@fedebarber.com",
+  "opening_hours_detail": "10:00 - 13:00 hrs • 13:30 - 20:00 hrs",
+  "contact_email_for_users": "fetitoyt@gmail.com",
+  "maps_ubication":"",
+  "social_instagram_url":"https://www.instagram.com/fedebarberrr_/",
+  "social_tiktok_url": "https://www.tiktok.com/@fedesonzogni_",
+  
 
-  "color_primary": "25 85% 50%",
-  "color_secondary": "20 60% 35%",
-  "color_accent": "35 90% 55%",
-  "color_text_dark": "25 10% 15%",
-  "color_text_light": "30 25% 96%",
+
+  "color_primary": "195 85% 55%",
+  "color_secondary": "210 15% 15%",
+  "color_accent": "200 60% 70%",
+  "color_text_dark": "210 10% 12%",
+  "color_text_light": "195 25% 96%",
+
+  "available_times": {
+    "monday": [],
+    "tuesday": [
+      ["10:00", "13:00"],
+      ["13:30", "20:00"]
+    ],
+    "wednesday": [
+      ["10:00", "13:00"],
+      ["13:30", "20:00"]
+    ],
+    "thursday": [
+      ["10:00", "13:00"],
+      ["13:30", "20:00"]
+    ],
+    "friday": [
+      ["10:00", "13:00"],
+      ["13:30", "20:00"]
+    ],
+    "saturday": [
+      ["10:00", "13:00"],
+      ["13:30", "20:00"]
+    ],
+    "sunday": []
+  },
   "gallery_items": [
-    {
-      "name": "Cabello Liso Castaño",
-      "description": "Alisado Perfecto - Cabello largo y sedoso con brillo espejo y acabado profesional.",
-      "image_url": "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/gallery/cabello-cafe-lasio.webp",
+      {
+      "name": "Corte de Caballero",
+      "description": "Corte clásico o moderno adaptado a tu estilo y peinado final para un look prolijo y fresco.",
+      "image_url": "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/hero/fade1.webp",
       "order": 1
     },
     {
@@ -56,85 +89,52 @@
   ],
   "services": [
     {
-      "name": "Corte de Caballero",
-      "description": "Corte personalizado y estilizado para cada tipo de cabello.",
-      "price": 25,
-      "value": "corte-caballero",
+      "name": "Corte Semanal",
+      "price": 8000,
+      "value": "corte-semanal",
       "order": 1,
-      "category": "Servicios Destacados",
+      "category": "Servicios",
       "icon_name": "Scissors"
     },
     {
-      "name": "Arreglo de Barba",
-      "description": "Diseño y perfilado de barba, con productos específicos.",
-      "price": 15,
-      "value": "arreglo-barba",
+      "name": "Corte Normal",
+      "price": 10000,
+      "value": "corte-normal",
       "order": 2,
-      "category": "Servicios Destacados",
+      "category": "Servicios",
+      "icon_name": "Scissors"
+    },
+    {
+      "name": "Reflejos",
+      "price": 30000,
+      "value": "reflejos",
+      "order": 3,
+      "category": "Servicios",
       "icon_name": "Sparkles"
     },
     {
-      "name": "Afeitado a Navaja",
-      "description": "Experiencia de afeitado clásico con toalla caliente.",
-      "price": 20,
-      "value": "afeitado-navaja",
-      "order": 3,
-      "category": "Servicios Destacados",
-      "icon_name": "Wand2"
-    },
-    {
-      "name": "Masaje Capilar",
-      "description": "Relajante masaje para estimular el cuero cabelludo.",
-      "price": 10,
-      "value": "masaje-capilar",
+      "name": "Global",
+      "price": 40000,
+      "value": "global",
       "order": 4,
-      "category": "Servicios Destacados",
-      "icon_name": "HandHeart"
-    },
-    {
-      "name": "Limpieza Facial Express",
-      "description": "Rápida limpieza y revitalización del rostro.",
-      "price": 30,
-      "value": "limpieza-facial-express",
-      "order": 1,
-      "category": "Tratamientos Adicionales",
-      "icon_name": "Gem"
-    },
-    {
-      "name": "Tinte de Barba",
-      "description": "Coloración profesional para barba y bigote.",
-      "price": 20,
-      "value": "tinte-barba",
-      "order": 2,
-      "category": "Tratamientos Adicionales",
+      "category": "Servicios",
       "icon_name": "Palette"
     },
     {
-      "name": "Diseño de Cejas",
-      "description": "Perfilado de cejas masculino para una mirada definida.",
-      "price": 10,
-      "value": "diseno-cejas",
-      "order": 3,
-      "category": "Tratamientos Adicionales",
-      "icon_name": "Smile"
+      "name": "Corte + Barba",
+      "price": 12000,
+      "value": "corte-barba",
+      "order": 5,
+      "category": "Servicios",
+      "icon_name": "Scissors"
     },
     {
-      "name": "Paquete Total Look",
-      "description": "Corte de cabello + arreglo de barba + tratamiento capilar.",
-      "price": 50,
-      "value": "paquete-total-look",
-      "order": 1,
-      "category": "Paquetes Especiales",
-      "icon_name": "Crown"
-    },
-    {
-      "name": "Paquete Día del Novio",
-      "description": "Corte, afeitado a navaja, limpieza facial y peinado especial.",
-      "price": 75,
-      "value": "paquete-novio",
-      "order": 2,
-      "category": "Paquetes Especiales",
-      "icon_name": "Star"
+      "name": "Barba",
+      "price": 7500,
+      "value": "barba",
+      "order": 6,
+      "category": "Servicios",
+      "icon_name": "Beard"
     }
   ]
 }

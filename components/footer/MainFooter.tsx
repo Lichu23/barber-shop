@@ -3,13 +3,13 @@ import { useTenant } from "@/context/TenantProvider";
 import {
   Clock,
   Facebook,
-  Globe,
   Instagram,
   MapPin,
   Phone,
   X
 } from "lucide-react";
 import Link from "next/link";
+import { TikTokIcon, TikTokIconFooter } from "../visit-us-component/TikTokIcon";
 
 interface FooterProps {
   salonName: string;
@@ -93,7 +93,7 @@ export default function Footer({
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white"
               >
-                <Globe size={20} />
+                <TikTokIconFooter  />
               </a>
             )}{" "}
           </div>

@@ -17,7 +17,7 @@ export const pricingAnnual = [
   {
     id: "annual",
     title: "Plan Anual",
-    price: "€30/año",
+    price: "€30/mes",
     buttonText: "Ahorra 6 Meses",
     popular: true,
     description: [

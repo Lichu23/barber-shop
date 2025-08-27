@@ -1,10 +1,10 @@
-export const formatPriceToEuro = (totalPrice: number | undefined) => {
+export const formatPriceToUsd = (totalPrice: number | undefined) => {
 
     if(totalPrice === undefined) return
 
-  return new Intl.NumberFormat("es-ES", {
+  return new Intl.NumberFormat("us-US", {
     style: "currency",
-    currency: "EUR",
+    currency: "USD",
     maximumFractionDigits: 2,
   }).format(totalPrice);
 };
