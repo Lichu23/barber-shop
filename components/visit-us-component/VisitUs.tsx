@@ -19,7 +19,7 @@ export default function VisitUs({
   tiktok,
 }: Props) {
   return (
-    <div className="h-dvh lg:h-full w-full px-4 mb-10 lg:mb-20">
+    <div className="w-full px-4 mb-10 lg:mb-20">
       <div className="flex flex-col items-center">
         <h2 className="text-center text-3xl text-primary font-bold m-10 lg:mb-10">
           Visitanos
