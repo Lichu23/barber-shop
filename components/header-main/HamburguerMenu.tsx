@@ -10,6 +10,7 @@ import {
 import { useTenant } from "@/context/TenantProvider";
 import { Menu } from "lucide-react";
 import NavLinks from "./nav-links";
+import { useState } from "react";
 
 interface HamburgerMenuProps {
   tenantId:string
@@ -18,6 +19,7 @@ interface HamburgerMenuProps {
 
 export default function HamburgerMenu({ navLinks, tenantId }: HamburgerMenuProps) {
   const { isCustomDomain } = useTenant();
+  const [open, setOpen] = useState(false); // Estado para controlar el Sheet
 
   const basePath = isCustomDomain ? "" : `/${tenantId}`;
 
@@ -29,7 +31,7 @@ export default function HamburgerMenu({ navLinks, tenantId }: HamburgerMenuProps
 
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <button className="md:hidden p-2">
           <Menu className="h-7 w-7 text-primary" />
@@ -38,7 +40,11 @@ export default function HamburgerMenu({ navLinks, tenantId }: HamburgerMenuProps
       <SheetContent side="left" className="p-0">
         <SheetTitle>
           <div className="p-6">
-            <NavLinks vertical updatedLinks={finalLinks} />
+            <NavLinks
+              vertical
+              updatedLinks={finalLinks}
+              onLinkClick={() => setOpen(false)} // Cerrar el menú al hacer clic
+            />
           </div>
         </SheetTitle>
       </SheetContent>
