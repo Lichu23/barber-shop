@@ -31,9 +31,9 @@ interface ServiceCardProps {
 export default function ServiceCard({ service }: ServiceCardProps) {
   const IconComponent = service.icon_name ? LucideIconMap[service.icon_name] : null;
 
-  const formattedPrice = new Intl.NumberFormat('es-ES', {
+  const formattedPrice = new Intl.NumberFormat('us-US', {
     style: 'currency',
-    currency: 'EUR',
+    currency: 'USD',
     minimumFractionDigits: 0, 
     maximumFractionDigits: 2,
   }).format(service.price);

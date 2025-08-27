@@ -66,7 +66,7 @@ export function EarningsChart({ data }: EarningsChartProps) {
             <YAxis
               tickLine={false}
               axisLine={false}
-              tickFormatter={(value) => `€${value}`}
+              tickFormatter={(value) => `$${value}`}
             />
             <ChartTooltip
               cursor={{ fill: "rgba(0,0,0,0.05)" }}

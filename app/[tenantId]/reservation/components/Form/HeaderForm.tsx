@@ -16,15 +16,10 @@ export default function HeaderForm() {
       </div>
 
       <CardHeader className="relative   -10 text-center lg:py-4 py-2">
-        <div className="flex items-center justify-center gap-3 mb-4">
-          <div className="flex gap-1">
-            <Sparkles className="h-6 w-6 text-white animate-pulse" />
-            <Sparkles className="h-4 w-4 text-white animate-pulse delay-100" />
-          </div>
-        </div>
+       
 
-        <CardTitle className="lg:text-4xl text-xl  font-bold text-white mb-3 tracking-wide">
-          Reserva tu Cita de Belleza
+        <CardTitle className="lg:text-4xl text-xl mt-5 lg:mt-0  font-bold text-white mb-3 tracking-wide">
+          Reserva tu Cita
         </CardTitle>
 
         <p className="text-pink-100 lg:text-lg text-sm  font-semibold">

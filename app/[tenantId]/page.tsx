@@ -109,7 +109,14 @@ export default async function HomeTenantPage({
         </div>
       )}
 
-      <VisitUs mapsUbication={tenantProfile.maps_ubication} contactPhone={heroData.contactPhone}  contactAddress={heroData.contactAddress} contactEmailForUsers={heroData.contactEmailForUsers}/>
+      <VisitUs
+        instagram={tenantProfile.social_instagram_url}
+        tiktok={tenantProfile.social_tiktok_url}
+        mapsUbication={tenantProfile.maps_ubication}
+        contactPhone={heroData.contactPhone}
+        contactAddress={heroData.contactAddress}
+        contactEmailForUsers={heroData.contactEmailForUsers}
+      />
     </main>
   );
 }

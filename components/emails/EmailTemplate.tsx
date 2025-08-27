@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { formatDate } from "@/utils/formatDate";
-import { formatPriceToEuro } from "@/utils/formatPrice";
+import { formatPriceToUsd } from "@/utils/formatPrice";
 import { formatInTimeZone } from "date-fns-tz";
 import { es } from "date-fns/locale";
 
@@ -43,7 +43,7 @@ export function EmailTemplate({
         <br />
         Hora:<b>{startTime}hs - {endTime}hs</b>
         <br />
-        Total a pagar: <b>{formatPriceToEuro(totalPrice)}</b>
+        Total a pagar: <b>{formatPriceToUsd(totalPrice)}</b>
       </p>
       <p>Tus servicios elegidos:</p>
       <ul>

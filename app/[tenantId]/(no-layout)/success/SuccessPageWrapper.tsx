@@ -51,7 +51,7 @@ export default function SuccessPageWrapper({ booking, formattedServices, formatt
           </p>
           <p className="text-gray-800">
             <strong className="font-semibold">Precio Total:</strong>{" "}
-            {booking.total_price}€
+            {booking.total_price}$
           </p>
         </div>
 

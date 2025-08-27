@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { google, Auth } from "googleapis";
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { calendar_v3 } from "googleapis/build/src/apis/calendar/v3";
-import { getTimezoneOffset } from "date-fns-tz";
 
 // Tipar las variables de entorno
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
@@ -30,7 +29,6 @@ interface AdminSettings {
 async function getAuthenticatedCalendarClient(
   ownerSecretKey: string
 ): Promise<{ calendar: calendar_v3.Calendar; calendarId: string }> {
-  // Recuperar refresh_token y calendarId de Supabase para el Owner
   const { data, error } = await supabase
     .from("admin_settings")
     .select("google_refresh_token, google_calendar_id")

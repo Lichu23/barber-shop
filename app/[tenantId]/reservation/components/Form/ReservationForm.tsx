@@ -49,8 +49,7 @@ export default function ReservationForm({
 
   const bookingDate = watch("date");
   const { tenantId } = useTenant();
-  const { handleSaveBooking } = useBookingForm(allServices);
-  const [loading, setLoading] = useState(true);
+  const { handleSaveBooking, loading } = useBookingForm(allServices);
   const saveNewBooking: SubmitHandler<FormValues> = async (data) => {
     const controller = new AbortController();
 
@@ -167,14 +166,13 @@ export default function ReservationForm({
           {loading ? (
             <div className="flex items-center justify-center gap-3">
               <span className="flex items-center animate-spin">
-                <Scissors className="w-6 h-6 ease-linear" />
+                <Scissors className="w-5 h-5 ease-linear" />
               </span>
             </div>
           ) : (
             <div className="flex items-center justify-center gap-3">
-              <Heart className="h-6 w-6" />
               <span className="text-sm lg:text-lg">Reservar mi Cita</span>
-              <Sparkles className="h-5 w-5" />
+              <Scissors className="h-5 w-5" />
             </div>
           )}
         </Button>

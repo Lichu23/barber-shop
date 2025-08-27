@@ -224,7 +224,7 @@ const jsonFilePathArg = args[0];
 if (!jsonFilePathArg) {
   console.error("Uso: pnpm run generate-key <ruta_al_archivo_json_del_salon>");
   console.error(
-    "Ejemplo: npm run generate-key salon-data-json/chiky-peluqueria.json"
+    "Ejemplo: npm run generate-key salon-data-json/fedebarber.json"
   );
   process.exit(1);
 }

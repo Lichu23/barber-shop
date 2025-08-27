@@ -110,7 +110,7 @@ export const MultiSelectForm = <T extends FieldValues>({
                         )}
                       />
                       <span>
-                        {option.label} - {option.price}€
+                        {option.label} - {option.price}$
                       </span>
                     </CommandItem>
                   ))}
