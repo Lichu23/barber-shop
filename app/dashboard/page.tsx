@@ -40,7 +40,7 @@ export default async function DashboardPage() {
         <h1 className="text-center font-bold text-2xl lg:text-5xl mt-10 lg:mt-20 mb-6 lg:mb-10">
           Bienvenido,{" "}
           <span className="text-sky-700">
-            {user.email || user.name || "usuario"}
+            {user.name || user.email || "usuario"}
           </span>
         </h1>
 
