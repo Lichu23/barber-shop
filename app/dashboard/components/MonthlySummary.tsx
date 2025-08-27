@@ -52,7 +52,7 @@ export default function MonthlySummary({ monthlySummary, bookings }: Props) {
                   <p className="text-base lg:text-xl font-bold">
                     Ganancias:{" "}
                     <span className="font-normal">
-                      {totalEarnings.toFixed(2)} $
+                      {totalEarnings} $
                     </span>
                   </p>
                 </div>
