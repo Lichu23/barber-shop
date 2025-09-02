@@ -1,115 +1,87 @@
-Sistema de Reservas Online - Chiky Peluquería
+🌟 Sistema de Reservas Online - Multi-Tenant
 
-Un sistema moderno de reservas online para peluquerías y barberías, construido con Next.js, que ofrece una experiencia fluida para el cliente y una gestión eficiente para el propietario, incluyendo integración automática con Google Calendar y notificaciones por email.
+Un sistema moderno de reservas para peluquerías y barberías, construido con Next.js, ahora con multi-tenant, donde cada negocio tiene su dashboard privado con estadísticas y gráficos de reservas y ganancias mensuales.
 
-🚀 Características Principales
+🚀 Características Destacadas
+Funcionalidad	Descripción
+Reservas de Citas	Clientes reservan sin registrarse.
+Gestión de Agenda	Sincronización automática con Google Calendar del propietario.
+Notificaciones Email	Confirmaciones y recordatorios automáticos.
+Cancelación Segura	Enlace seguro de cancelación vía email.
+Dashboard del Tenant	📊 Reservas por mes, ganancias, gráficos de barras.
+Configuración Propietario	Conexión segura a Google Calendar mediante OAuth.
+Cumplimiento GDPR	Cookies esenciales, privacidad y políticas legales.
+🛠️ Tecnologías Clave
 
-Reservas de Citas: Clientes pueden reservar sin necesidad de iniciar sesión.
+Frontend: React + Shadcn UI
 
-Gestión de Agenda Automatizada: Sincronización de citas con el Google Calendar del propietario.
+Backend / DB: Next.js + Supabase (PostgreSQL + RLS)
 
-Notificaciones por Email: Confirmaciones de reserva y recordatorios automáticos.
+Email: Resend
 
-Cancelación de Citas: Clientes pueden cancelar reservas a través de un enlace seguro.
-
-Configuración del Propietario: El propietario conecta su Google Calendar mediante una URL única y segura.
-
-Cumplimiento GDPR: Banner de consentimiento de cookies y políticas legales (solo esenciales, sin marketing/analíticas).
-
-🛠️ Tecnologías Utilizadas
-
-Framework: Next.js (App Router, Server Actions)
-
-Base de Datos: Supabase (PostgreSQL, RLS)
-
-Frontend UI: React, Shadcn UI
+Calendario: Google Calendar API
 
 Tipado: TypeScript
 
-API de Calendario: Google Calendar API
+🔄 Flujo Multi-Tenant
 
-Envío de Emails: Resend
+Conexión Google Calendar
+Cada propietario autoriza su calendar con OAuth, guardando tokens por tenant.
 
-🚀 Flujo de Funcionalidades (Visión General)
+Reserva de Cliente
 
-Este sistema orquesta la interacción entre el cliente, el propietario y los servicios externos para una gestión de reservas eficiente:
+Datos guardados en Supabase por tenant.
 
+Evento creado en Google Calendar del propietario.
 
+Email de confirmación con enlace de cancelación.
 
-Conexión de Google Calendar (Propietario):
+Cancelación
 
-El propietario accede a una URL única para autorizar la aplicación con Google OAuth 2.0.
+Uso de cancellation_token.
 
-La aplicación guarda el refresh_token y el calendar_id del propietario en Supabase.
+Supabase y Google Calendar actualizados automáticamente.
 
-Creación de Reserva:
+Email de confirmación enviado.
 
-Un cliente completa el formulario de reserva.
+Recordatorios Automáticos
+Cron job envía recordatorios a clientes según proximidad de la reserva.
 
-Los datos se guardan en la tabla bookings de Supabase.
+Dashboard del Tenant
 
-Se crea automáticamente un evento en el Google Calendar del propietario (usando sus credenciales guardadas).
+Visualiza reservas mensuales y ganancias.
 
-Se envía un email de confirmación al cliente (con un enlace de cancelación).
+Gráfico de barras con ingresos por mes.
 
-Cancelación de Reserva:
+Todo segmentado y seguro por tenant.
 
-El cliente utiliza un enlace seguro (con un cancellation_token) de su email de confirmación.
+🌐 Despliegue en Vercel
 
-La aplicación elimina la reserva de Supabase y el evento correspondiente de Google Calendar.
+Dominio principal y subdominios con HTTPS.
 
-Se envía un email de confirmación de cancelación.
+Configuración de emails (noreply@lichu.org
+) con autenticación DNS.
 
-Recordatorios:
+Variables de entorno para todas las API y URLs.
 
-Un sistema de cron job invoca una API interna que busca reservas próximas.
+Cron jobs para recordatorios y sincronización.
 
-Por cada reserva encontrada, se envía un email de recordatorio al cliente.
+⚖️ Cumplimiento RGPD
 
-🚀 Despliegue a Producción (Vercel)
+Banner de cookies (solo esenciales).
 
-El despliegue de la aplicación se realiza en Vercel, con una configuración robusta para asegurar la funcionalidad y el cumplimiento.
+Contenido visible tras aceptación ("Cookie Wall").
 
+Sin recopilación de datos para marketing o analíticas.
 
+✅ Checklist Post-Despliegue
 
-Hosting: Aplicación alojada en Vercel.
+ Reservas completas y sincronizadas con Supabase y Google Calendar
 
-Dominio Personalizado: Configuración del dominio principal (ej., www.lichu.org) para apuntar a la aplicación en Vercel.
+ Cancelaciones correctas con emails de confirmación
 
-Emails: Configuración de un dominio/subdominio de envío de emails (ej., noreply@lichu.org) con Resend, incluyendo la autenticación DNS (MX, SPF, DKIM, DMARC).
+ Recordatorios funcionando vía Cron Jobs
 
-Variables de Entorno: Todas las claves API y URLs de servicio se configuran de forma segura como variables de entorno en Vercel.
+ Dashboard multi-tenant mostrando reservas, ganancias y gráficos
 
-Cron Jobs: El sistema de recordatorios se programa mediante Vercel Cron Jobs.
-
-⚖️ Cumplimiento RGPD (Esencial)
-
-La aplicación cumple con el Reglamento General de Protección de Datos (RGPD) de la UE, centrándose en la privacidad del usuario sin recolección de datos para marketing o analíticas.
-
-
-
-Políticas Legales: Dispone de una Política de Privacidad y unos Términos de Servicio públicos y accesibles (requeridos para la verificación de Google).
-
-Consentimiento de Cookies:
-
-Implementa un banner de consentimiento de cookies que gestiona el uso de solo cookies necesarias para el funcionamiento básico del sitio.
-
-El contenido principal de la aplicación solo se muestra después de que el usuario ha aceptado el uso de estas cookies esenciales ("Cookie Wall").
-
-No se recolectan datos de analíticas ni se usan cookies de marketing.
-
-
-
-✅ Pruebas Post-Despliegue Finales en Producción
-
-Realiza pruebas exhaustivas en tu dominio final para asegurar que todo funcione como se espera.
-
-Dominio y SSL: Acceso HTTPS al dominio principal y subdominios.
-
-Consentimiento de Cookies: Verifica que el banner aparezca al inicio (en incógnito) y que el contenido solo se muestre tras aceptar.
-
-Proceso de Reserva: Completa una reserva, verifica Supabase, Google Calendar y email de confirmación.
-
-Cancelación: Prueba la cancelación desde el email, verifica eliminación en Supabase y Google Calendar, y el email de cancelación.
-
-Recordatorios: Si tienes un Cron Job configurado en Vercel para api/email/send-reminder, verifica que los recordatorios lleguen y se marquen en Supabase.
+ Banner de cookies y cumplimiento GDPR
