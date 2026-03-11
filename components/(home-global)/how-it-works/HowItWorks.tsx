@@ -1,6 +1,5 @@
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
-import { Card, CardContent } from "@/components/ui/card";
 import {
   clientStepsHome,
   creationPageStepsHome,
@@ -9,94 +8,122 @@ import {
 
 export default function HowItWorks() {
   return (
-    <div className="flex flex-col justify-center items-center h-full  text-sm w-full py-8  bg-gradient-to-b from-sky-100 via-sky-200 to-sky-300">
-      <div className="lg:max-w-6xl">
-        <h2 className="text-4xl text-blue-900 font-bold text-center lg:mt-20 mb-8">
-          Funcionamiento
-        </h2>
+    <section className="py-24 px-4 bg-zinc-950 border-t border-zinc-900">
+      <div className="max-w-5xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-14">
+          <span className="text-amber-400 text-sm font-semibold uppercase tracking-widest">
+            Funcionamiento
+          </span>
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-white mt-3">
+            ¿Cómo funciona?
+          </h2>
+          <p className="text-zinc-400 mt-4 text-lg max-w-xl mx-auto">
+            Un proceso simple para ti y para tus clientes.
+          </p>
+        </div>
+
         <Tabs defaultValue="tenant-flow">
-          <TabsList className="flex flex-1 mb-8 bg-inherit blue-900 rounded-none w-full overflow-y-hidden">
-            <TabsTrigger value="tenant-flow">Dueños</TabsTrigger>
-            <TabsTrigger value="client-flow">Clientes</TabsTrigger>
-            <TabsTrigger value="creation-page-flow">Creacion</TabsTrigger>
+          <TabsList className="flex w-full bg-zinc-900 border border-zinc-800 rounded-xl p-1 mb-10 gap-1">
+            <TabsTrigger
+              value="tenant-flow"
+              className="flex-1 rounded-lg data-[state=active]:bg-amber-500 data-[state=active]:text-zinc-950 data-[state=active]:font-bold text-zinc-400 transition-all"
+            >
+              Dueños
+            </TabsTrigger>
+            <TabsTrigger
+              value="client-flow"
+              className="flex-1 rounded-lg data-[state=active]:bg-amber-500 data-[state=active]:text-zinc-950 data-[state=active]:font-bold text-zinc-400 transition-all"
+            >
+              Clientes
+            </TabsTrigger>
+            <TabsTrigger
+              value="creation-page-flow"
+              className="flex-1 rounded-lg data-[state=active]:bg-amber-500 data-[state=active]:text-zinc-950 data-[state=active]:font-bold text-zinc-400 transition-all"
+            >
+              Creación
+            </TabsTrigger>
           </TabsList>
 
-          <TabsContent
-            className="px-4 lg:px-0 flex flex-col lg:flex-row  gap-3 "
-            value="tenant-flow"
-          >
-            {tenantStepsHome.map((step) => (
-              <Card
+          <TabsContent value="tenant-flow" className="flex flex-col lg:flex-row gap-4">
+            {tenantStepsHome.map((step, index) => (
+              <div
                 key={step.id}
-                className="flex flex-col w-full border h-82  overflow-y-hidden border-gray-300 shadow-xl "
+                className="flex-1 bg-zinc-900 border border-zinc-800 rounded-2xl p-6 hover:border-amber-500/40 transition-colors"
               >
-                <CardContent className="flex flex-col justify-center items-center p-4 lg:p-5">
-                    <p className="font-bold flex gap-2 items-center  text-blue-900 text-lg mb-2">
-                    <step.icon className="w-6 h-6 blue-900" />
-                    {step.step}
-                  </p>
-                  <ol className="list-decimal pl-2 flex flex-col  text-blue-900">
-                    {step.list.map((stepList) => (
-                      <li key={stepList.id} className="mb-2 lg:mb-4">
-                        {stepList.text}
-                      </li>
-                    ))}
-                  </ol>
-                </CardContent>
-              </Card>
-            ))}
-          </TabsContent>
-
-          <TabsContent
-            className="px-4 flex flex-col lg:flex-row gap-3"
-            value="client-flow"
-          >
-            {clientStepsHome.map((step) => (
-              <Card key={step.id} className="flex flex-col w-full">
-                <CardContent className="flex flex-col p-4 lg:p-5">
-                    <p className="font-bold flex gap-2 text-blue-900 text-lg mb-2">
-                    <step.icon className="w-6 h-6 blue-900" />
-                    {step.step}
-                  </p>
-                  <ol className="list-decimal pl-2 flex flex-col  text-blue-900">
-                    {step.list.map((stepList) => (
-                      <li key={stepList.id} className="mb-2 lg:mb-4">
-                        {stepList.text}
-                      </li>
-                    ))}
-                  </ol>
-                </CardContent>
-              </Card>
-            ))}
-          </TabsContent>
-
-          <TabsContent
-            className="px-4 flex flex-col lg:flex-row gap-3"
-            value="creation-page-flow"
-          >
-            {creationPageStepsHome.map((step) => (
-              <Card key={step.id} className="flex flex-col lg:flex-row w-full">
-                <CardContent className="flex flex-col p-4 lg:p-5">
-                  <div className="flex justify-between items-center lg:mb-4">
-                    <p className="font-bold flex gap-2 text-blue-900 text-lg mb-2">
-                      <step.icon className="w-6 h-6 blue-900" />
-                      {step.step}
-                    </p>
-                    <p className="text-blue-900 lg:text-base">{step.week}</p>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 font-bold text-sm shrink-0">
+                    {index + 1}
                   </div>
-                  <ol className="list-decimal pl-2 flex flex-col  text-blue-900">
-                    {step.list.map((stepList) => (
-                      <li key={stepList.id} className="mb-2 lg:mb-4">
-                        {stepList.text}
-                      </li>
-                    ))}
-                  </ol>
-                </CardContent>
-              </Card>
+                  <step.icon className="w-5 h-5 text-amber-400 shrink-0" />
+                  <p className="font-bold text-white text-base">{step.step}</p>
+                </div>
+                <ol className="space-y-3 pl-1">
+                  {step.list.map((item) => (
+                    <li key={item.id} className="text-zinc-400 text-sm flex gap-2">
+                      <span className="text-amber-500 mt-0.5 shrink-0">•</span>
+                      {item.text}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            ))}
+          </TabsContent>
+
+          <TabsContent value="client-flow" className="flex flex-col lg:flex-row gap-4">
+            {clientStepsHome.map((step, index) => (
+              <div
+                key={step.id}
+                className="flex-1 bg-zinc-900 border border-zinc-800 rounded-2xl p-6 hover:border-amber-500/40 transition-colors"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 font-bold text-sm shrink-0">
+                    {index + 1}
+                  </div>
+                  <step.icon className="w-5 h-5 text-amber-400 shrink-0" />
+                  <p className="font-bold text-white text-base">{step.step}</p>
+                </div>
+                <ol className="space-y-3 pl-1">
+                  {step.list.map((item) => (
+                    <li key={item.id} className="text-zinc-400 text-sm flex gap-2">
+                      <span className="text-amber-500 mt-0.5 shrink-0">•</span>
+                      {item.text}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            ))}
+          </TabsContent>
+
+          <TabsContent value="creation-page-flow" className="flex flex-col lg:flex-row gap-4">
+            {creationPageStepsHome.map((step, index) => (
+              <div
+                key={step.id}
+                className="flex-1 bg-zinc-900 border border-zinc-800 rounded-2xl p-6 hover:border-amber-500/40 transition-colors"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="flex items-center justify-center w-9 h-9 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 font-bold text-sm shrink-0">
+                    {index + 1}
+                  </div>
+                  <step.icon className="w-5 h-5 text-amber-400 shrink-0" />
+                  <p className="font-bold text-white text-base">{step.step}</p>
+                  {step.week && (
+                    <span className="ml-auto text-xs text-zinc-500 shrink-0">{step.week}</span>
+                  )}
+                </div>
+                <ol className="space-y-3 pl-1">
+                  {step.list.map((item) => (
+                    <li key={item.id} className="text-zinc-400 text-sm flex gap-2">
+                      <span className="text-amber-500 mt-0.5 shrink-0">•</span>
+                      {item.text}
+                    </li>
+                  ))}
+                </ol>
+              </div>
             ))}
           </TabsContent>
         </Tabs>
       </div>
-    </div>
+    </section>
   );
 }

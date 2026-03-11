@@ -1,115 +1,117 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Check, Star } from "lucide-react";
+import { Check, Zap } from "lucide-react";
 import Link from "next/link";
 import { pricingAnnual, pricingMonthly } from "./pricingConstants";
 
 export default function PricingCard() {
   return (
-    <div className="flex flex-col justify-center items-center lg:h-dvh   text-sm w-full py-8  bg-gradient-to-b from-sky-50 via-white to-sky-100">
-      <div className="lg:max-w-7xl  px-8 flex flex-col gap-10">
-        <div className="text-center">
-          <h2 className="text-4xl text-blue-900 font-bold  mt-5 ">Planes</h2>
-          <p className="text-xl text-blue-800">
-            Elige el plan perfecto para hacer crecer tu negocio
+    <section className="py-24 px-4 bg-zinc-950 border-t border-zinc-900">
+      <div className="max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-14">
+          <span className="text-amber-400 text-sm font-semibold uppercase tracking-widest">
+            Planes
+          </span>
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-white mt-3">
+            Elige tu plan
+          </h2>
+          <p className="text-zinc-400 mt-4 text-lg">
+            Empieza gratis el primer mes. Sin compromisos.
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-20">
+        {/* Cards */}
+        <div className="flex flex-col lg:flex-row gap-6">
+          {/* Monthly plan */}
           {pricingMonthly.map((plan) => (
-            <Card
+            <div
               key={plan.id}
-              className="flex flex-col relative lg:flex-row w-full shadow-2xl"
+              className="flex-1 bg-zinc-900 border border-zinc-800 rounded-2xl p-8 flex flex-col gap-6"
             >
-              <CardContent className="p-8">
-                <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold text-black mb-2">
-                    {plan.title}
-                  </h3>
-                  <div className="text-4xl font-bold text-black mb-4">
-                    {plan.price}
-                  </div>
-                  <Button
-                    asChild
-                    className="w-full bg-gray-700 hover:bg-gray-500 text-white rounded-xl py-3"
-                  >
-                    <Link
-                      href="https://wa.me/34623735521?text=Hola,%20estoy%20interesado%20en%20el%20plan%20básico."
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {plan.buttonText}
-                    </Link>
-                  </Button>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-1">{plan.title}</h3>
+                <div className="flex items-end gap-1">
+                  <span className="text-4xl font-extrabold text-white">{plan.price}</span>
                 </div>
+              </div>
 
-                <ul className="space-y-4">
-                  {plan.description.map((feature) => (
-                    <li
-                      key={feature.id}
-                      className="flex items-center text-gray-800"
-                    >
-                      <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
-                      {feature.text}
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+              <Button
+                asChild
+                variant="outline"
+                className="w-full border-zinc-700 bg-zinc-900 text-zinc-300 hover:bg-zinc-800 hover:text-white rounded-xl py-5 font-semibold"
+              >
+                <Link
+                  href="https://wa.me/34623735521?text=Hola,%20estoy%20interesado%20en%20el%20plan%20básico."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {plan.buttonText}
+                </Link>
+              </Button>
+
+              <ul className="space-y-3">
+                {plan.description.map((feature) => (
+                  <li key={feature.id} className="flex items-center gap-3 text-zinc-400 text-sm">
+                    <Check className="w-4 h-4 text-amber-400 shrink-0" />
+                    {feature.text}
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
 
+          {/* Annual plan - highlighted */}
           {pricingAnnual.map((plan) => (
-            <Card
+            <div
               key={plan.id}
-              className="flex flex-col  lg:flex-row w-full shadow-purple-900 shadow-2xl"
+              className="flex-1 relative bg-zinc-900 border-2 border-amber-500/60 rounded-2xl p-8 flex flex-col gap-6 shadow-xl shadow-amber-500/10"
             >
-              <CardContent className="p-8 relative">
-                <div className="absolute top-4 right-1 lg:top-2 lg:left-48">
-                  <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-2 py-2 rounded-full text-sm font-medium flex items-center">
-                    <Star className="w-4 h-4 mr-1 lg:mr-0"/>
-                    <p>Popular</p>
-                  </div>
+              {/* Popular badge */}
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                <div className="flex items-center gap-1.5 bg-amber-500 text-zinc-950 font-bold text-xs px-4 py-1.5 rounded-full">
+                  <Zap className="w-3.5 h-3.5" />
+                  Más Popular
                 </div>
-                <div className="text-center mb-8">
-                  <h3 className="text-2xl font-bold text-purple-900 mb-2">
-                    {plan.title}
-                  </h3>
-                  <div className="text-4xl font-bold text-purple-900 mb-2">
-                    {plan.price}
-                  </div>
-                  <div className="text-sm text-purple-500 font-bold mb-4">
-                    Ahorra €360 al año
-                  </div>
-                  <Button
-                    asChild
-                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl py-3"
-                  >
-                    <Link
-                      href="https://wa.me/34623735521?text=Hola,%20estoy%20interesado%20en%20el%20plan%20basico."
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {plan.buttonText}
-                    </Link>
-                  </Button>
-                </div>
+              </div>
 
-                <ul className="space-y-4">
-                  {plan.description.map((feature) => (
-                    <li
-                      key={feature.id}
-                      className="flex items-center text-blue-900"
-                    >
-                      <Check className="w-5 h-5 text-green-400 mr-3 flex-shrink-0" />
-                      {feature.text}
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+              <div>
+                <h3 className="text-xl font-bold text-white mb-1">{plan.title}</h3>
+                <div className="flex items-end gap-2">
+                  <span className="text-4xl font-extrabold text-white">{plan.price}</span>
+                </div>
+                <p className="text-amber-400 text-sm font-semibold mt-1">Ahorra €360 al año</p>
+              </div>
+
+              <Button
+                asChild
+                className="w-full bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold rounded-xl py-5 shadow-lg shadow-amber-500/20 transition-all"
+              >
+                <Link
+                  href="https://wa.me/34623735521?text=Hola,%20estoy%20interesado%20en%20el%20plan%20anual."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {plan.buttonText}
+                </Link>
+              </Button>
+
+              <ul className="space-y-3">
+                {plan.description.map((feature) => (
+                  <li key={feature.id} className="flex items-center gap-3 text-zinc-300 text-sm">
+                    <Check className="w-4 h-4 text-amber-400 shrink-0" />
+                    {feature.text}
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
+
+        {/* Footer note */}
+        <p className="text-center text-zinc-500 text-sm mt-10">
+          Primer mes gratis · Sin tarjeta de crédito · Cancela cuando quieras
+        </p>
       </div>
-    </div>
+    </section>
   );
 }

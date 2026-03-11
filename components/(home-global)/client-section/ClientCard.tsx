@@ -1,6 +1,4 @@
 import { Star } from "lucide-react";
-import Image from "next/image";
-import React from "react";
 
 interface Props {
   title: string;
@@ -9,25 +7,25 @@ interface Props {
   rating: string;
 }
 
-export default function ClientCard({
-  title,
-  description,
-  imageUrl,
-  rating,
-}: Props) {
+export default function ClientCard({ title, description, imageUrl, rating }: Props) {
   return (
-    <div className="bg-gradient-to-b from-sky-300  to-sky-500 w-full rounded-xl lg:w-[350px] lg:h-[400px]  text-white">
-      <img
-        alt="hairsalon image"
-        className="rounded-t-xl w-[340px] h-[180px] lg:h-[220px] lg:w-full"
-        src={imageUrl}
-      />
-      <div className="py-3 px-4">
-        <div className="flex justify-between mb-2">
-          <p className="font-bold text-lg">{title}</p>
-          <p className="font-bold text-lg flex items-center gap-2"><span><Star size={20}/></span>{rating}</p>
+    <div className="group flex flex-col bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden w-full lg:w-[340px] hover:border-amber-500/40 transition-colors">
+      <div className="overflow-hidden">
+        <img
+          alt={`${title} barbershop`}
+          className="w-full h-[200px] object-cover group-hover:scale-105 transition-transform duration-500"
+          src={imageUrl}
+        />
+      </div>
+      <div className="flex flex-col gap-3 p-5">
+        <div className="flex items-center justify-between">
+          <p className="font-bold text-white text-lg">{title}</p>
+          <div className="flex items-center gap-1.5 bg-zinc-800 border border-zinc-700 px-2.5 py-1 rounded-full">
+            <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+            <span className="text-amber-400 font-bold text-sm">{rating}</span>
+          </div>
         </div>
-        <p className="text-base ">{description}</p>
+        <p className="text-zinc-400 text-sm leading-relaxed">{description}</p>
       </div>
     </div>
   );
