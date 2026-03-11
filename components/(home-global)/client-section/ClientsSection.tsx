@@ -5,10 +5,9 @@ export default function ClientsSection() {
     {
       title: "Lichubarber",
       description:
-        "Barbería que eliminó las colas y optimizó su agenda. Los clientes reservan su corte favorito con su barbero preferido desde cualquier dispositivo",
+        "Barbería que eliminó las colas y optimizó su agenda. Los clientes reservan su corte favorito con su barbero preferido desde cualquier dispositivo.",
       imageUrl:
         "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/lichubarber-image.webp",
-
       rating: "5.0",
     },
     {
@@ -19,7 +18,6 @@ export default function ClientsSection() {
         "https://bitepoelegzdcmuezstw.supabase.co/storage/v1/object/public/salon-assets/chiky-peluqueria/hero/hero-chiky-compressed.webp",
       rating: "4.5",
     },
-
     {
       title: "Barberia El Leon",
       description:
@@ -29,23 +27,37 @@ export default function ClientsSection() {
       rating: "4.4",
     },
   ];
+
   return (
-    <div className="flex flex-col lg:justify-center items-center mx-auto h-full lg:h-dvh px-8  gap-8 py-10  bg-gradient-to-b from-sky-300 via-sky-100 to-sky-50">
-      <h2 className="text-2xl lg:text-4xl font-semibold text-blue-900">
-        Nuestros Clientes
-      </h2>
-      <p className="text-blue-900">Gestionamos las reservas de <span className="font-bold">+5</span> peluquerias</p>
-      <div className="flex flex-col gap-5 lg:flex-row">
-        {tenantsSites.map((tenant) => (
-          <ClientCard
-            key={tenant.title}
-            title={tenant.title}
-            description={tenant.description}
-            imageUrl={tenant.imageUrl}
-            rating={tenant.rating}
-          />
-        ))}
+    <section className="py-24 px-4 bg-zinc-900 border-t border-zinc-800">
+      <div className="max-w-5xl mx-auto">
+        {/* Header */}
+        <div className="text-center mb-14">
+          <span className="text-amber-400 text-sm font-semibold uppercase tracking-widest">
+            Clientes
+          </span>
+          <h2 className="text-4xl lg:text-5xl font-extrabold text-white mt-3">
+            Negocios que ya confían en nosotros
+          </h2>
+          <p className="text-zinc-400 mt-4 text-lg">
+            Gestionamos las reservas de{" "}
+            <span className="text-white font-bold">+5 peluquerías</span> en España.
+          </p>
+        </div>
+
+        {/* Cards */}
+        <div className="flex flex-col lg:flex-row gap-6 justify-center items-center lg:items-stretch">
+          {tenantsSites.map((tenant) => (
+            <ClientCard
+              key={tenant.title}
+              title={tenant.title}
+              description={tenant.description}
+              imageUrl={tenant.imageUrl}
+              rating={tenant.rating}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

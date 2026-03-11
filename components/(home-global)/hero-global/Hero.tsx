@@ -1,31 +1,46 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, Calendar, Star, Zap } from "lucide-react";
 import Link from "next/link";
 
 export default function Hero() {
   return (
-    <div className="flex flex-col justify-center lg:justify-center items-center mx-auto h-dvh px-4  bg-gradient-to-b from-sky-50 via-white to-sky-100 opacity-0 translate-y-4 animate-fade-in">
-      <div className="flex flex-col  gap-8 lg:gap-14 lg:max-w-4xl">
-        <h1 className="font-bold text-4xl lg:text-6xl bg-gradient-to-r from-sky-600 via-sky-300 to-sky-700 bg-clip-text text-transparent">
-          Páginas Web con Reservas 24hs
+    <section className="relative flex flex-col justify-center items-center min-h-dvh px-4 overflow-hidden bg-zinc-950 animate-fade-in">
+      {/* Background glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-amber-600/5 rounded-full blur-3xl" />
+      </div>
+
+      <div className="relative z-10 flex flex-col items-center gap-6 text-center max-w-4xl mx-auto">
+        {/* Badge */}
+        <div className="flex items-center gap-2 bg-zinc-900 border border-zinc-800 text-amber-400 text-sm font-medium px-4 py-2 rounded-full">
+          <Zap className="w-4 h-4" />
+          Reservas automáticas con Google Calendar
+        </div>
+
+        {/* Headline */}
+        <h1 className="font-extrabold text-5xl lg:text-7xl leading-tight text-white">
+          Tu barbería online,{" "}
+          <span className="bg-gradient-to-r from-amber-400 to-amber-600 bg-clip-text text-transparent">
+            siempre abierta
+          </span>
         </h1>
-        <p className=" text-lg  lg:text-3xl lg:max-w-4xl text-sky-800">
-          <span className="font-bold">
-            Gana visibilidad para tu negocio y consigue nuevos clientes.{" "}
-          </span>{" "}
-          <br />
-          Con nuestras paginas web personalizadas con reservas online y liberate
-          de las llamadas para dedicarte por completo a tu trabajo.
+
+        {/* Subheadline */}
+        <p className="text-zinc-400 text-lg lg:text-xl max-w-2xl leading-relaxed">
+          Crea tu página web con reservas 24hs integradas en Google Calendar.
+          Olvídate de las llamadas y céntrate en lo que mejor sabes hacer.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row gap-4 mt-2">
           <Button
             size="lg"
-            className="bg-sky-400 to-sky-300 hover:bg-sky-300 hover:to-sky-400 text-white px-8 py-5 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all"
+            className="bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold px-8 py-5 text-base rounded-xl shadow-lg shadow-amber-500/20 transition-all"
             asChild
           >
             <Link
-              href="https://wa.me/34623735521?text=Hola,%20estoy%20interesado%20en%crear%20una%20pagina%20web."
+              href="https://wa.me/34623735521?text=Hola,%20estoy%20interesado%20en%20crear%20una%20pagina%20web."
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -36,13 +51,36 @@ export default function Hero() {
           <Button
             variant="outline"
             size="lg"
-            className="border-sky-300 flex gap-2 text-sky-600 hover:bg-sky-50 hover:text-sky-400 lg:px-8 lg:py-5 text-lg rounded-xl "
+            className="border-zinc-700 bg-zinc-900 text-zinc-300 hover:bg-zinc-800 hover:text-white px-8 py-5 text-base rounded-xl transition-all"
           >
-            <Play className="" />
+            <Calendar className="mr-2 w-5 h-5" />
             Ver Demo
           </Button>
         </div>
+
+        {/* Stats */}
+        <div className="flex flex-wrap justify-center gap-8 mt-8 pt-8 border-t border-zinc-800 w-full">
+          <div className="flex flex-col items-center gap-1">
+            <span className="text-3xl font-extrabold text-white">+5</span>
+            <span className="text-sm text-zinc-500">Barberías activas</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <span className="text-3xl font-extrabold text-white">24/7</span>
+            <span className="text-sm text-zinc-500">Reservas online</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <div className="flex items-center gap-1">
+              <span className="text-3xl font-extrabold text-white">4.9</span>
+              <Star className="w-5 h-5 text-amber-400 fill-amber-400" />
+            </div>
+            <span className="text-sm text-zinc-500">Valoración media</span>
+          </div>
+          <div className="flex flex-col items-center gap-1">
+            <span className="text-3xl font-extrabold text-white">1 mes</span>
+            <span className="text-sm text-zinc-500">Gratis al empezar</span>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
